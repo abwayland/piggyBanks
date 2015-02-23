@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sif-mw-baP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="q73-m1-PaJ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Piggy BanksTVC-->
+        <!--Piggy Banks-->
         <scene sceneID="8MY-YO-g86">
             <objects>
                 <tableViewController id="sif-mw-baP" customClass="PiggyBanksTVC" customModule="PiggyBanks" customModuleProvider="target" sceneMemberID="viewController">
@@ -39,8 +39,97 @@
                             <outlet property="delegate" destination="sif-mw-baP" id="9bq-wY-NE5"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Piggy Banks" id="cYv-ny-STi">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3ke-3H-Fxh">
+                            <connections>
+                                <segue destination="IeE-kc-ln3" kind="show" id="0RH-0P-VNy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kAR-cq-0BD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1211" y="398"/>
+        </scene>
+        <!--Add BankVC-->
+        <scene sceneID="kJZ-1I-4Ew">
+            <objects>
+                <viewController id="IeE-kc-ln3" customClass="AddBankVC" customModule="PiggyBanks" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0PP-Ha-mfx"/>
+                        <viewControllerLayoutGuide type="bottom" id="3En-J4-dho"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HMl-Bv-qQJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Piggy Bank" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTW-gD-aTo">
+                                <rect key="frame" x="237" y="72" width="127" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3rt-AS-KC2">
+                                <rect key="frame" x="252" y="101" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="ZE7-g9-h8T"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JDw-jc-V2l">
+                                <rect key="frame" x="252" y="139" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uYd-pv-bXx">
+                                <rect key="frame" x="252" y="177" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6D2-90-Xf2">
+                                <rect key="frame" x="282" y="215" width="37" height="30"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6D2-90-Xf2" firstAttribute="centerX" secondItem="uYd-pv-bXx" secondAttribute="centerX" id="6CN-E4-3Q3"/>
+                            <constraint firstItem="uYd-pv-bXx" firstAttribute="trailing" secondItem="JDw-jc-V2l" secondAttribute="trailing" id="BGC-fe-ehU"/>
+                            <constraint firstItem="6D2-90-Xf2" firstAttribute="top" secondItem="uYd-pv-bXx" secondAttribute="bottom" constant="8" symbolic="YES" id="DRW-os-st8"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="centerX" secondItem="GTW-gD-aTo" secondAttribute="centerX" id="FjI-dK-xw4"/>
+                            <constraint firstItem="JDw-jc-V2l" firstAttribute="top" secondItem="3rt-AS-KC2" secondAttribute="bottom" constant="8" symbolic="YES" id="N4M-EU-dET"/>
+                            <constraint firstItem="JDw-jc-V2l" firstAttribute="leading" secondItem="uYd-pv-bXx" secondAttribute="leading" id="VxE-8b-WLX"/>
+                            <constraint firstItem="uYd-pv-bXx" firstAttribute="top" secondItem="JDw-jc-V2l" secondAttribute="bottom" constant="8" symbolic="YES" id="a96-wk-jcE"/>
+                            <constraint firstItem="JDw-jc-V2l" firstAttribute="centerX" secondItem="HMl-Bv-qQJ" secondAttribute="centerX" id="f5W-Bc-daq"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="leading" secondItem="JDw-jc-V2l" secondAttribute="leading" id="n8A-gN-QBc"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="trailing" secondItem="JDw-jc-V2l" secondAttribute="trailing" id="oIN-u9-EQv"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="top" secondItem="GTW-gD-aTo" secondAttribute="bottom" constant="8" symbolic="YES" id="p4v-it-REr"/>
+                            <constraint firstItem="GTW-gD-aTo" firstAttribute="top" secondItem="0PP-Ha-mfx" secondAttribute="bottom" constant="8" symbolic="YES" id="zc2-t8-okW"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VJj-qS-wjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1899" y="398"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ucV-jK-Oe4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="q73-m1-PaJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EST-kC-hwM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="sif-mw-baP" kind="relationship" relationship="rootViewController" id="bLr-6c-S5q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ozw-03-Svt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="399" y="398"/>
         </scene>

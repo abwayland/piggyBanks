@@ -28,6 +28,11 @@ class PiggyBanksTVC: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func addBank(sender: UIBarButtonItem) {
+        var newBank = PiggyBank(name: "New", amount: "$0.00", date: "12.12.12")
+        model.addBank(newBank)
+        tableView.reloadData()
+    }
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -39,7 +44,7 @@ class PiggyBanksTVC: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 1
+        return model.numberOfBanks()
     }
 
     
