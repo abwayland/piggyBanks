@@ -13,6 +13,9 @@
 		846123E71A9B918B008B1B4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846123E61A9B918B008B1B4F /* Images.xcassets */; };
 		846123EA1A9B918B008B1B4F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846123E81A9B918B008B1B4F /* LaunchScreen.xib */; };
 		846123F61A9B918B008B1B4F /* PiggyBanksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846123F51A9B918B008B1B4F /* PiggyBanksTests.swift */; };
+		846124061A9B9358008B1B4F /* PiggyBanksTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846124051A9B9358008B1B4F /* PiggyBanksTVC.swift */; };
+		846124081A9B93A2008B1B4F /* PiggyBanksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */; };
+		8461240A1A9B941C008B1B4F /* PiggyBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846124091A9B941C008B1B4F /* PiggyBank.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 		846123EF1A9B918B008B1B4F /* PiggyBanksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PiggyBanksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		846123F41A9B918B008B1B4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		846123F51A9B918B008B1B4F /* PiggyBanksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiggyBanksTests.swift; sourceTree = "<group>"; };
+		846124051A9B9358008B1B4F /* PiggyBanksTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBanksTVC.swift; sourceTree = "<group>"; };
+		846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBanksModel.swift; sourceTree = "<group>"; };
+		846124091A9B941C008B1B4F /* PiggyBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBank.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +83,11 @@
 		846123DC1A9B918B008B1B4F /* PiggyBanks */ = {
 			isa = PBXGroup;
 			children = (
-				846123DF1A9B918B008B1B4F /* AppDelegate.swift */,
 				846123E11A9B918B008B1B4F /* ViewController.swift */,
+				846124051A9B9358008B1B4F /* PiggyBanksTVC.swift */,
+				846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */,
+				846124091A9B941C008B1B4F /* PiggyBank.swift */,
 				846123E31A9B918B008B1B4F /* Main.storyboard */,
-				846123E61A9B918B008B1B4F /* Images.xcassets */,
-				846123E81A9B918B008B1B4F /* LaunchScreen.xib */,
 				846123DD1A9B918B008B1B4F /* Supporting Files */,
 			);
 			path = PiggyBanks;
@@ -90,6 +96,9 @@
 		846123DD1A9B918B008B1B4F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				846123DF1A9B918B008B1B4F /* AppDelegate.swift */,
+				846123E61A9B918B008B1B4F /* Images.xcassets */,
+				846123E81A9B918B008B1B4F /* LaunchScreen.xib */,
 				846123DE1A9B918B008B1B4F /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -212,6 +221,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846124081A9B93A2008B1B4F /* PiggyBanksModel.swift in Sources */,
+				846124061A9B9358008B1B4F /* PiggyBanksTVC.swift in Sources */,
+				8461240A1A9B941C008B1B4F /* PiggyBank.swift in Sources */,
 				846123E21A9B918B008B1B4F /* ViewController.swift in Sources */,
 				846123E01A9B918B008B1B4F /* AppDelegate.swift in Sources */,
 			);
