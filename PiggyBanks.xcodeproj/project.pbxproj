@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		845ADA911AA79EE700631507 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845ADA8F1AA79EE700631507 /* Main.storyboard */; };
 		846123E01A9B918B008B1B4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846123DF1A9B918B008B1B4F /* AppDelegate.swift */; };
-		846123E51A9B918B008B1B4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846123E31A9B918B008B1B4F /* Main.storyboard */; };
 		846123E71A9B918B008B1B4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846123E61A9B918B008B1B4F /* Images.xcassets */; };
 		846123EA1A9B918B008B1B4F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846123E81A9B918B008B1B4F /* LaunchScreen.xib */; };
 		846123F61A9B918B008B1B4F /* PiggyBanksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846123F51A9B918B008B1B4F /* PiggyBanksTests.swift */; };
@@ -29,10 +29,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		845ADA901AA79EE700631507 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		846123DA1A9B918B008B1B4F /* PiggyBanks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiggyBanks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		846123DE1A9B918B008B1B4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		846123DF1A9B918B008B1B4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		846123E41A9B918B008B1B4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		846123E61A9B918B008B1B4F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		846123E91A9B918B008B1B4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		846123EF1A9B918B008B1B4F /* PiggyBanksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PiggyBanksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,10 +83,10 @@
 		846123DC1A9B918B008B1B4F /* PiggyBanks */ = {
 			isa = PBXGroup;
 			children = (
+				845ADA8F1AA79EE700631507 /* Main.storyboard */,
 				846124051A9B9358008B1B4F /* PiggyBanksTVC.swift */,
 				846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */,
 				846124091A9B941C008B1B4F /* PiggyBank.swift */,
-				846123E31A9B918B008B1B4F /* Main.storyboard */,
 				8461240D1A9BAC34008B1B4F /* AddBankVC.swift */,
 				846123DD1A9B918B008B1B4F /* Supporting Files */,
 			);
@@ -201,7 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				846123E51A9B918B008B1B4F /* Main.storyboard in Resources */,
+				845ADA911AA79EE700631507 /* Main.storyboard in Resources */,
 				846123EA1A9B918B008B1B4F /* LaunchScreen.xib in Resources */,
 				846123E71A9B918B008B1B4F /* Images.xcassets in Resources */,
 			);
@@ -248,10 +248,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		846123E31A9B918B008B1B4F /* Main.storyboard */ = {
+		845ADA8F1AA79EE700631507 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				846123E41A9B918B008B1B4F /* Base */,
+				845ADA901AA79EE700631507 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -419,6 +419,7 @@
 				846123FB1A9B918B008B1B4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		846123FC1A9B918B008B1B4F /* Build configuration list for PBXNativeTarget "PiggyBanksTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +428,7 @@
 				846123FE1A9B918B008B1B4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol addBankDelegate: class {
+    func removeVC(sender: AddBankVC)
+}
+
 class AddBankVC: UIViewController {
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var dateField: UITextField!
+    
+    weak var delegate: addBankDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +42,9 @@ class AddBankVC: UIViewController {
         } else {
             println("error: no name for bank")
         }
+        if delegate != nil {
+            delegate!.removeVC(self)
+        }
     }
     
     func storeBank(bank: [String : String])
@@ -49,14 +58,16 @@ class AddBankVC: UIViewController {
         defaults.synchronize()
     }
 
+    
     /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
+        if let viewController = segue.destinationViewController as? UITableViewController {
+            viewController.tableView.reloadData()
+        }
         // Pass the selected object to the new view controller.
     }
     */
-
 }

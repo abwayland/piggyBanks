@@ -42,7 +42,7 @@
                     <navigationItem key="navigationItem" title="Piggy Banks" id="cYv-ny-STi">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3ke-3H-Fxh">
                             <connections>
-                                <segue destination="IeE-kc-ln3" kind="show" id="0RH-0P-VNy"/>
+                                <segue destination="IeE-kc-ln3" kind="show" identifier="addBank" id="0RH-0P-VNy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -72,7 +72,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3rt-AS-KC2">
                                 <rect key="frame" x="252" y="101" width="97" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="97" id="ZE7-g9-h8T"/>
+                                    <constraint firstAttribute="width" constant="97" id="bjw-fl-54d"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -99,18 +99,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6D2-90-Xf2" firstAttribute="centerX" secondItem="uYd-pv-bXx" secondAttribute="centerX" id="6CN-E4-3Q3"/>
-                            <constraint firstItem="uYd-pv-bXx" firstAttribute="trailing" secondItem="JDw-jc-V2l" secondAttribute="trailing" id="BGC-fe-ehU"/>
-                            <constraint firstItem="6D2-90-Xf2" firstAttribute="top" secondItem="uYd-pv-bXx" secondAttribute="bottom" constant="8" symbolic="YES" id="DRW-os-st8"/>
-                            <constraint firstItem="3rt-AS-KC2" firstAttribute="centerX" secondItem="GTW-gD-aTo" secondAttribute="centerX" id="FjI-dK-xw4"/>
-                            <constraint firstItem="JDw-jc-V2l" firstAttribute="top" secondItem="3rt-AS-KC2" secondAttribute="bottom" constant="8" symbolic="YES" id="N4M-EU-dET"/>
-                            <constraint firstItem="JDw-jc-V2l" firstAttribute="leading" secondItem="uYd-pv-bXx" secondAttribute="leading" id="VxE-8b-WLX"/>
-                            <constraint firstItem="uYd-pv-bXx" firstAttribute="top" secondItem="JDw-jc-V2l" secondAttribute="bottom" constant="8" symbolic="YES" id="a96-wk-jcE"/>
-                            <constraint firstItem="JDw-jc-V2l" firstAttribute="centerX" secondItem="HMl-Bv-qQJ" secondAttribute="centerX" id="f5W-Bc-daq"/>
-                            <constraint firstItem="3rt-AS-KC2" firstAttribute="leading" secondItem="JDw-jc-V2l" secondAttribute="leading" id="n8A-gN-QBc"/>
-                            <constraint firstItem="3rt-AS-KC2" firstAttribute="trailing" secondItem="JDw-jc-V2l" secondAttribute="trailing" id="oIN-u9-EQv"/>
-                            <constraint firstItem="3rt-AS-KC2" firstAttribute="top" secondItem="GTW-gD-aTo" secondAttribute="bottom" constant="8" symbolic="YES" id="p4v-it-REr"/>
-                            <constraint firstItem="GTW-gD-aTo" firstAttribute="top" secondItem="0PP-Ha-mfx" secondAttribute="bottom" constant="8" symbolic="YES" id="zc2-t8-okW"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="top" secondItem="GTW-gD-aTo" secondAttribute="bottom" constant="8" symbolic="YES" id="7NZ-W7-dQ9"/>
+                            <constraint firstItem="uYd-pv-bXx" firstAttribute="top" secondItem="JDw-jc-V2l" secondAttribute="bottom" constant="8" symbolic="YES" id="D5H-Jz-HXB"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="centerX" secondItem="GTW-gD-aTo" secondAttribute="centerX" id="HoD-Q8-f0V"/>
+                            <constraint firstItem="uYd-pv-bXx" firstAttribute="centerX" secondItem="6D2-90-Xf2" secondAttribute="centerX" id="I9w-Ek-PGC"/>
+                            <constraint firstItem="6D2-90-Xf2" firstAttribute="centerX" secondItem="HMl-Bv-qQJ" secondAttribute="centerX" id="SUX-bA-Nzd"/>
+                            <constraint firstItem="JDw-jc-V2l" firstAttribute="leading" secondItem="uYd-pv-bXx" secondAttribute="leading" id="UeR-U9-xZ7"/>
+                            <constraint firstItem="GTW-gD-aTo" firstAttribute="top" secondItem="0PP-Ha-mfx" secondAttribute="bottom" constant="8" symbolic="YES" id="iPT-ZY-a1l"/>
+                            <constraint firstItem="uYd-pv-bXx" firstAttribute="trailing" secondItem="JDw-jc-V2l" secondAttribute="trailing" id="j9c-DT-EHi"/>
+                            <constraint firstItem="JDw-jc-V2l" firstAttribute="leading" secondItem="3rt-AS-KC2" secondAttribute="leading" id="khS-Tg-ct0"/>
+                            <constraint firstItem="JDw-jc-V2l" firstAttribute="top" secondItem="3rt-AS-KC2" secondAttribute="bottom" constant="8" symbolic="YES" id="mNj-Ig-tV5"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="trailing" secondItem="JDw-jc-V2l" secondAttribute="trailing" id="rdO-zL-7Xi"/>
+                            <constraint firstItem="6D2-90-Xf2" firstAttribute="top" secondItem="uYd-pv-bXx" secondAttribute="bottom" constant="8" symbolic="YES" id="uiC-8c-AsZ"/>
                         </constraints>
                     </view>
                     <connections>

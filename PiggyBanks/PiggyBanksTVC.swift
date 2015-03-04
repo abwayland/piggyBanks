@@ -8,19 +8,21 @@
 
 import UIKit
 
-class PiggyBanksTVC: UITableViewController {
+class PiggyBanksTVC: UITableViewController, addBankDelegate {
 
     var model: PiggyBanksModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        model = PiggyBanksModel()
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        model = PiggyBanksModel()
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,6 +57,10 @@ class PiggyBanksTVC: UITableViewController {
             cell.detailTextLabel?.text = amount
         }
         return cell
+    }
+    
+    func removeVC(sender: AddBankVC) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
     /*
@@ -92,14 +98,17 @@ class PiggyBanksTVC: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "addBank" {
+            let vc = segue.destinationViewController as? AddBankVC
+            vc?.delegate = self
+        }
     }
-    */
+    
+
 
 }
