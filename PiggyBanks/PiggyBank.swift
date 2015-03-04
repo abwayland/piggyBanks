@@ -14,4 +14,13 @@ struct PiggyBank {
     var amount: String?
     var date: String?
     
+    func getNSDic() -> NSDictionary
+    {
+        var dic = NSMutableDictionary()
+        dic.setValue("name", forKey: name!)
+        dic.setValue("amount", forKey: amount!)
+        dic.setValue("date", forKey: date!)
+        return dic
+    }
+    
 }

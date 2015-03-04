@@ -11,38 +11,31 @@ import Foundation
 class PiggyBanksModel {
     
     //array of piggy banks
-    private var PBArray: [PiggyBank]
+    private var PBArray: Array<[String:String]>
     
-    func addBank(bank: PiggyBank)
+    func addBank(bank: [String:String])
     {
         PBArray.append(bank)
     }
     
-    func removeBank(bank: PiggyBank)
-    {
-        for (index, pig) in enumerate(PBArray) {
-            if pig.name == bank.name {
-                PBArray.removeAtIndex(index)
-            }
-        }
-        
-    }
-    
-    func getBankAtIndex(index: Int) -> PiggyBank
-    {
+    func getBankAtIndex(index: Int) -> [String : String]    {
         return PBArray[index]
     }
     
     func numberOfBanks() -> Int
     {
-        return countElements(PBArray)
+        return PBArray.count
     }
     
     init()
     {
-        PBArray = [PiggyBank]()
-        let bank = PiggyBank(name: "test", amount: "100.00", date: "05.28.2015")
-        addBank(bank)
+        PBArray = []
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let oldPBArray = defaults.objectForKey("PBArray") as? Array<[String:String]> {
+            PBArray = oldPBArray
+        } else {
+            let bank = ["name" : "Sample", "amount" : "$0.00"]
+            addBank(bank)
+        }
     }
-    
 }

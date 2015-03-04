@@ -29,9 +29,6 @@ class PiggyBanksTVC: UITableViewController {
     }
 
     @IBAction func addBank(sender: UIBarButtonItem) {
-        var newBank = PiggyBank(name: "New", amount: "$0.00", date: "12.12.12")
-        model.addBank(newBank)
-        tableView.reloadData()
     }
     // MARK: - Table view data source
 
@@ -51,8 +48,12 @@ class PiggyBanksTVC: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("bank cell", forIndexPath: indexPath) as UITableViewCell
         let bank = model.getBankAtIndex(indexPath.row)
-        cell.textLabel!.text = bank.name
-        cell.detailTextLabel!.text = bank.amount
+        if let name = bank["name"] {
+            cell.textLabel?.text = name
+        }
+        if let amount = bank["amount"] {
+            cell.detailTextLabel?.text = amount
+        }
         return cell
     }
 

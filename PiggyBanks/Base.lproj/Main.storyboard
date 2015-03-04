@@ -92,6 +92,9 @@
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="AddBank:" destination="IeE-kc-ln3" eventType="touchUpInside" id="vA6-cz-HIl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -110,6 +113,11 @@
                             <constraint firstItem="GTW-gD-aTo" firstAttribute="top" secondItem="0PP-Ha-mfx" secondAttribute="bottom" constant="8" symbolic="YES" id="zc2-t8-okW"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="amountField" destination="JDw-jc-V2l" id="Ptz-e3-jNz"/>
+                        <outlet property="dateField" destination="uYd-pv-bXx" id="Sj5-Nz-Fhh"/>
+                        <outlet property="nameField" destination="3rt-AS-KC2" id="dml-EQ-cco"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJj-qS-wjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
