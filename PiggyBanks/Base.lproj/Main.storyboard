@@ -4,16 +4,16 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Piggy Banks-->
+        <!--Total-->
         <scene sceneID="8MY-YO-g86">
             <objects>
                 <tableViewController id="sif-mw-baP" customClass="PiggyBanksTVC" customModule="PiggyBanks" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dk2-Ip-rGo">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="bank cell" textLabel="phl-xv-iNA" detailTextLabel="Cli-oe-2RU" style="IBUITableViewCellStyleSubtitle" id="d6w-aP-rOM">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" reuseIdentifier="bank cell" textLabel="phl-xv-iNA" detailTextLabel="Cli-oe-2RU" style="IBUITableViewCellStyleSubtitle" id="d6w-aP-rOM">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d6w-aP-rOM" id="ETN-zh-r3B">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -39,17 +39,27 @@
                             <outlet property="delegate" destination="sif-mw-baP" id="9bq-wY-NE5"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Piggy Banks" id="cYv-ny-STi">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3ke-3H-Fxh">
+                    <toolbarItems>
+                        <barButtonItem id="SXc-M6-Wo7"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="xiO-0k-c8o"/>
+                        <barButtonItem title="Add Pig" id="vNr-fX-ccG">
                             <connections>
-                                <segue destination="IeE-kc-ln3" kind="show" identifier="addBank" id="0RH-0P-VNy"/>
+                                <segue destination="IeE-kc-ln3" kind="show" identifier="addBank" id="AOs-4q-PFE"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Total" id="cYv-ny-STi">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="pqC-0o-YJG"/>
+                        <barButtonItem key="rightBarButtonItem" title="Deposit" id="3ke-3H-Fxh">
+                            <connections>
+                                <segue destination="YZq-tR-m0c" kind="show" id="KAa-q6-njS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kAR-cq-0BD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1211" y="398"/>
+            <point key="canvasLocation" x="862.5" y="397.5"/>
         </scene>
         <!--Add BankVC-->
         <scene sceneID="kJZ-1I-4Ew">
@@ -60,35 +70,35 @@
                         <viewControllerLayoutGuide type="bottom" id="3En-J4-dho"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HMl-Bv-qQJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Piggy Bank" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTW-gD-aTo">
-                                <rect key="frame" x="237" y="72" width="127" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New Piggy Bank" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTW-gD-aTo">
+                                <rect key="frame" x="125" y="72" width="127" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3rt-AS-KC2">
-                                <rect key="frame" x="252" y="101" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3rt-AS-KC2">
+                                <rect key="frame" x="140" y="101" width="97" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="97" id="bjw-fl-54d"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JDw-jc-V2l">
-                                <rect key="frame" x="252" y="139" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JDw-jc-V2l">
+                                <rect key="frame" x="140" y="139" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uYd-pv-bXx">
-                                <rect key="frame" x="252" y="177" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uYd-pv-bXx">
+                                <rect key="frame" x="140" y="177" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6D2-90-Xf2">
-                                <rect key="frame" x="282" y="215" width="37" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6D2-90-Xf2">
+                                <rect key="frame" x="170" y="215" width="37" height="30"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -121,18 +131,70 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJj-qS-wjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1899" y="398"/>
+            <point key="canvasLocation" x="1396.5" y="756.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="XWa-iW-Sfa">
+            <objects>
+                <viewController id="YZq-tR-m0c" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kah-9q-Bbc"/>
+                        <viewControllerLayoutGuide type="bottom" id="6Nq-m5-8J3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Imh-aP-moS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$0.00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wMb-o6-6di">
+                                <rect key="frame" x="124" y="199" width="125" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="125" id="i4P-gk-WVh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deposit Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdQ-gn-jDb">
+                                <rect key="frame" x="125" y="159" width="124" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j96-6m-pBs">
+                                <rect key="frame" x="168" y="237" width="37" height="30"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wMb-o6-6di" firstAttribute="trailing" secondItem="sdQ-gn-jDb" secondAttribute="trailing" id="A36-a8-vTj"/>
+                            <constraint firstItem="wMb-o6-6di" firstAttribute="top" secondItem="sdQ-gn-jDb" secondAttribute="bottom" constant="19" id="Kk6-w4-VHr"/>
+                            <constraint firstItem="wMb-o6-6di" firstAttribute="centerX" secondItem="j96-6m-pBs" secondAttribute="centerX" id="NvZ-OJ-NBc"/>
+                            <constraint firstItem="sdQ-gn-jDb" firstAttribute="centerX" secondItem="Imh-aP-moS" secondAttribute="centerX" id="h1O-ki-QzZ"/>
+                            <constraint firstItem="j96-6m-pBs" firstAttribute="top" secondItem="wMb-o6-6di" secondAttribute="bottom" constant="8" symbolic="YES" id="rCz-SR-63u"/>
+                            <constraint firstItem="sdQ-gn-jDb" firstAttribute="top" secondItem="Kah-9q-Bbc" secondAttribute="bottom" constant="95" id="utx-un-tMf"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XQF-44-Luy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1396.5" y="38.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ucV-jK-Oe4">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="q73-m1-PaJ" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="q73-m1-PaJ" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EST-kC-hwM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bNM-i7-x3q">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="sif-mw-baP" kind="relationship" relationship="rootViewController" id="bLr-6c-S5q"/>
                     </connections>

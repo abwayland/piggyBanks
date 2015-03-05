@@ -14,6 +14,10 @@ class PiggyBanksTVC: UITableViewController, addBankDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        for key in defaults.dictionaryRepresentation().keys {
+            defaults.removeObjectForKey(key.description)
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -23,6 +27,9 @@ class PiggyBanksTVC: UITableViewController, addBankDelegate {
     
     override func viewWillAppear(animated: Bool) {
         model = PiggyBanksModel()
+        let total = model.getTotal()
+        let formattedTotal = NSNumberFormatter.localizedStringFromNumber(total, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
+        self.title = formattedTotal
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,8 +60,10 @@ class PiggyBanksTVC: UITableViewController, addBankDelegate {
         if let name = bank["name"] {
             cell.textLabel?.text = name
         }
-        if let amount = bank["amount"] {
-            cell.detailTextLabel?.text = amount
+        if let owed = bank["owed"] {
+            if let paid = bank["paid"] {
+                cell.detailTextLabel?.text = "\(paid) / \(owed)"
+            }
         }
         return cell
     }

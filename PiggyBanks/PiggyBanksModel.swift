@@ -12,6 +12,60 @@ class PiggyBanksModel {
     
     //array of piggy banks
     private var PBArray: Array<[String:String]>
+    private var total: Double
+    
+    init()
+    {
+        PBArray = []
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults
+        if let oldTotal = defaults.objectForKey("total") as? NSNumber {
+            total = oldTotal.doubleValue
+        } else {
+            total = 100
+        }
+        if let oldPBArray = defaults.objectForKey("PBArray") as? Array<[String:String]> {
+            PBArray = oldPBArray
+        }
+        calculate()
+    }
+    
+    func calculate()
+    {
+        for (index, bank) in enumerate(PBArray) {
+            var mutBank = bank
+            if let owedString = bank["owed"] {
+                let newOwedString = owedString.substringFromIndex(owedString.startIndex.successor())
+                if let owed = NSNumberFormatter().numberFromString(newOwedString)?.doubleValue ?? 0.0 {
+                    var paid: Double
+                    if total > owed {
+                        paid = owed
+                        total -= owed
+                    } else {
+                        paid = total
+                        total = 0
+                    }
+                    mutBank["paid"] = NSNumberFormatter.localizedStringFromNumber(paid, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
+                    PBArray[index] = mutBank
+                }
+            }
+        }
+    }
+    
+    func getTotal() -> Double
+    {
+        return total
+    }
+    
+    func deposit(amount: Double)
+    {
+        total += amount
+    }
+    
+    func withdraw(amount: Double)
+    {
+        total -= amount
+    }
     
     func addBank(bank: [String:String])
     {
@@ -27,15 +81,4 @@ class PiggyBanksModel {
         return PBArray.count
     }
     
-    init()
-    {
-        PBArray = []
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let oldPBArray = defaults.objectForKey("PBArray") as? Array<[String:String]> {
-            PBArray = oldPBArray
-        } else {
-            let bank = ["name" : "Sample", "amount" : "$0.00"]
-            addBank(bank)
-        }
-    }
 }

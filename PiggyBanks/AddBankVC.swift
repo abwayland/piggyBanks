@@ -35,7 +35,9 @@ class AddBankVC: UIViewController {
         if let name = nameField.text {
             var bank = ["name" : name]
             if let amount = amountField.text {
-                bank["amount"] = amount
+                let amountDouble = NSNumberFormatter().numberFromString(amount)?.doubleValue
+                let amountCurrency = NSNumberFormatter.localizedStringFromNumber(amountDouble!, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
+                bank["owed"] = amountCurrency
             }
             storeBank(bank)
             println("bank stored")
