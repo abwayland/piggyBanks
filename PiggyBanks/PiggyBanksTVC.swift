@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PiggyBanksTVC: UITableViewController, addBankDelegate {
+class PiggyBanksTVC: UITableViewController, VCDelegate {
 
     var model: PiggyBanksModel!
     
@@ -68,8 +68,13 @@ class PiggyBanksTVC: UITableViewController, addBankDelegate {
         return cell
     }
     
-    func removeVC(sender: AddBankVC) {
+    func removeVC(sender: UIViewController) {
         self.navigationController?.popViewControllerAnimated(true)
+        if sender is DepositVC {
+            println("depoistVC")
+        } else if sender is AddBankVC {
+            println("addVC")
+        }
     }
 
     /*
@@ -114,6 +119,9 @@ class PiggyBanksTVC: UITableViewController, addBankDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "addBank" {
             let vc = segue.destinationViewController as? AddBankVC
+            vc?.delegate = self
+        } else if segue.identifier == "deposit" {
+            let vc = segue.destinationViewController as? DepositVC
             vc?.delegate = self
         }
     }

@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol addBankDelegate: class {
-    func removeVC(sender: AddBankVC)
+protocol VCDelegate: class {
+    func removeVC(sender: UIViewController)
 }
 
 class AddBankVC: UIViewController {
@@ -18,7 +18,7 @@ class AddBankVC: UIViewController {
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     
-    weak var delegate: addBankDelegate?
+    weak var delegate: VCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
