@@ -8,21 +8,16 @@
 
 import UIKit
 
-protocol VCDelegate: class {
-    func removeVC(sender: UIViewController)
-}
-
 class AddBankVC: UIViewController {
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     
-    weak var delegate: VCDelegate?
+    lazy private var bank: [String:String] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
@@ -31,45 +26,34 @@ class AddBankVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func AddBank(sender: UIButton) {
+    func addBank() {
         if let name = nameField.text {
-            var bank = ["name" : name]
-            if let amount = amountField.text {
-                let amountDouble = NSNumberFormatter().numberFromString(amount)?.doubleValue
-                let amountCurrency = NSNumberFormatter.localizedStringFromNumber(amountDouble!, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
-                bank["owed"] = amountCurrency
+            if let amount = NSNumberFormatter().numberFromString(amountField.text)?.doubleValue {
+                bank["name"] = name
+                bank["owed"] = "\(amount)"
+                println("bank stored")
+            } else {
+                println("error: amount not convertible to double")
             }
-            storeBank(bank)
-            println("bank stored")
         } else {
-            println("error: no name for bank")
-        }
-        if delegate != nil {
-            delegate!.removeVC(self)
+            println("error: no name entered for bank")
         }
     }
     
-    func storeBank(bank: [String : String])
+    func getBank() -> [String:String]
     {
-        var defaults = NSUserDefaults.standardUserDefaults()
-        var PBArray = [bank]
-        if var oldPBArray = defaults.valueForKey("PBArray") as? Array<[String : String]> {
-            PBArray = oldPBArray + PBArray
-        }
-        defaults.setObject(PBArray, forKey: "PBArray")
-        defaults.synchronize()
+        return bank
     }
 
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewController = segue.destinationViewController as? UITableViewController {
-            viewController.tableView.reloadData()
+        if let viewController = segue.destinationViewController as? PiggyBanksTVC {
+            addBank()
         }
         // Pass the selected object to the new view controller.
     }
-    */
+    
 }

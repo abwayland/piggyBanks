@@ -8,16 +8,20 @@
 
 import UIKit
 
-class PiggyBanksTVC: UITableViewController, VCDelegate {
+class PiggyBanksTVC: UITableViewController {
 
     var model: PiggyBanksModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let defaults = NSUserDefaults.standardUserDefaults()
-        for key in defaults.dictionaryRepresentation().keys {
-            defaults.removeObjectForKey(key.description)
-        }
+        
+        //Uncomment the following to clear NSUserDefaults
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        for key in defaults.dictionaryRepresentation().keys {
+//            defaults.removeObjectForKey(key.description)
+//        }
+        
+        model = PiggyBanksModel()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -26,10 +30,11 @@ class PiggyBanksTVC: UITableViewController, VCDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        model = PiggyBanksModel()
         let total = model.getTotal()
+        let availFunds = model.getAvailFunds()
         let formattedTotal = NSNumberFormatter.localizedStringFromNumber(total, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
-        self.title = formattedTotal
+        let formattedAvailFunds = NSNumberFormatter.localizedStringFromNumber(availFunds, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
+        self.title =  formattedAvailFunds + " / " + formattedTotal
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,18 +67,36 @@ class PiggyBanksTVC: UITableViewController, VCDelegate {
         }
         if let owed = bank["owed"] {
             if let paid = bank["paid"] {
-                cell.detailTextLabel?.text = "\(paid) / \(owed)"
+                let owedAsCurrency = stringToCurrency(owed)
+                let paidAsCurrency = stringToCurrency(paid)
+                cell.detailTextLabel?.text = paidAsCurrency + " / " + owedAsCurrency
+            } else {
+                cell.detailTextLabel?.text = "Error"
             }
         }
         return cell
     }
     
-    func removeVC(sender: UIViewController) {
-        self.navigationController?.popViewControllerAnimated(true)
-        if sender is DepositVC {
-            println("depoistVC")
-        } else if sender is AddBankVC {
-            println("addVC")
+    func stringToCurrency(amount: String) -> String {
+        if let dub = NSNumberFormatter().numberFromString(amount)?.doubleValue {
+            let currency = NSNumberFormatter.localizedStringFromNumber(dub, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
+            return currency
+        }
+        return "error: amt to curr"
+    }
+    
+    @IBAction func goBack(segue: UIStoryboardSegue)
+    {
+        if segue.identifier == "unwindAddBank" {
+            if let vc = segue.sourceViewController as? AddBankVC {
+                let bank = vc.getBank()
+                model.addBank(bank)
+                self.tableView.reloadData()
+                println("addBank")
+            }
+        } else if segue.identifier == "unwindDeposit" {
+            let vc = segue.sourceViewController as? DepositVC
+            println("deposit")
         }
     }
 
@@ -117,13 +140,7 @@ class PiggyBanksTVC: UITableViewController, VCDelegate {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "addBank" {
-            let vc = segue.destinationViewController as? AddBankVC
-            vc?.delegate = self
-        } else if segue.identifier == "deposit" {
-            let vc = segue.destinationViewController as? DepositVC
-            vc?.delegate = self
-        }
+        
     }
     
 
