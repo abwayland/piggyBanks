@@ -17,6 +17,9 @@
 		846124081A9B93A2008B1B4F /* PiggyBanksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */; };
 		8461240A1A9B941C008B1B4F /* PiggyBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846124091A9B941C008B1B4F /* PiggyBank.swift */; };
 		8461240E1A9BAC34008B1B4F /* AddBankVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461240D1A9BAC34008B1B4F /* AddBankVC.swift */; };
+		848AD2A21AACEDD600FCFE0A /* PiggyBankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD2A11AACEDD600FCFE0A /* PiggyBankCell.swift */; };
+		848D81CC1AAC75F700C9D1E9 /* piggy_orig.png in Resources */ = {isa = PBXBuildFile; fileRef = 848D81CB1AAC75F700C9D1E9 /* piggy_orig.png */; };
+		848D81D21AACED6600C9D1E9 /* PiggyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D81D11AACED6600C9D1E9 /* PiggyCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBanksModel.swift; sourceTree = "<group>"; };
 		846124091A9B941C008B1B4F /* PiggyBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBank.swift; sourceTree = "<group>"; };
 		8461240D1A9BAC34008B1B4F /* AddBankVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBankVC.swift; sourceTree = "<group>"; };
+		848AD2A11AACEDD600FCFE0A /* PiggyBankCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBankCell.swift; sourceTree = "<group>"; };
+		848D81CB1AAC75F700C9D1E9 /* piggy_orig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggy_orig.png; sourceTree = "<group>"; };
+		848D81D11AACED6600C9D1E9 /* PiggyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PiggyCell.xib; path = ../PiggyCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,9 +91,12 @@
 		846123DC1A9B918B008B1B4F /* PiggyBanks */ = {
 			isa = PBXGroup;
 			children = (
+				848D81D11AACED6600C9D1E9 /* PiggyCell.xib */,
+				848AD2A11AACEDD600FCFE0A /* PiggyBankCell.swift */,
 				845ADA961AA8CADF00631507 /* DepositVC.swift */,
 				845ADA8F1AA79EE700631507 /* Main.storyboard */,
 				846124051A9B9358008B1B4F /* PiggyBanksTVC.swift */,
+				848D81CB1AAC75F700C9D1E9 /* piggy_orig.png */,
 				846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */,
 				846124091A9B941C008B1B4F /* PiggyBank.swift */,
 				8461240D1A9BAC34008B1B4F /* AddBankVC.swift */,
@@ -204,7 +213,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848D81D21AACED6600C9D1E9 /* PiggyCell.xib in Resources */,
 				845ADA911AA79EE700631507 /* Main.storyboard in Resources */,
+				848D81CC1AAC75F700C9D1E9 /* piggy_orig.png in Resources */,
 				846123EA1A9B918B008B1B4F /* LaunchScreen.xib in Resources */,
 				846123E71A9B918B008B1B4F /* Images.xcassets in Resources */,
 			);
@@ -230,6 +241,7 @@
 				8461240A1A9B941C008B1B4F /* PiggyBank.swift in Sources */,
 				846123E01A9B918B008B1B4F /* AppDelegate.swift in Sources */,
 				845ADA971AA8CADF00631507 /* DepositVC.swift in Sources */,
+				848AD2A21AACEDD600FCFE0A /* PiggyBankCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,24 +13,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" reuseIdentifier="bank cell" textLabel="phl-xv-iNA" detailTextLabel="Cli-oe-2RU" style="IBUITableViewCellStyleSubtitle" id="d6w-aP-rOM">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" reuseIdentifier="cell" id="d6w-aP-rOM" customClass="PiggyBankCell" customModule="PiggyBanks" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d6w-aP-rOM" id="ETN-zh-r3B">
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="phl-xv-iNA">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cli-oe-2RU">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -40,7 +26,11 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem id="SXc-M6-Wo7"/>
+                        <barButtonItem title="Deposit" id="3ke-3H-Fxh">
+                            <connections>
+                                <segue destination="YZq-tR-m0c" kind="show" identifier="deposit" id="KAa-q6-njS"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="xiO-0k-c8o"/>
                         <barButtonItem title="Add Pig" id="vNr-fX-ccG">
                             <connections>
@@ -48,14 +38,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Total" id="cYv-ny-STi">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="pqC-0o-YJG"/>
-                        <barButtonItem key="rightBarButtonItem" title="Deposit" id="3ke-3H-Fxh">
-                            <connections>
-                                <segue destination="YZq-tR-m0c" kind="show" identifier="deposit" id="KAa-q6-njS"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Total" id="cYv-ny-STi"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kAR-cq-0BD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

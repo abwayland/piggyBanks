@@ -14,7 +14,7 @@ class AddBankVC: UIViewController {
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     
-    lazy private var bank: [String:String] = [:]
+    private var bank: [String:String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +29,9 @@ class AddBankVC: UIViewController {
     func addBank() {
         if let name = nameField.text {
             if let amount = NSNumberFormatter().numberFromString(amountField.text)?.doubleValue {
-                bank["name"] = name
-                bank["owed"] = "\(amount)"
+                bank = [:]
+                bank?["name"] = name
+                bank?["owed"] = "\(amount)"
                 println("bank stored")
             } else {
                 println("error: amount not convertible to double")
@@ -40,19 +41,15 @@ class AddBankVC: UIViewController {
         }
     }
     
-    func getBank() -> [String:String]
-    {
+    func getBank() -> [String:String]? {
         return bank
     }
 
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewController = segue.destinationViewController as? PiggyBanksTVC {
-            addBank()
-        }
+        addBank()
         // Pass the selected object to the new view controller.
     }
     

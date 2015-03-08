@@ -14,19 +14,19 @@ class PiggyBanksTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        var nib = UINib(nibName: "PiggyCell", bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         //Uncomment the following to clear NSUserDefaults
 //        let defaults = NSUserDefaults.standardUserDefaults()
 //        for key in defaults.dictionaryRepresentation().keys {
 //            defaults.removeObjectForKey(key.description)
 //        }
-        
         model = PiggyBanksModel()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -41,9 +41,7 @@ class PiggyBanksTVC: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func addBank(sender: UIBarButtonItem) {
-    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -57,24 +55,28 @@ class PiggyBanksTVC: UITableViewController {
         // Return the number of rows in the section.
         return model.numberOfBanks()
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("bank cell", forIndexPath: indexPath) as UITableViewCell
-        let bank = model.getBankAtIndex(indexPath.row)
-        if let name = bank["name"] {
-            cell.textLabel?.text = name
-        }
-        if let owed = bank["owed"] {
-            if let paid = bank["paid"] {
-                let owedAsCurrency = stringToCurrency(owed)
-                let paidAsCurrency = stringToCurrency(paid)
-                cell.detailTextLabel?.text = paidAsCurrency + " / " + owedAsCurrency
-            } else {
-                cell.detailTextLabel?.text = "Error"
+        var cell = tableView.dequeueReusableCellWithIdentifier("cell") as PiggyBankCell
+        cell.thumbnail.image = UIImage(named:"piggy_orig")
+         let bank = model.getBankAtIndex(indexPath.row)
+            if let name = bank["name"] {
+                cell.nameLabel.text = name
             }
-        }
+            if let owed = bank["owed"] {
+                if let paid = bank["paid"] {
+                    let owedAsCurrency = stringToCurrency(owed)
+                    let paidAsCurrency = stringToCurrency(paid)
+                    cell.amount.text = paidAsCurrency + " / " + owedAsCurrency
+                } else {
+                    cell.detailTextLabel?.text = "Error"
+                }
+            }
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 78
     }
     
     func stringToCurrency(amount: String) -> String {
@@ -89,14 +91,18 @@ class PiggyBanksTVC: UITableViewController {
     {
         if segue.identifier == "unwindAddBank" {
             if let vc = segue.sourceViewController as? AddBankVC {
-                let bank = vc.getBank()
-                model.addBank(bank)
-                self.tableView.reloadData()
-                println("addBank")
+                if let bank = vc.getBank() {
+                    model.addBank(bank)
+                    self.tableView.reloadData()
+                    println("addBank")
+                }
             }
         } else if segue.identifier == "unwindDeposit" {
             let vc = segue.sourceViewController as? DepositVC
-            println("deposit")
+            if let deposit = vc?.getDeposit() {
+                model.deposit(deposit)
+                println("deposit")
+            }
         }
     }
 
@@ -139,9 +145,8 @@ class PiggyBanksTVC: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//    }
     
 
 

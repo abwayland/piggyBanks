@@ -11,14 +11,18 @@ import UIKit
 class DepositVC: UIViewController {
     
     @IBOutlet weak var amountField: UITextField!
+    private var deposit: Double?
     
-    @IBAction func enteredAmount(sender: AnyObject)
-    {
+    func enteredAmount() {
         if let amount = amountField.text {
             if let dub = NSNumberFormatter().numberFromString(amount)?.doubleValue {
-                let currAmount = NSNumberFormatter.localizedStringFromNumber(dub, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
+                deposit = dub
             }
         }
+    }
+    
+    func getDeposit() -> Double? {
+        return deposit
     }
 
     override func viewDidLoad() {
@@ -33,16 +37,12 @@ class DepositVC: UIViewController {
     
 
    
-//    //MARK: - Navigation
-//
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "unwind" {
-//            if let unwoundToMVC = segue.destinationViewController as? PiggyBanksTVC {
-//                
-//            }
-//        }
-//    }
+    //MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        enteredAmount()
+    }
 
 
 }
