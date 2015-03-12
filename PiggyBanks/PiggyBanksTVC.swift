@@ -24,7 +24,6 @@ class PiggyBanksTVC: UITableViewController {
         model = PiggyBanksModel()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
          self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -58,8 +57,7 @@ class PiggyBanksTVC: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as PiggyBankCell
-        cell.thumbnail.image = UIImage(named:"piggy_orig")
-         let bank = model.getBankAtIndex(indexPath.row)
+        let bank = model.getBankAtIndex(indexPath.row)
             if let name = bank["name"] {
                 cell.nameLabel.text = name
             }
@@ -68,11 +66,57 @@ class PiggyBanksTVC: UITableViewController {
                     let owedAsCurrency = stringToCurrency(owed)
                     let paidAsCurrency = stringToCurrency(paid)
                     cell.amount.text = paidAsCurrency + " / " + owedAsCurrency
+                    let percentPaid = getPercentPaid(paid, owed: owed)
+                    cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaid)")
                 } else {
                     cell.detailTextLabel?.text = "Error"
                 }
             }
+            if let date = bank["date"] {
+                let ext = getExtension(date)
+                cell.date.text = "Due on the " + date + ext + "."
+            }
         return cell
+    }
+    
+    func getExtension(date: String) -> String {
+        var ext: String
+        switch date {
+            case "1","21","31":
+            ext = "st"
+            case "2","22":
+            ext = "nd"
+            case "3","23":
+            ext = "rd"
+        default:
+            ext = "th"
+        }
+        return ext
+    }
+    
+    func getPercentPaid(paid: String, owed: String) -> String {
+        var percentage: Double = 0.0
+        if let paidDouble = NSNumberFormatter().numberFromString(paid)?.doubleValue {
+            if let owedDouble = NSNumberFormatter().numberFromString(owed)?.doubleValue {
+                percentage = paidDouble / owedDouble
+            }
+        }
+        switch percentage {
+        case 0:
+            return "0"
+        case 0.01..<0.25:
+            return "1"
+        case 0.25..<0.5:
+            return "25"
+        case 0.5..<0.75:
+            return "50"
+        case 0.75..<1:
+            return "75"
+        case 1:
+            return "100"
+        default:
+            return "0"
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -101,7 +145,7 @@ class PiggyBanksTVC: UITableViewController {
             let vc = segue.sourceViewController as? DepositVC
             if let deposit = vc?.getDeposit() {
                 model.deposit(deposit)
-                println("deposit")
+                self.tableView.reloadData()
             }
         }
     }
@@ -114,17 +158,17 @@ class PiggyBanksTVC: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
+            model.deleteBank(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.

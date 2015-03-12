@@ -32,7 +32,11 @@ class AddBankVC: UIViewController {
                 bank = [:]
                 bank?["name"] = name
                 bank?["owed"] = "\(amount)"
-                println("bank stored")
+                if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
+                    if date > 0 && date <= 31 {
+                        bank?["date"] = "\(date)"
+                    }
+                }
             } else {
                 println("error: amount not convertible to double")
             }

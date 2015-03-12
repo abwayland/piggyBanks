@@ -21,7 +21,7 @@ class PiggyBanksModel {
         if let oldTotal = defaults.objectForKey("total") as? NSNumber {
             total = oldTotal.doubleValue
         } else {
-            total = 100
+            total = 0
         }
         availFunds = total
         if let oldPBArray = defaults.objectForKey("PBArray") as? Array<[String:String]> {
@@ -32,6 +32,7 @@ class PiggyBanksModel {
     
     private func storeBank() {
         var defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(total, forKey: "total")
         defaults.setObject(PBArray, forKey: "PBArray")
         defaults.synchronize()
     }
@@ -66,12 +67,20 @@ class PiggyBanksModel {
         return availFunds
     }
     
+    func deleteBank(index: Int) {
+        
+    }
+    
     func deposit(amount: Double) {
         total += amount
+        calculate()
+        storeBank()
     }
     
     func withdraw(amount: Double) {
         total -= amount
+        calculate()
+        storeBank()
     }
     
     func addBank(bank: [String:String]) {
