@@ -10,18 +10,40 @@ import UIKit
 
 class PBDetailVC: UIViewController {
 
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var amount: UILabel!
-    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var thumbnail: UIImageView!
+    
+    @IBOutlet weak var dateField: UITextField!
+    @IBOutlet weak var amountField: UITextField!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var outlets = [String]()
+    var image: UIImage!
+    
+    func registerForKeyBoardNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+    }
+    
+    func keyboardWasShown(notification: NSNotification) {
+        if let info = notification.userInfo {
+            if let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size {
+                let contentInsets = UIEdgeInsetsMake(0, 0, kbSize.height, 0)
+                scrollView.contentInset = contentInsets
+                var aRect = self.view.frame
+                aRect.size.height -= kbSize.height
+                self.scrollView.scrollRectToVisible(aRect, animated: true)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        name.text = outlets[0]
-        amount.text = outlets[1]
-        date.text = outlets[2]
+        registerForKeyBoardNotifications()
+        scrollView.contentSize = CGSizeMake(view.frame.size.width, view.frame.size.height + 200)
+        nameField.text = outlets[0]
+        amountField.text = outlets[1]
+        dateField.text = outlets[2]
+        thumbnail.image = image
         // Do any additional setup after loading the view.
     }
 
@@ -30,8 +52,9 @@ class PBDetailVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setOutlets(name nameLocal: String, amount amountLocal: String, date dateLocal: String) {
+    func setOutlets(name nameLocal: String, amount amountLocal: String, date dateLocal: String, image imageLocal: UIImage) {
         outlets = [nameLocal, amountLocal, dateLocal]
+        image = imageLocal
     }
     
 

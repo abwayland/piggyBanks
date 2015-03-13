@@ -192,14 +192,13 @@ class PiggyBanksTVC: UITableViewController {
         if segue.identifier == "showDetail" {
             if segue.destinationViewController is PBDetailVC {
                 var vc = segue.destinationViewController as PBDetailVC
-                let cell = sender as UITableViewCell
+                let cell = sender as PiggyBankCell
                 if let indexPath = tableView.indexPathForCell(cell) {
                     let bank = model.getBankAtIndex(indexPath.row)
-                    vc.setOutlets(name: bank["name"]!, amount: bank["owed"]!, date: bank["date"]!)
+                    vc.setOutlets(name: bank["name"]!, amount: stringToCurrency(bank["owed"]!), date: bank["date"]!, image: cell.thumbnail.image!)
                 }
             }
         }
-        
     }
     
 
