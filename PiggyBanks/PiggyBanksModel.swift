@@ -11,12 +11,12 @@ import Foundation
 class PiggyBanksModel {
     
     //array of piggy banks
-    private var PBArray: Array<[String:String]>
+    private var pBArray: Array<[String:String]>
     private var total: Double
     private var availFunds: Double
 
     init() {
-        PBArray = []
+        pBArray = []
         let defaults = NSUserDefaults.standardUserDefaults()
         if let oldTotal = defaults.objectForKey("total") as? NSNumber {
             total = oldTotal.doubleValue
@@ -25,21 +25,21 @@ class PiggyBanksModel {
         }
         availFunds = total
         if let oldPBArray = defaults.objectForKey("PBArray") as? Array<[String:String]> {
-            PBArray = oldPBArray
+            pBArray = oldPBArray
         }
         calculate()
     }
     
-    private func storeBank() {
+    private func storeBanks() {
         var defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(total, forKey: "total")
-        defaults.setObject(PBArray, forKey: "PBArray")
+        defaults.setObject(pBArray, forKey: "PBArray")
         defaults.synchronize()
     }
     
     private func calculate() {
         var workingTotal = total
-        for (index, bank) in enumerate(PBArray) {
+        for (index, bank) in enumerate(pBArray) {
             var mutBank = bank
             if let owedString = bank["owed"] {
                 if let owed = NSNumberFormatter().numberFromString(owedString)?.doubleValue {
@@ -53,10 +53,18 @@ class PiggyBanksModel {
                     }
                     availFunds = workingTotal
                     mutBank["paid"] = "\(paid)"
-                    PBArray[index] = mutBank
+                    pBArray[index] = mutBank
                 }
             }
         }
+    }
+    
+    func moveBank(#fromIndex: Int, toIndex: Int) {
+        let movingBank = pBArray.removeAtIndex(fromIndex)
+        pBArray.insert(movingBank, atIndex: toIndex)
+        println("\(pBArray)")
+        calculate()
+        storeBanks()
     }
     
     func getTotal() -> Double {
@@ -68,33 +76,35 @@ class PiggyBanksModel {
     }
     
     func deleteBank(index: Int) {
-        
+        pBArray.removeAtIndex(index)
+        calculate()
+        storeBanks()
     }
     
     func deposit(amount: Double) {
         total += amount
         calculate()
-        storeBank()
+        storeBanks()
     }
     
     func withdraw(amount: Double) {
         total -= amount
         calculate()
-        storeBank()
+        storeBanks()
     }
     
     func addBank(bank: [String:String]) {
-        PBArray.append(bank)
+        pBArray.append(bank)
         calculate()
-        storeBank()
+        storeBanks()
     }
     
     func getBankAtIndex(index: Int) -> [String : String]    {
-        return PBArray[index]
+        return pBArray[index]
     }
     
     func numberOfBanks() -> Int {
-        return PBArray.count
+        return pBArray.count
     }
     
 }

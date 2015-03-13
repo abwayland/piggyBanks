@@ -14,8 +14,6 @@ class PiggyBanksTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var nib = UINib(nibName: "PiggyCell", bundle: nil)
-        tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         //Uncomment the following to clear NSUserDefaults
 //        let defaults = NSUserDefaults.standardUserDefaults()
 //        for key in defaults.dictionaryRepresentation().keys {
@@ -73,13 +71,13 @@ class PiggyBanksTVC: UITableViewController {
                 }
             }
             if let date = bank["date"] {
-                let ext = getExtension(date)
+                let ext = getDateExtension(date)
                 cell.date.text = "Due on the " + date + ext + "."
             }
         return cell
     }
     
-    func getExtension(date: String) -> String {
+    func getDateExtension(date: String) -> String {
         var ext: String
         switch date {
             case "1","21","31":
@@ -164,19 +162,20 @@ class PiggyBanksTVC: UITableViewController {
         if editingStyle == .Delete {
             model.deleteBank(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.reloadData()
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    
 
-    /*
+    
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+        model.moveBank(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row)
+        tableView.reloadData()
     }
-    */
 
+    
     /*
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -188,9 +187,20 @@ class PiggyBanksTVC: UITableViewController {
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//    }
+//     In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showDetail" {
+            if segue.destinationViewController is PBDetailVC {
+                var vc = segue.destinationViewController as PBDetailVC
+                let cell = sender as UITableViewCell
+                if let indexPath = tableView.indexPathForCell(cell) {
+                    let bank = model.getBankAtIndex(indexPath.row)
+                    vc.setOutlets(name: bank["name"]!, amount: bank["owed"]!, date: bank["date"]!)
+                }
+            }
+        }
+        
+    }
     
 
 
