@@ -72,7 +72,7 @@ class PiggyBanksTVC: UITableViewController {
             }
             if let date = bank["date"] {
                 let ext = getDateExtension(date)
-                cell.date.text = "Due on the " + date + ext + "."
+                cell.date.text = date + ext
             }
         return cell
     }
@@ -145,6 +145,14 @@ class PiggyBanksTVC: UITableViewController {
                 model.deposit(deposit)
                 self.tableView.reloadData()
             }
+//        } else if segue.identifier == "unwindEdit" {
+//            if let vc = segue.sourceViewController as? PBDetailVC {
+//                if let row = tableView.indexPathForSelectedRow()?.row {
+//                    let bank = ["name" : vc.nameField.text!, "owed" : vc.amountField.text!, "date" : vc.dateField.text!]
+//                    model.replaceBankAtIndex(row, withBank: bank)
+//                    self.tableView.reloadData()
+//                }
+//            }
         }
     }
 
@@ -173,6 +181,16 @@ class PiggyBanksTVC: UITableViewController {
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
         model.moveBank(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row)
         tableView.reloadData()
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var header = UILabel()
+        header.text = "MARCH"
+        header.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        header.textColor = UIColor.whiteColor()
+        header.textAlignment = NSTextAlignment.Center
+        header.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.1)
+        return header
     }
 
     

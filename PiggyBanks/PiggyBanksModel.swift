@@ -81,6 +81,10 @@ class PiggyBanksModel {
         storeBanks()
     }
     
+    func replaceBankAtIndex(index: Int, withBank bank: [String:String]) {
+        pBArray[index] = bank
+    }
+    
     func deposit(amount: Double) {
         total += amount
         calculate()

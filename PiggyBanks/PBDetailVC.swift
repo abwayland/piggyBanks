@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PBDetailVC: UIViewController {
+class PBDetailVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var thumbnail: UIImageView!
     
@@ -19,9 +19,11 @@ class PBDetailVC: UIViewController {
     
     var outlets = [String]()
     var image: UIImage!
+    var activeField: UITextField!
     
     func registerForKeyBoardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardDidHideNotification, object: nil)
     }
     
     func keyboardWasShown(notification: NSNotification) {
@@ -31,19 +33,45 @@ class PBDetailVC: UIViewController {
                 scrollView.contentInset = contentInsets
                 var aRect = self.view.frame
                 aRect.size.height -= kbSize.height
-                self.scrollView.scrollRectToVisible(aRect, animated: true)
+                if aRect.contains(activeField.frame.origin) {
+                    self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+                }
             }
         }
     }
     
+    func keyboardWillBeHidden(notification: NSNotification) {
+        scrollView.contentInset = UIEdgeInsetsZero
+        scrollView.scrollIndicatorInsets = UIEdgeInsetsZero
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        activeField = textField
+        println("active")
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        activeField = nil
+        println("Deactive")
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForKeyBoardNotifications()
-        scrollView.contentSize = CGSizeMake(view.frame.size.width, view.frame.size.height + 200)
+//        scrollView.contentSize = self.view.frame.size
         nameField.text = outlets[0]
         amountField.text = outlets[1]
         dateField.text = outlets[2]
         thumbnail.image = image
+        nameField.delegate = self
+        amountField.delegate = self
+        dateField.delegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -58,14 +86,13 @@ class PBDetailVC: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        
+//    }
+
 
 }
