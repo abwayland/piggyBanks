@@ -55,7 +55,7 @@ class PiggyBanksTVC: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as PiggyBankCell
-        let bank = model.getBankAtIndex(indexPath.row)
+        if let bank = model.getBankAtIndex(indexPath.row) {
             if let name = bank["name"] {
                 cell.nameLabel.text = name
             }
@@ -74,6 +74,7 @@ class PiggyBanksTVC: UITableViewController {
                 let ext = getDateExtension(date)
                 cell.date.text = date + ext
             }
+        }
         return cell
     }
     
@@ -212,8 +213,9 @@ class PiggyBanksTVC: UITableViewController {
                 var vc = segue.destinationViewController as PBDetailVC
                 let cell = sender as PiggyBankCell
                 if let indexPath = tableView.indexPathForCell(cell) {
-                    let bank = model.getBankAtIndex(indexPath.row)
-                    vc.setOutlets(name: bank["name"]!, amount: stringToCurrency(bank["owed"]!), date: bank["date"]!, image: cell.thumbnail.image!)
+                    if let bank = model.getBankAtIndex(indexPath.row) {
+                        vc.setOutlets(name: bank["name"]!, amount: stringToCurrency(bank["owed"]!), date: bank["date"]!, image: cell.thumbnail.image!)
+                    }
                 }
             }
         }

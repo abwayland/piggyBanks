@@ -13,11 +13,16 @@ typealias PiggyBank = [String:String]
 class PiggyBanksModel {
     
     //array of piggy banks
-    private var pbArray: [PiggyBank]
+    private var pbArray: [PiggyBank]?
     private var total: Double
     private var availFunds: Double
+    private var monthArray: [[PiggyBank]]?
+    private var numberOfMonths: Int
 
     init() {
+        //get number of months to display
+        numberOfMonths = 2
+        //create pbArray
         pbArray = []
         let defaults = NSUserDefaults.standardUserDefaults()
         if let oldTotal = defaults.objectForKey("total") as? NSNumber {
@@ -28,8 +33,19 @@ class PiggyBanksModel {
         availFunds = total
         if let oldPBArray = defaults.objectForKey("pbArray") as? [PiggyBank] {
             pbArray = oldPBArray
+        } else {
+            pbArray = createSamples()
         }
+        //fill monthArray with pbArrays
         calculate()
+    }
+    
+    func createSamples() -> [PiggyBank]
+    {
+        let samp1: PiggyBank = ["name":"Some Bill","owed":"100","date":"1"]
+        let samp2: PiggyBank = ["name":"Another Bill","owed":"50","date":"15"]
+        let samp3: PiggyBank = ["name":"Yet Another Bill","owed":"25","date":"30"]
+        return [samp1,samp2,samp3]
     }
     
     private func storeBanks() {
@@ -41,7 +57,7 @@ class PiggyBanksModel {
     
     private func calculate() {
         var workingTotal = total
-        for (index, bank) in enumerate(pbArray) {
+        for (index, bank) in enumerate(pbArray!) {
             var mutBank = bank
             if let owedString = bank["owed"] {
                 if let owed = NSNumberFormatter().numberFromString(owedString)?.doubleValue {
@@ -55,15 +71,15 @@ class PiggyBanksModel {
                     }
                     availFunds = workingTotal
                     mutBank["paid"] = "\(paid)"
-                    pbArray[index] = mutBank
+                    pbArray?[index] = mutBank
                 }
             }
         }
     }
     
     func moveBank(#fromIndex: Int, toIndex: Int) {
-        let movingBank = pbArray.removeAtIndex(fromIndex)
-        pbArray.insert(movingBank, atIndex: toIndex)
+        let movingBank = pbArray!.removeAtIndex(fromIndex)
+        pbArray!.insert(movingBank, atIndex: toIndex)
         calculate()
         storeBanks()
     }
@@ -77,13 +93,13 @@ class PiggyBanksModel {
     }
     
     func deleteBank(index: Int) {
-        pbArray.removeAtIndex(index)
+        pbArray?.removeAtIndex(index)
         calculate()
         storeBanks()
     }
     
     func replaceBankAtIndex(index: Int, withBank bank: PiggyBank) {
-        pbArray[index] = bank
+        pbArray?[index] = bank
     }
     
     func deposit(amount: Double) {
@@ -99,17 +115,21 @@ class PiggyBanksModel {
     }
     
     func addBank(bank: PiggyBank) {
-        pbArray.append(bank)
+        pbArray?.append(bank)
         calculate()
         storeBanks()
     }
     
-    func getBankAtIndex(index: Int) -> PiggyBank   {
-        return pbArray[index]
+    func getBankAtIndex(index: Int) -> PiggyBank?   {
+        return pbArray?[index]
     }
     
     func numberOfBanks() -> Int {
-        return pbArray.count
+        if let count = pbArray?.count {
+            return count
+        } else {
+            return 0
+        }
     }
     
 }

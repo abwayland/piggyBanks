@@ -107,12 +107,12 @@
 		846123DC1A9B918B008B1B4F /* PiggyBanks */ = {
 			isa = PBXGroup;
 			children = (
-				848AD2A11AACEDD600FCFE0A /* PiggyBankCell.swift */,
-				845ADA961AA8CADF00631507 /* DepositVC.swift */,
 				845ADA8F1AA79EE700631507 /* Main.storyboard */,
-				841F4A4B1AB222A400734C15 /* PBDetailVC.swift */,
 				846124051A9B9358008B1B4F /* PiggyBanksTVC.swift */,
+				848AD2A11AACEDD600FCFE0A /* PiggyBankCell.swift */,
 				846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */,
+				845ADA961AA8CADF00631507 /* DepositVC.swift */,
+				841F4A4B1AB222A400734C15 /* PBDetailVC.swift */,
 				8461240D1A9BAC34008B1B4F /* AddBankVC.swift */,
 				84BE4B541AB08F32000F90A4 /* Images */,
 				846123DD1A9B918B008B1B4F /* Supporting Files */,
