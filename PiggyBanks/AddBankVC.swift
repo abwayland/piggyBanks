@@ -13,8 +13,16 @@ class AddBankVC: UIViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var dateField: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
     
-    private var bank: [String:String]?
+    @IBAction func donePressed(sender: AnyObject) {
+        if addBank() {
+            performSegueWithIdentifier("unwindAddBank", sender: self)
+        }
+    }
+    
+    
+    private var bank: PiggyBank? = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,26 +34,34 @@ class AddBankVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func addBank() {
+    func addBank() -> Bool {
         if let name = nameField.text {
-            if let amount = NSNumberFormatter().numberFromString(amountField.text)?.doubleValue {
-                bank = [:]
-                bank?["name"] = name
-                bank?["owed"] = "\(amount)"
-                if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
-                    if date > 0 && date <= 31 {
-                        bank?["date"] = "\(date)"
+            if name != "" {
+                if let amount = NSNumberFormatter().numberFromString(amountField.text)?.doubleValue {
+                    if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
+                        if date > 0 && date <= 31 {
+                            bank = ["name" : name, "owed" : "\(amount)", "date" : "\(date)"]
+                        }
+                    } else {
+                        errorLabel.text = "Oops! You must enter a valid date."
+                        errorLabel.hidden = false
+                        return false
                     }
+                } else {
+                    errorLabel.text = "Oops! You must enter a valid amount."
+                    errorLabel.hidden = false
+                    return false
                 }
             } else {
-                println("error: amount not convertible to double")
+                errorLabel.text = "Oops! You must enter a valid name."
+                errorLabel.hidden = false
+                return false
             }
-        } else {
-            println("error: no name entered for bank")
         }
+        return true
     }
     
-    func getBank() -> [String:String]? {
+    func getBank() -> PiggyBank? {
         return bank
     }
 

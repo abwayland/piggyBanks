@@ -112,63 +112,78 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Piggy Bank" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTW-gD-aTo">
-                                <rect key="frame" x="97" y="72" width="127" height="21"/>
+                                <rect key="frame" x="97" y="122" width="127" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3rt-AS-KC2">
-                                <rect key="frame" x="16" y="101" width="288" height="30"/>
+                                <rect key="frame" x="16" y="151" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount Owed" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JDw-jc-V2l">
-                                <rect key="frame" x="16" y="139" width="288" height="30"/>
+                                <rect key="frame" x="16" y="189" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Day of Month Due (1-31)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uYd-pv-bXx">
-                                <rect key="frame" x="16" y="177" width="288" height="30"/>
+                                <rect key="frame" x="16" y="227" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6D2-90-Xf2">
-                                <rect key="frame" x="142" y="215" width="37" height="30"/>
+                                <rect key="frame" x="142" y="265" width="37" height="30"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="k7k-bq-nYx" kind="unwind" identifier="unwindAddBank" unwindAction="goBack:" id="m8N-fK-tyr"/>
+                                    <action selector="donePressed:" destination="IeE-kc-ln3" eventType="touchUpInside" id="SdI-xE-JU3"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7M-Ua-4Ox">
+                                <rect key="frame" x="0.0" y="64" width="320" height="21"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="wqw-Zu-eWl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3rt-AS-KC2" firstAttribute="top" secondItem="GTW-gD-aTo" secondAttribute="bottom" constant="8" symbolic="YES" id="CY5-bt-KoT"/>
-                            <constraint firstItem="JDw-jc-V2l" firstAttribute="leading" secondItem="3rt-AS-KC2" secondAttribute="leading" id="DwD-iW-AND"/>
-                            <constraint firstItem="3rt-AS-KC2" firstAttribute="centerX" secondItem="GTW-gD-aTo" secondAttribute="centerX" id="KmT-XO-5vT"/>
-                            <constraint firstItem="JDw-jc-V2l" firstAttribute="trailing" secondItem="3rt-AS-KC2" secondAttribute="trailing" id="TSG-TC-83s"/>
-                            <constraint firstItem="GTW-gD-aTo" firstAttribute="top" secondItem="0PP-Ha-mfx" secondAttribute="bottom" constant="8" symbolic="YES" id="gy3-gQ-V3P"/>
-                            <constraint firstItem="JDw-jc-V2l" firstAttribute="top" secondItem="3rt-AS-KC2" secondAttribute="bottom" constant="8" symbolic="YES" id="hjJ-GA-gLV"/>
-                            <constraint firstItem="JDw-jc-V2l" firstAttribute="trailing" secondItem="HMl-Bv-qQJ" secondAttribute="trailingMargin" id="iMp-sb-eve"/>
-                            <constraint firstItem="3rt-AS-KC2" firstAttribute="leading" secondItem="HMl-Bv-qQJ" secondAttribute="leadingMargin" id="il3-Nw-ARe"/>
-                            <constraint firstItem="JDw-jc-V2l" firstAttribute="trailing" secondItem="uYd-pv-bXx" secondAttribute="trailing" id="lXr-QM-nhc"/>
-                            <constraint firstItem="JDw-jc-V2l" firstAttribute="leading" secondItem="uYd-pv-bXx" secondAttribute="leading" id="mgp-51-oib"/>
-                            <constraint firstItem="6D2-90-Xf2" firstAttribute="top" secondItem="uYd-pv-bXx" secondAttribute="bottom" constant="8" symbolic="YES" id="rH3-nR-5fh"/>
-                            <constraint firstItem="uYd-pv-bXx" firstAttribute="top" secondItem="JDw-jc-V2l" secondAttribute="bottom" constant="8" symbolic="YES" id="z1n-5k-bdD"/>
-                            <constraint firstItem="6D2-90-Xf2" firstAttribute="centerX" secondItem="uYd-pv-bXx" secondAttribute="centerX" id="zUW-XQ-XMD"/>
+                            <constraint firstItem="JDw-jc-V2l" firstAttribute="top" secondItem="3rt-AS-KC2" secondAttribute="bottom" constant="8" symbolic="YES" id="1Gv-lE-ygP"/>
+                            <constraint firstItem="o7M-Ua-4Ox" firstAttribute="top" secondItem="0PP-Ha-mfx" secondAttribute="bottom" id="8xa-Pr-qau"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="leading" secondItem="JDw-jc-V2l" secondAttribute="leading" id="99h-Us-C27"/>
+                            <constraint firstItem="o7M-Ua-4Ox" firstAttribute="leading" secondItem="HMl-Bv-qQJ" secondAttribute="leading" id="Euc-Mv-jzb"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="centerX" secondItem="GTW-gD-aTo" secondAttribute="centerX" id="FHO-TM-EVX"/>
+                            <constraint firstAttribute="trailing" secondItem="o7M-Ua-4Ox" secondAttribute="trailing" id="H28-ck-BrE"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="top" secondItem="GTW-gD-aTo" secondAttribute="bottom" constant="8" symbolic="YES" id="QKf-q5-vJP"/>
+                            <constraint firstItem="JDw-jc-V2l" firstAttribute="leading" secondItem="HMl-Bv-qQJ" secondAttribute="leadingMargin" id="W4x-W7-ALx"/>
+                            <constraint firstItem="GTW-gD-aTo" firstAttribute="top" secondItem="o7M-Ua-4Ox" secondAttribute="bottom" constant="37" id="bst-Pd-5b1"/>
+                            <constraint firstItem="uYd-pv-bXx" firstAttribute="trailing" secondItem="JDw-jc-V2l" secondAttribute="trailing" id="eKx-pn-F1i"/>
+                            <constraint firstItem="6D2-90-Xf2" firstAttribute="top" secondItem="uYd-pv-bXx" secondAttribute="bottom" constant="8" symbolic="YES" id="eaO-nj-lfB"/>
+                            <constraint firstItem="uYd-pv-bXx" firstAttribute="top" secondItem="JDw-jc-V2l" secondAttribute="bottom" constant="8" symbolic="YES" id="h48-dT-0r8"/>
+                            <constraint firstItem="uYd-pv-bXx" firstAttribute="leading" secondItem="JDw-jc-V2l" secondAttribute="leading" id="lHy-Se-Xqg"/>
+                            <constraint firstItem="o7M-Ua-4Ox" firstAttribute="centerX" secondItem="GTW-gD-aTo" secondAttribute="centerX" id="meT-HR-h7Z"/>
+                            <constraint firstItem="6D2-90-Xf2" firstAttribute="centerX" secondItem="uYd-pv-bXx" secondAttribute="centerX" id="yQB-1h-aNC"/>
+                            <constraint firstItem="3rt-AS-KC2" firstAttribute="trailing" secondItem="JDw-jc-V2l" secondAttribute="trailing" id="z4r-uQ-l6U"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="amountField" destination="JDw-jc-V2l" id="Ptz-e3-jNz"/>
                         <outlet property="dateField" destination="uYd-pv-bXx" id="Sj5-Nz-Fhh"/>
+                        <outlet property="errorLabel" destination="o7M-Ua-4Ox" id="thB-GM-Rxt"/>
                         <outlet property="nameField" destination="3rt-AS-KC2" id="dml-EQ-cco"/>
+                        <segue destination="k7k-bq-nYx" kind="unwind" identifier="unwindAddBank" unwindAction="goBack:" id="UDT-DI-FpM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJj-qS-wjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="k7k-bq-nYx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1396.5" y="756.5"/>
+            <point key="canvasLocation" x="1396" y="756"/>
         </scene>
         <!--DetailVC-->
         <scene sceneID="eGg-3s-U17">
@@ -310,16 +325,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$0.00" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wMb-o6-6di">
-                                <rect key="frame" x="16" y="199" width="288" height="30"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="light" returnKeyType="done"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deposit / Withdraw Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdQ-gn-jDb">
-                                <rect key="frame" x="58" y="159" width="205" height="21"/>
+                                <rect key="frame" x="58" y="72" width="205" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="Oia-RR-CRR"/>
+                                    <constraint firstAttribute="height" constant="21" id="7Zd-vl-LXU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -334,17 +343,22 @@
                                     <segue destination="r6z-Kt-Rue" kind="unwind" identifier="unwindDeposit" unwindAction="goBack:" id="mfw-uF-kJx"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$0.00" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wMb-o6-6di">
+                                <rect key="frame" x="16" y="101" width="288" height="30"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="light" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wMb-o6-6di" firstAttribute="leading" secondItem="Imh-aP-moS" secondAttribute="leadingMargin" id="FNX-Vt-adR"/>
-                            <constraint firstItem="sdQ-gn-jDb" firstAttribute="top" secondItem="Kah-9q-Bbc" secondAttribute="bottom" constant="95" id="Nev-Ot-j4P"/>
-                            <constraint firstItem="wMb-o6-6di" firstAttribute="trailing" secondItem="Imh-aP-moS" secondAttribute="trailingMargin" id="Rby-Tg-0GT"/>
-                            <constraint firstItem="j96-6m-pBs" firstAttribute="top" secondItem="wMb-o6-6di" secondAttribute="bottom" constant="8" symbolic="YES" id="SPQ-Ba-hnw"/>
-                            <constraint firstItem="wMb-o6-6di" firstAttribute="top" secondItem="sdQ-gn-jDb" secondAttribute="bottom" constant="19" id="bNx-1e-CeJ"/>
-                            <constraint firstItem="wMb-o6-6di" firstAttribute="centerX" secondItem="j96-6m-pBs" secondAttribute="centerX" id="bcG-je-T3K"/>
-                            <constraint firstAttribute="centerX" secondItem="sdQ-gn-jDb" secondAttribute="centerX" id="shg-Fu-A6W"/>
-                            <constraint firstItem="wMb-o6-6di" firstAttribute="centerX" secondItem="sdQ-gn-jDb" secondAttribute="centerX" id="uH0-F7-w60"/>
+                            <constraint firstItem="sdQ-gn-jDb" firstAttribute="centerX" secondItem="wMb-o6-6di" secondAttribute="centerX" id="8R1-HP-zfb"/>
+                            <constraint firstItem="sdQ-gn-jDb" firstAttribute="top" secondItem="Kah-9q-Bbc" secondAttribute="bottom" constant="8" symbolic="YES" id="H7G-3Z-HsI"/>
+                            <constraint firstItem="wMb-o6-6di" firstAttribute="leading" secondItem="Imh-aP-moS" secondAttribute="leadingMargin" id="Y3j-Am-8a5"/>
+                            <constraint firstItem="6Nq-m5-8J3" firstAttribute="top" secondItem="j96-6m-pBs" secondAttribute="bottom" constant="257" id="Yz3-kK-337"/>
+                            <constraint firstItem="wMb-o6-6di" firstAttribute="trailing" secondItem="Imh-aP-moS" secondAttribute="trailingMargin" id="bfc-fd-RsG"/>
+                            <constraint firstItem="wMb-o6-6di" firstAttribute="top" secondItem="sdQ-gn-jDb" secondAttribute="bottom" constant="8" symbolic="YES" id="cZ9-gw-h9y"/>
+                            <constraint firstItem="wMb-o6-6di" firstAttribute="centerX" secondItem="j96-6m-pBs" secondAttribute="centerX" id="oRw-ic-dQO"/>
                         </constraints>
                     </view>
                     <connections>

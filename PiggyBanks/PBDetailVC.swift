@@ -64,7 +64,7 @@ class PBDetailVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForKeyBoardNotifications()
-//        scrollView.contentSize = self.view.frame.size
+        scrollView.contentSize = self.view.frame.size
         nameField.text = outlets[0]
         amountField.text = outlets[1]
         dateField.text = outlets[2]

@@ -186,10 +186,10 @@ class PiggyBanksTVC: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var header = UILabel()
         header.text = "MARCH"
-        header.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        header.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         header.textColor = UIColor.whiteColor()
         header.textAlignment = NSTextAlignment.Center
-        header.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.1)
+        header.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.15)
         return header
     }
 
