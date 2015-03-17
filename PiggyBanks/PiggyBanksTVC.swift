@@ -15,10 +15,10 @@ class PiggyBanksTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //Uncomment the following to clear NSUserDefaults
-//        let defaults = NSUserDefaults.standardUserDefaults()
-//        for key in defaults.dictionaryRepresentation().keys {
-//            defaults.removeObjectForKey(key.description)
-//        }
+        let defaults = NSUserDefaults.standardUserDefaults()
+        for key in defaults.dictionaryRepresentation().keys {
+            defaults.removeObjectForKey(key.description)
+        }
         model = PiggyBanksModel()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -57,6 +57,11 @@ class PiggyBanksTVC: UITableViewController {
         return model.numberOfBanks()
     }
     
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if indexPath.section > 0 { return nil }
+        return indexPath
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as PiggyBankCell
         if let bank = model.getBankAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
@@ -70,14 +75,16 @@ class PiggyBanksTVC: UITableViewController {
                     cell.amount.text = paidAsCurrency + " / " + owedAsCurrency
                     let percentPaid = getPercentPaid(paid, owed: owed)
                     cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaid)")
-                } else {
-                    cell.detailTextLabel?.text = "Error"
                 }
             }
             if let date = bank["date"] {
                 let ext = getDateExtension(date)
                 cell.date.text = date + ext
             }
+        }
+        if indexPath.section > 0 {
+            cell.nameLabel.textColor = UIColor.grayColor()
+            cell.amount.textColor = UIColor.grayColor()
         }
         return cell
     }
@@ -161,13 +168,14 @@ class PiggyBanksTVC: UITableViewController {
         }
     }
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the specified item to be editable.
+        if indexPath.section > 0 { return false }
         return true
     }
-    */
+    
 
     
     // Override to support editing the table view.
@@ -182,11 +190,11 @@ class PiggyBanksTVC: UITableViewController {
 //    }
 
     
-    // Override to support rearranging the table view.
-//    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+//     Override to support rearranging the table view.
+    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 //        model.moveBank(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row)
 //        tableView.reloadData()
-//    }
+    }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var header = UILabel()
@@ -213,13 +221,14 @@ class PiggyBanksTVC: UITableViewController {
     }
 
     
-    /*
+    
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the item to be re-orderable.
+        if indexPath.section > 0 { return false }
         return true
     }
-    */
+    
 
     
     // MARK: - Navigation
