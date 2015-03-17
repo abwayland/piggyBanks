@@ -44,7 +44,11 @@ class PiggyBanksTVC: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        if model.getNumberOfMonths() != nil {
+            return model.getNumberOfMonths()!
+        } else {
+            return 0
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,7 +59,7 @@ class PiggyBanksTVC: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as PiggyBankCell
-        if let bank = model.getBankAtIndex(indexPath.row) {
+        if let bank = model.getBankAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
             if let name = bank["name"] {
                 cell.nameLabel.text = name
             }
@@ -167,31 +171,45 @@ class PiggyBanksTVC: UITableViewController {
 
     
     // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            model.deleteBank(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            tableView.reloadData()
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == .Delete {
+//            model.deleteBank(indexPath.row)
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//            tableView.reloadData()
+//        } else if editingStyle == .Insert {
+//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//        }    
+//    }
 
     
     // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        model.moveBank(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row)
-        tableView.reloadData()
-    }
+//    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+//        model.moveBank(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row)
+//        tableView.reloadData()
+//    }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var header = UILabel()
-        header.text = "MARCH"
+        header.text = monthForHeader(section)
         header.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         header.textColor = UIColor.whiteColor()
         header.textAlignment = NSTextAlignment.Center
-        header.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.15)
+        header.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
         return header
+    }
+    
+    func monthForHeader(section: Int) -> String
+    {
+        switch section {
+        case 0:
+            return "Current"
+        case 1:
+            return "Next Month"
+        case 2:
+            return "3rd Month"
+        default:
+            return "Error"
+        }
     }
 
     
@@ -213,7 +231,7 @@ class PiggyBanksTVC: UITableViewController {
                 var vc = segue.destinationViewController as PBDetailVC
                 let cell = sender as PiggyBankCell
                 if let indexPath = tableView.indexPathForCell(cell) {
-                    if let bank = model.getBankAtIndex(indexPath.row) {
+                    if let bank = model.getBankAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
                         vc.setOutlets(name: bank["name"]!, amount: stringToCurrency(bank["owed"]!), date: bank["date"]!, image: cell.thumbnail.image!)
                     }
                 }

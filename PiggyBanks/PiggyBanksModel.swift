@@ -13,17 +13,17 @@ typealias PiggyBank = [String:String]
 class PiggyBanksModel {
     
     //array of piggy banks
-    private var pbArray: [PiggyBank]?
+//    private var pbArray = [PiggyBank]?()
     private var total: Double
     private var availFunds: Double
-    private var monthArray: [[PiggyBank]]?
-    private var numberOfMonths: Int
+    private var yearArray = [[PiggyBank]]()  // Array of Array<PiggyBank>
+    private var numberOfMonths = 3
 
-    init() {
+    init()
+    {
         //get number of months to display
-        numberOfMonths = 2
         //create pbArray
-        pbArray = []
+        var monthArray = [PiggyBank]()
         let defaults = NSUserDefaults.standardUserDefaults()
         if let oldTotal = defaults.objectForKey("total") as? NSNumber {
             total = oldTotal.doubleValue
@@ -32,11 +32,14 @@ class PiggyBanksModel {
         }
         availFunds = total
         if let oldPBArray = defaults.objectForKey("pbArray") as? [PiggyBank] {
-            pbArray = oldPBArray
+            monthArray = oldPBArray
         } else {
-            pbArray = createSamples()
+            monthArray = createSamples()
         }
         //fill monthArray with pbArrays
+        for var i = 0; i < numberOfMonths; i++ {
+            yearArray.append(monthArray)
+        }
         calculate()
     }
     
@@ -51,38 +54,54 @@ class PiggyBanksModel {
     private func storeBanks() {
         var defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(total, forKey: "total")
-        defaults.setObject(pbArray, forKey: "pbArray")
+        defaults.setObject(yearArray, forKey: "pbArray")
         defaults.synchronize()
     }
     
     private func calculate() {
         var workingTotal = total
-        for (index, bank) in enumerate(pbArray!) {
-            var mutBank = bank
-            if let owedString = bank["owed"] {
-                if let owed = NSNumberFormatter().numberFromString(owedString)?.doubleValue {
-                    var paid: Double
-                    if workingTotal > owed {
-                        paid = owed
-                        workingTotal -= owed
-                    } else {
-                        paid = workingTotal
-                        workingTotal = 0
-                    }
-                    availFunds = workingTotal
-                    mutBank["paid"] = "\(paid)"
-                    pbArray?[index] = mutBank
+        var mutYearArray = yearArray
+        //check each month in yearArray to see if is payable
+        for (yIndex, month) in enumerate(yearArray) {
+            for (mIndex, bank) in enumerate(month) {
+//                if let payable = bank["payable"] {
+                    //if it is payable work bill into calculation
+//                    if payable == "yes" {
+                        var mutBank = bank
+                        if let owedString = bank["owed"] {
+                            if let owed = NSNumberFormatter().numberFromString(owedString)?.doubleValue {
+                                var paid: Double
+                                //if workingTotal is greater than what is owed, pay bill, subtract owed from workingTotal
+                                if workingTotal > owed {
+                                    paid = owed
+                                    workingTotal -= owed
+                                //else add whatever is left to bill, working total is now zero
+                                } else {
+                                    paid = workingTotal
+                                    workingTotal = 0
+                                }
+                                //whatever the working total equals is what you have left to spend
+                                availFunds = workingTotal
+                                //bank key "paid" is updated
+                                mutBank["paid"] = "\(paid)"
+                                //mutable copy of the yearArray is updated with mutated bank
+                                mutYearArray[yIndex][mIndex] = mutBank
+                            }
+//                        }
+//                    }
                 }
             }
         }
+        //year Array is replaced with mutated year array
+        yearArray = mutYearArray
     }
     
-    func moveBank(#fromIndex: Int, toIndex: Int) {
-        let movingBank = pbArray!.removeAtIndex(fromIndex)
-        pbArray!.insert(movingBank, atIndex: toIndex)
-        calculate()
-        storeBanks()
-    }
+//    func moveBank(#fromIndex: Int, toIndex: Int) {
+//        let movingBank = pbArray!.removeAtIndex(fromIndex)
+//        pbArray!.insert(movingBank, atIndex: toIndex)
+//        calculate()
+//        storeBanks()
+//    }
     
     func getTotal() -> Double {
         return total
@@ -92,15 +111,15 @@ class PiggyBanksModel {
         return availFunds
     }
     
-    func deleteBank(index: Int) {
-        pbArray?.removeAtIndex(index)
-        calculate()
-        storeBanks()
-    }
+//    func deleteBank(index: Int) {
+//        pbArray?.removeAtIndex(index)
+//        calculate()
+//        storeBanks()
+//    }
     
-    func replaceBankAtIndex(index: Int, withBank bank: PiggyBank) {
-        pbArray?[index] = bank
-    }
+//    func replaceBankAtIndex(index: Int, withBank bank: PiggyBank) {
+//        pbArray?[index] = bank
+//    }
     
     func deposit(amount: Double) {
         total += amount
@@ -115,21 +134,25 @@ class PiggyBanksModel {
     }
     
     func addBank(bank: PiggyBank) {
-        pbArray?.append(bank)
+        var mutYearArray = yearArray
+        for (index, month) in enumerate(yearArray) {
+            mutYearArray[index].append(bank)
+        }
+        yearArray = mutYearArray
         calculate()
         storeBanks()
     }
     
-    func getBankAtIndex(index: Int) -> PiggyBank?   {
-        return pbArray?[index]
+    func getBankAt(#sectionIndex: Int, rowIndex: Int) -> PiggyBank?   {
+        return yearArray[sectionIndex][rowIndex]
     }
     
     func numberOfBanks() -> Int {
-        if let count = pbArray?.count {
-            return count
-        } else {
-            return 0
-        }
+        return yearArray[0].count
+    }
+    
+    func getNumberOfMonths() -> Int? {
+        return yearArray.count
     }
     
 }
