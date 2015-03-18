@@ -31,7 +31,7 @@ class PiggyBanksTVC: UITableViewController {
         let availFunds = model.getAvailFunds()
         let formattedTotal = NSNumberFormatter.localizedStringFromNumber(total, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
         let formattedAvailFunds = NSNumberFormatter.localizedStringFromNumber(availFunds, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
-        self.title =  formattedAvailFunds + " / " + formattedTotal
+        self.title = formattedAvailFunds + " / " + formattedTotal
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,7 +58,7 @@ class PiggyBanksTVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section > 0 { return nil }
+        if indexPath.section >= 1 { return nil }
         return indexPath
     }
     
@@ -81,10 +81,11 @@ class PiggyBanksTVC: UITableViewController {
                 let ext = getDateExtension(date)
                 cell.date.text = date + ext
             }
-        }
-        if indexPath.section > 0 {
-            cell.nameLabel.textColor = UIColor.grayColor()
-            cell.amount.textColor = UIColor.grayColor()
+            if indexPath.section >= 1 {
+                println("\(cell.nameLabel.text!) = s: \(indexPath.section) r: \(indexPath.row)")
+                cell.nameLabel.textColor = UIColor.grayColor()
+                cell.amount.textColor = UIColor.grayColor()
+            }
         }
         return cell
     }
@@ -148,7 +149,6 @@ class PiggyBanksTVC: UITableViewController {
                 if let bank = vc.getBank() {
                     model.addBank(bank)
                     self.tableView.reloadData()
-                    println("addBank")
                 }
             }
         } else if segue.identifier == "unwindDeposit" {
@@ -172,28 +172,33 @@ class PiggyBanksTVC: UITableViewController {
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the specified item to be editable.
-        if indexPath.section > 0 { return false }
+        if indexPath.section >= 1 { return false }
         return true
     }
     
 
     
     // Override to support editing the table view.
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == .Delete {
-//            model.deleteBank(indexPath.row)
-//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//            tableView.reloadData()
-//        } else if editingStyle == .Insert {
-//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//        }    
-//    }
-
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            var ipArr = [NSIndexPath]()
+            for var i = 0; i < tableView.numberOfSections(); i++ {
+                let ip = NSIndexPath(forRow: indexPath.row, inSection: i)
+                ipArr.append(ip)
+            }
+            model.deleteBank(indexPath.row)
+            tableView.deleteRowsAtIndexPaths(ipArr, withRowAnimation: .Left)
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
     
 //     Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-//        model.moveBank(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row)
-//        tableView.reloadData()
+        if fromIndexPath.section == 0 && toIndexPath.section == 0 {
+            model.moveBank(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row)
+        }
+        tableView.reloadData()
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -225,7 +230,7 @@ class PiggyBanksTVC: UITableViewController {
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the item to be re-orderable.
-        if indexPath.section > 0 { return false }
+        if indexPath.section >= 1 { return false }
         return true
     }
     

@@ -14,6 +14,7 @@ class AddBankVC: UIViewController {
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var cushionControl: UISegmentedControl!
     
     @IBAction func donePressed(sender: AnyObject) {
         if addBank() {
@@ -40,7 +41,8 @@ class AddBankVC: UIViewController {
                 if let amount = NSNumberFormatter().numberFromString(amountField.text)?.doubleValue {
                     if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
                         if date > 0 && date <= 31 {
-                            bank = ["name" : name, "owed" : "\(amount)", "date" : "\(date)"]
+                            let cushion = cushionControl.selectedSegmentIndex.description
+                            bank = ["name" : name, "owed" : "\(amount)", "date" : "\(date)","cushion":cushion]
                         }
                     } else {
                         errorLabel.text = "Oops! You must enter a valid date."

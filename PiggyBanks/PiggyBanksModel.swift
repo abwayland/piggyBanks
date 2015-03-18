@@ -117,12 +117,14 @@ class PiggyBanksModel {
         yearArray = mutYearArray
     }
     
-//    func moveBank(#fromIndex: Int, toIndex: Int) {
-//        let movingBank = pbArray!.removeAtIndex(fromIndex)
-//        pbArray!.insert(movingBank, atIndex: toIndex)
-//        calculate()
-//        storeBanks()
-//    }
+    func moveBank(#fromIndex: Int, toIndex: Int) {
+        for index in 0..<yearArray.count {
+            let movingBank = yearArray[index].removeAtIndex(fromIndex)
+            yearArray[index].insert(movingBank, atIndex: toIndex)
+        }
+        calculate()
+        storeBanks()
+    }
     
     func getTotal() -> Double {
         return total
@@ -132,11 +134,13 @@ class PiggyBanksModel {
         return availFunds
     }
     
-//    func deleteBank(index: Int) {
-//        pbArray?.removeAtIndex(index)
-//        calculate()
-//        storeBanks()
-//    }
+    func deleteBank(index: Int) {
+        for yIndex in 0..<yearArray.count {
+            yearArray[yIndex].removeAtIndex(index)
+        }
+        calculate()
+        storeBanks()
+    }
     
 //    func replaceBankAtIndex(index: Int, withBank bank: PiggyBank) {
 //        pbArray?[index] = bank
@@ -160,6 +164,7 @@ class PiggyBanksModel {
             mutYearArray[index].append(bank)
         }
         yearArray = mutYearArray
+        adjustPayable()
         calculate()
         storeBanks()
     }
