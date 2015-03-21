@@ -69,7 +69,7 @@ class PiggyBanksModel {
         let month = components.month
         let day = components.day
         let year = components.year
-        return (1,0,0)//(month, day, year)
+        return (month, day, year)
     }
     
     func createSamples() -> [PiggyBank]
