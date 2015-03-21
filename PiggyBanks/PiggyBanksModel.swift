@@ -17,13 +17,14 @@ class PiggyBanksModel {
     private var total: Double
     private var availFunds: Double
     private var yearArray = [[PiggyBank]]()  // Array of Array<PiggyBank>
+    private var monthArray: [PiggyBank]
     private var numberOfMonths = 3
 
     init()
     {
         //get number of months to display
         //create pbArray
-        var monthArray = [PiggyBank]()
+        monthArray = []
         let defaults = NSUserDefaults.standardUserDefaults()
         if let oldTotal = defaults.objectForKey("total") as? NSNumber {
             total = oldTotal.doubleValue
@@ -36,12 +37,39 @@ class PiggyBanksModel {
         } else {
             monthArray = createSamples()
         }
-        //fill monthArray with pbArrays
         for var i = 0; i < numberOfMonths; i++ {
             yearArray.append(monthArray)
         }
+        checkDate()
         adjustPayable()
         calculate()
+    }
+    
+    func payBills() {
+        let day = checkDate().day
+        for (index, bank) in enumerate(monthArray) {
+            if let dateStr = bank["date"] {
+                if let date = NSNumberFormatter().numberFromString(dateStr)?.integerValue {
+                    if day >= date {
+                        yearArray[0].removeAtIndex(index)
+                        if let owed = NSNumberFormatter().numberFromString(bank["owed"]!)?.doubleValue {
+                            total -= owed
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func checkDate() -> (month: Int, day: Int, year: Int)
+    {
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.MonthCalendarUnit | .DayCalendarUnit | .YearCalendarUnit, fromDate: date)
+        let month = components.month
+        let day = components.day
+        let year = components.year
+        return (1,0,0)//(month, day, year)
     }
     
     func createSamples() -> [PiggyBank]

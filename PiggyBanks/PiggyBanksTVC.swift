@@ -15,10 +15,10 @@ class PiggyBanksTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //Uncomment the following to clear NSUserDefaults
-        let defaults = NSUserDefaults.standardUserDefaults()
-        for key in defaults.dictionaryRepresentation().keys {
-            defaults.removeObjectForKey(key.description)
-        }
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        for key in defaults.dictionaryRepresentation().keys {
+//            defaults.removeObjectForKey(key.description)
+//        }
         model = PiggyBanksModel()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -82,7 +82,6 @@ class PiggyBanksTVC: UITableViewController {
                 cell.date.text = date + ext
             }
             if indexPath.section >= 1 {
-                println("\(cell.nameLabel.text!) = s: \(indexPath.section) r: \(indexPath.row)")
                 cell.nameLabel.textColor = UIColor.grayColor()
                 cell.amount.textColor = UIColor.grayColor()
             }
@@ -204,7 +203,7 @@ class PiggyBanksTVC: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var header = UILabel()
         header.text = monthForHeader(section)
-        header.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        header.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
         header.textColor = UIColor.whiteColor()
         header.textAlignment = NSTextAlignment.Center
         header.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
@@ -213,20 +212,11 @@ class PiggyBanksTVC: UITableViewController {
     
     func monthForHeader(section: Int) -> String
     {
-        switch section {
-        case 0:
-            return "Current"
-        case 1:
-            return "Next Month"
-        case 2:
-            return "3rd Month"
-        default:
-            return "Error"
-        }
+        let monthStrs = ["January","February","March","April","May","June","July","August","September","October","November", "December"]
+        let monthIndex = ((model.checkDate().month - 1) + section) % 12
+        return monthStrs[monthIndex]
     }
 
-    
-    
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the item to be re-orderable.
