@@ -14,6 +14,7 @@ class PiggyBankCell: UITableViewCell {
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var amount: UILabel!
     @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var paidLabel: UILabel!
     
     
     override func awakeFromNib() {

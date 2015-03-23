@@ -28,6 +28,7 @@
 		84BE4B5F1AB08F32000F90A4 /* piggybank_25.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B581AB08F32000F90A4 /* piggybank_25.png */; };
 		84BE4B601AB08F32000F90A4 /* piggybank_50.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B591AB08F32000F90A4 /* piggybank_50.png */; };
 		84BE4B611AB08F32000F90A4 /* piggybank_75.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B5A1AB08F32000F90A4 /* piggybank_75.png */; };
+		84DB0C421AC09821000C7144 /* PiggyBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB0C411AC09821000C7144 /* PiggyBank.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		84BE4B581AB08F32000F90A4 /* piggybank_25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_25.png; sourceTree = "<group>"; };
 		84BE4B591AB08F32000F90A4 /* piggybank_50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_50.png; sourceTree = "<group>"; };
 		84BE4B5A1AB08F32000F90A4 /* piggybank_75.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_75.png; sourceTree = "<group>"; };
+		84DB0C411AC09821000C7144 /* PiggyBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBank.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				846124051A9B9358008B1B4F /* PiggyBanksTVC.swift */,
 				848AD2A11AACEDD600FCFE0A /* PiggyBankCell.swift */,
 				846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */,
+				84DB0C411AC09821000C7144 /* PiggyBank.swift */,
 				845ADA961AA8CADF00631507 /* DepositVC.swift */,
 				841F4A4B1AB222A400734C15 /* PBDetailVC.swift */,
 				8461240D1A9BAC34008B1B4F /* AddBankVC.swift */,
@@ -282,6 +285,7 @@
 				846124061A9B9358008B1B4F /* PiggyBanksTVC.swift in Sources */,
 				846123E01A9B918B008B1B4F /* AppDelegate.swift in Sources */,
 				845ADA971AA8CADF00631507 /* DepositVC.swift in Sources */,
+				84DB0C421AC09821000C7144 /* PiggyBank.swift in Sources */,
 				848AD2A21AACEDD600FCFE0A /* PiggyBankCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

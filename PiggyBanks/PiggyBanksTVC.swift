@@ -54,7 +54,7 @@ class PiggyBanksTVC: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return model.numberOfBanks()
+        return model.numberOfBanks(section)
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
@@ -69,17 +69,20 @@ class PiggyBanksTVC: UITableViewController {
                 cell.nameLabel.text = name
             }
             if let owed = bank["owed"] {
-                if let paid = bank["paid"] {
+                if let balance = bank["balance"] {
                     let owedAsCurrency = stringToCurrency(owed)
-                    let paidAsCurrency = stringToCurrency(paid)
+                    let paidAsCurrency = stringToCurrency(balance)
                     cell.amount.text = paidAsCurrency + " / " + owedAsCurrency
-                    let percentPaid = getPercentPaid(paid, owed: owed)
+                    let percentPaid = getPercentPaid(balance, owed: owed)
                     cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaid)")
                 }
             }
-            if let date = bank["date"] {
-                let ext = getDateExtension(date)
-                cell.date.text = date + ext
+            if let dateDay = bank["date"] {
+                let month = model.checkDate().month + indexPath.section
+                cell.date.text = "Due \(month)."+dateDay
+            }
+            if bank["paid"] == "yes" {
+                cell.paidLabel.hidden = false
             }
             if indexPath.section >= 1 {
                 cell.nameLabel.textColor = UIColor.grayColor()
@@ -89,20 +92,6 @@ class PiggyBanksTVC: UITableViewController {
         return cell
     }
     
-    func getDateExtension(date: String) -> String {
-        var ext: String
-        switch date {
-            case "1","21","31":
-            ext = "st"
-            case "2","22":
-            ext = "nd"
-            case "3","23":
-            ext = "rd"
-        default:
-            ext = "th"
-        }
-        return ext
-    }
     
     func getPercentPaid(paid: String, owed: String) -> String {
         var percentage: Double = 0.0

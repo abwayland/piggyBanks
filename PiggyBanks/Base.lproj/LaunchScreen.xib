@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,18 +13,44 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="piggybank_100.png" translatesAutoresizingMaskIntoConstraints="NO" id="3He-6m-8da">
                     <rect key="frame" x="120" y="120" width="240" height="240"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="240" id="c43-uW-dD1"/>
-                        <constraint firstAttribute="width" constant="240" id="gB4-ra-fSp"/>
+                        <constraint firstAttribute="width" constant="240" id="jnh-nx-CXh"/>
+                        <constraint firstAttribute="height" constant="240" id="sfL-k0-vga"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PiggyBanks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdS-xS-JT5">
+                    <rect key="frame" x="172" y="225" width="136" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="186" id="laj-Ek-7c2"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="laj-Ek-7c2"/>
+                        </mask>
+                    </variation>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="3He-6m-8da" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cJH-nG-5hA"/>
-                <constraint firstItem="3He-6m-8da" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vHX-67-DBO"/>
+                <constraint firstAttribute="centerX" secondItem="3He-6m-8da" secondAttribute="centerX" id="02e-RR-PCv"/>
+                <constraint firstAttribute="centerY" secondItem="fdS-xS-JT5" secondAttribute="centerY" id="UCY-RQ-2MX"/>
+                <constraint firstAttribute="centerX" secondItem="fdS-xS-JT5" secondAttribute="centerX" id="WVQ-bW-ME3"/>
+                <constraint firstItem="fdS-xS-JT5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="b1L-He-KBY"/>
+                <constraint firstItem="fdS-xS-JT5" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="225" id="fvR-PN-h59"/>
+                <constraint firstItem="3He-6m-8da" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="isU-2s-U9j"/>
+                <constraint firstItem="3He-6m-8da" firstAttribute="centerX" secondItem="fdS-xS-JT5" secondAttribute="centerX" id="jJk-tJ-nQ4"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="jJk-tJ-nQ4"/>
+                    <exclude reference="b1L-He-KBY"/>
+                    <exclude reference="fvR-PN-h59"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
