@@ -19,10 +19,10 @@ struct PiggyBank {
     var isDue: Bool
     var paid: Bool {
         get {
-            if balance < owed {
-                return false
+            if isDue && balance == owed && balance != 0 {
+                return true
             }
-            return true
+            return false
         }
     }
     

@@ -12,13 +12,22 @@ class DepositVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var amountField: UITextField!
     private var deposit: Double?
+    var model: PiggyBanksModel!
     
-    func enteredAmount() {
+    @IBAction func done(sender: UIButton) {
+        if enteredAmount() {
+            performSegueWithIdentifier("unwind deposit", sender: self)
+        }
+    }
+    
+    func enteredAmount() -> Bool {
         if let amount = amountField.text {
             if let dub = NSNumberFormatter().numberFromString(amount)?.doubleValue {
-                deposit = dub
+                model.deposit(dub)
+                return true
             }
         }
+        return false
     }
     
     func getDeposit() -> Double? {
@@ -47,9 +56,8 @@ class DepositVC: UIViewController, UITextFieldDelegate {
     //MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        enteredAmount()
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//    }
 
 
 }

@@ -26,23 +26,26 @@ class PiggyBanksModel {
         monthsArr = []
         createSamples()
         copyMasterToMonthsArr()
+        payBills()
         adjustPayable()
         calculateBanks()
     }
     
     //mark all bills in mastermonth due to be paid
-//    func payBills()
-//    {
-//        let today = getTodaysDate().day
-//        let paidMaster = masterMonth.map { (var bank: PiggyBank) -> PiggyBank in
-//            let date = NSNumberFormatter().numberFromString(bank["date"]!)?.integerValue
-//            if today >= date {
-//                bank["isDue"] = "yes"
-//            }
-//            return bank
-//        }
-//        masterMonth = paidMaster
-//    }
+    func payBills()
+    {
+        let today = getTodaysDate().day
+        let paidCurrent = monthsArr[0].map { (var bank: PiggyBank) -> PiggyBank in
+            let date = bank.date
+            if today >= date {
+                bank.isDue = true
+            } else {
+                bank.isDue = false
+            }
+            return bank
+        }
+        monthsArr[0] = paidCurrent
+    }
     
     //TODO: monthArray never gets set
     
@@ -117,12 +120,9 @@ class PiggyBanksModel {
     }
     
     func moveBank(#fromIndex: Int, toIndex: Int) {
-        for index in 0..<monthsArr.count {
-            let movingBank = monthsArr[index].removeAtIndex(fromIndex)
-            monthsArr[index].insert(movingBank, atIndex: toIndex)
-        }
-        calculateBanks()
-        storeBanks()
+        let movingBank = masterMonth.removeAtIndex(fromIndex)
+        masterMonth.insert(movingBank, atIndex: toIndex)
+        updateModel()
     }
     
     func getTotal() -> Double {
@@ -135,16 +135,23 @@ class PiggyBanksModel {
     
     func deleteBank(index: Int) {
         masterMonth.removeAtIndex(index)
+        updateModel()
+    }
+    
+    func updateModel()
+    {
         monthsArr = []
         copyMasterToMonthsArr()
         adjustPayable()
+        payBills()
         calculateBanks()
         storeBanks()
     }
     
-//    func replaceBankAtIndex(index: Int, withBank bank: PiggyBank) {
-//        pbArray?[index] = bank
-//    }
+    func replaceBankAtIndex(index: Int, withBank bank: PiggyBank) {
+        masterMonth[index] = bank
+        updateModel()
+    }
     
     func deposit(amount: Double) {
         total += amount
@@ -160,11 +167,7 @@ class PiggyBanksModel {
     
     func addBank(bank: PiggyBank) {
         masterMonth.append(bank)
-        monthsArr = []
-        copyMasterToMonthsArr()
-        adjustPayable()
-        calculateBanks()
-        storeBanks()
+        updateModel()
     }
     
     func getBankAt(#sectionIndex: Int, rowIndex: Int) -> PiggyBank?   {

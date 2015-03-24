@@ -20,7 +20,6 @@ class PBVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var cushionControl: UISegmentedControl!
     
     var model: PiggyBanksModel!
-    var bankIndex: Int!
     var image: UIImage!
     var activeField: UITextField!
     

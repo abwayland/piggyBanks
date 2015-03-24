@@ -66,13 +66,19 @@ class PiggyBanksTVC: UITableViewController {
             let dateDay = bank.date
             let month = model.getTodaysDate().month + indexPath.section
             cell.date.text = "\(month).\(dateDay)"
-            cell.paidLabel.hidden = !bank.paid
+            if bank.isDue {
+                cell.paidLabel.hidden = false
+                if bank.balance < bank.owed {
+                    cell.paidLabel.textColor = UIColor.redColor()
+                    cell.paidLabel.text = "Unpaid"
+                }
+            }
         }
         return cell
     }
     
     
-func percentPaidAsString(#paid: Double, owed: Double) -> String {
+    func percentPaidAsString(#paid: Double, owed: Double) -> String {
         let percentage = paid / owed
         switch percentage {
         case 0:
@@ -186,6 +192,11 @@ func percentPaidAsString(#paid: Double, owed: Double) -> String {
             if let vc = segue.destinationViewController as? AddBankVC {
                 vc.model = model
                 vc.title = "Add Bill"
+            }
+        } else if segue.identifier == "deposit" {
+            if let vc = segue.destinationViewController as? DepositVC {
+                vc.model = model
+                vc.title = "Deposit / Withdraw"
             }
         }
     }

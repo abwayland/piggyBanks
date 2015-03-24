@@ -183,7 +183,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="co0-U0-DN8" kind="unwind" identifier="unwindEdit" unwindAction="goBack:" id="1ao-lN-Zad"/>
+                                            <action selector="savePressed:" destination="hRw-b1-hJg" eventType="touchUpInside" id="Dtk-fT-0vZ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -237,6 +237,7 @@
                         <outlet property="nameField" destination="24O-J4-Z5H" id="kSh-FL-hUJ"/>
                         <outlet property="scrollView" destination="6JD-60-hfJ" id="Oag-Li-Xyu"/>
                         <outlet property="thumbnail" destination="rif-a8-Ymh" id="ssr-zq-w2g"/>
+                        <segue destination="co0-U0-DN8" kind="unwind" identifier="unwind edit bank" unwindAction="goBack:" id="bKE-8p-Eaa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vEi-xN-at9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -277,7 +278,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="r6z-Kt-Rue" kind="unwind" identifier="unwindDeposit" unwindAction="goBack:" id="mfw-uF-kJx"/>
+                                    <action selector="done:" destination="YZq-tR-m0c" eventType="touchUpInside" id="O9x-Jb-yI9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -294,6 +295,7 @@
                     </view>
                     <connections>
                         <outlet property="amountField" destination="wMb-o6-6di" id="CWY-Xl-04A"/>
+                        <segue destination="r6z-Kt-Rue" kind="unwind" identifier="unwind deposit" unwindAction="goBack:" id="WNs-FO-Cp0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XQF-44-Luy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -399,7 +401,6 @@
                                         </state>
                                         <connections>
                                             <action selector="donePressed:" destination="1o6-IZ-424" eventType="touchUpInside" id="tqv-mA-LY0"/>
-                                            <segue destination="u9K-QL-AKK" kind="unwind" identifier="unwind add bank" unwindAction="goBack:" id="8n0-19-JLo"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -454,6 +455,7 @@
                         <outlet property="nameField" destination="y9I-zU-I2j" id="XB2-IN-MhG"/>
                         <outlet property="scrollView" destination="KCP-Ob-dOw" id="lHx-Oj-jM8"/>
                         <outlet property="thumbnail" destination="zjl-F8-nXA" id="Gfg-Fb-BBu"/>
+                        <segue destination="u9K-QL-AKK" kind="unwind" identifier="unwind add bank" unwindAction="goBack:" id="a8Z-FL-YWF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztS-nZ-ZP6" userLabel="First Responder" sceneMemberID="firstResponder"/>

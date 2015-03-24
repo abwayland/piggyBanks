@@ -9,6 +9,8 @@
 import UIKit
 
 class PBDetailVC: PBVC {
+    
+    var bankIndex: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +19,44 @@ class PBDetailVC: PBVC {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func savePressed(sender: UIButton) {
+        if editBank() {
+            performSegueWithIdentifier("unwind edit bank", sender: self)
+        }
+    }
+    
+    func editBank() -> Bool
+    {
+        if let name = nameField.text {
+            if name != "" {
+                if let amount = NSNumberFormatter().numberFromString(amountField.text)?.doubleValue {
+                    if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
+                        if date > 0 && date <= 31 {
+                            let cushion = cushionControl.selectedSegmentIndex
+                            var bank = PiggyBank(name: name, owed: amount, date: date)
+                            bank.cushion = cushion
+                            model.replaceBankAtIndex(bankIndex, withBank: bank)
+                        }
+                    } else {
+                        errorLabel.text = "Oops! You must enter a valid date."
+                        errorLabel.hidden = false
+                        return false
+                    }
+                } else {
+                    errorLabel.text = "Oops! You must enter a valid amount."
+                    errorLabel.hidden = false
+                    return false
+                }
+            } else {
+                errorLabel.text = "Oops! You must enter a valid name."
+                errorLabel.hidden = false
+                return false
+            }
+        }
+        return true
+
     }
     
     // MARK: - Navigation
