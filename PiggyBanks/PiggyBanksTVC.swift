@@ -44,11 +44,7 @@ class PiggyBanksTVC: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        if model.getNumberOfMonths() != nil {
-            return model.getNumberOfMonths()!
-        } else {
-            return 0
-        }
+        return model.getNumberOfMonths()!
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,48 +54,32 @@ class PiggyBanksTVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section >= 1 { return nil }
+        if indexPath.section > 0 { return nil }
         return indexPath
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as PiggyBankCell
         if let bank = model.getBankAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
-            if let name = bank["name"] {
-                cell.nameLabel.text = name
-            }
-            if let owed = bank["owed"] {
-                if let balance = bank["balance"] {
-                    let owedAsCurrency = stringToCurrency(owed)
-                    let paidAsCurrency = stringToCurrency(balance)
-                    cell.amount.text = paidAsCurrency + " / " + owedAsCurrency
-                    let percentPaid = getPercentPaid(balance, owed: owed)
-                    cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaid)")
-                }
-            }
-            if let dateDay = bank["date"] {
-                let month = model.checkDate().month + indexPath.section
-                cell.date.text = "Due \(month)."+dateDay
-            }
-            if bank["paid"] == "yes" {
-                cell.paidLabel.hidden = false
-            }
-            if indexPath.section >= 1 {
-                cell.nameLabel.textColor = UIColor.grayColor()
-                cell.amount.textColor = UIColor.grayColor()
-            }
+            cell.nameLabel.text = bank.name
+            let owed = bank.owed
+            let balance = bank.balance
+            let owedAsCurrency = stringToCurrency("\(owed)")
+            let paidAsCurrency = stringToCurrency("\(balance)")
+            cell.amount.text = paidAsCurrency + " / " + owedAsCurrency
+            let percentPaidStr = percentPaidAsString(paid: balance, owed: owed)
+            cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaidStr)")
+            let dateDay = bank.date
+            let month = model.getTodaysDate().month + indexPath.section
+            cell.date.text = "\(month).\(dateDay)"
+            cell.paidLabel.hidden = !bank.paid
         }
         return cell
     }
     
     
-    func getPercentPaid(paid: String, owed: String) -> String {
-        var percentage: Double = 0.0
-        if let paidDouble = NSNumberFormatter().numberFromString(paid)?.doubleValue {
-            if let owedDouble = NSNumberFormatter().numberFromString(owed)?.doubleValue {
-                percentage = paidDouble / owedDouble
-            }
-        }
+func percentPaidAsString(#paid: Double, owed: Double) -> String {
+        let percentage = paid / owed
         switch percentage {
         case 0:
             return "0"
@@ -202,7 +182,7 @@ class PiggyBanksTVC: UITableViewController {
     func monthForHeader(section: Int) -> String
     {
         let monthStrs = ["January","February","March","April","May","June","July","August","September","October","November", "December"]
-        let monthIndex = ((model.checkDate().month - 1) + section) % 12
+        let monthIndex = ((model.getTodaysDate().month - 1) + section) % 12
         return monthStrs[monthIndex]
     }
 
@@ -225,7 +205,7 @@ class PiggyBanksTVC: UITableViewController {
                 let cell = sender as PiggyBankCell
                 if let indexPath = tableView.indexPathForCell(cell) {
                     if let bank = model.getBankAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
-                        vc.setOutlets(name: bank["name"]!, amount: stringToCurrency(bank["owed"]!), date: bank["date"]!, image: cell.thumbnail.image!)
+//                        vc.setOutlets(name: bank.name, amount: stringToCurrency(bank.owed), date: bank.date, image: cell.thumbnail.image!)
                     }
                 }
             }

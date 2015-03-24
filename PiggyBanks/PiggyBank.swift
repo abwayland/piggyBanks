@@ -8,16 +8,16 @@
 
 import Foundation
 
-class PiggyBank {
+struct PiggyBank {
     
-    let name: String
-    let balance: Double
-    let owed: Double
-    let date: Int
-    let payable: Bool
-    let cushion: Int
-    let isDue: Bool
-    let paid: Bool {
+    var name: String
+    var balance: Double
+    var owed: Double
+    var date: Int
+    var payable: Bool
+    var cushion: Int
+    var isDue: Bool
+    var paid: Bool {
         get {
             if balance < owed {
                 return false

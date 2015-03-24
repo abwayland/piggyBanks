@@ -23,7 +23,7 @@ class AddBankVC: UIViewController {
     }
     
     
-    private var bank: PiggyBank? = [:]
+    private var bank: PiggyBank!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +41,9 @@ class AddBankVC: UIViewController {
                 if let amount = NSNumberFormatter().numberFromString(amountField.text)?.doubleValue {
                     if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
                         if date > 0 && date <= 31 {
-                            let cushion = cushionControl.selectedSegmentIndex.description
-                            bank = ["name" : name, "owed" : "\(amount)", "date" : "\(date)","cushion":cushion]
+                            let cushion = cushionControl.selectedSegmentIndex
+                            bank = PiggyBank(name: name, owed: amount, date: date)
+                            bank.cushion = cushion
                         }
                     } else {
                         errorLabel.text = "Oops! You must enter a valid date."
