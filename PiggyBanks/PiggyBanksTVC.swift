@@ -10,16 +10,10 @@ import UIKit
 
 class PiggyBanksTVC: UITableViewController {
 
-    var model: PiggyBanksModel!
+    var model = PiggyBanksModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Uncomment the following to clear NSUserDefaults
-//        let defaults = NSUserDefaults.standardUserDefaults()
-//        for key in defaults.dictionaryRepresentation().keys {
-//            defaults.removeObjectForKey(key.description)
-//        }
-        model = PiggyBanksModel()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -112,28 +106,7 @@ func percentPaidAsString(#paid: Double, owed: Double) -> String {
     
     @IBAction func goBack(segue: UIStoryboardSegue)
     {
-        if segue.identifier == "unwindAddBank" {
-            if let vc = segue.sourceViewController as? AddBankVC {
-                if let bank = vc.getBank() {
-                    model.addBank(bank)
-                    self.tableView.reloadData()
-                }
-            }
-        } else if segue.identifier == "unwindDeposit" {
-            let vc = segue.sourceViewController as? DepositVC
-            if let deposit = vc?.getDeposit() {
-                model.deposit(deposit)
-                self.tableView.reloadData()
-            }
-//        } else if segue.identifier == "unwindEdit" {
-//            if let vc = segue.sourceViewController as? PBDetailVC {
-//                if let row = tableView.indexPathForSelectedRow()?.row {
-//                    let bank = ["name" : vc.nameField.text!, "owed" : vc.amountField.text!, "date" : vc.dateField.text!]
-//                    model.replaceBankAtIndex(row, withBank: bank)
-//                    self.tableView.reloadData()
-//                }
-//            }
-        }
+        tableView.reloadData()
     }
 
     
@@ -199,19 +172,22 @@ func percentPaidAsString(#paid: Double, owed: Double) -> String {
 
 //     In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
-            if segue.destinationViewController is PBDetailVC {
-                var vc = segue.destinationViewController as PBDetailVC
-                let cell = sender as PiggyBankCell
-                if let indexPath = tableView.indexPathForCell(cell) {
-                    if let bank = model.getBankAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
-//                        vc.setOutlets(name: bank.name, amount: stringToCurrency(bank.owed), date: bank.date, image: cell.thumbnail.image!)
+        if segue.identifier == "edit bank" {
+            if let vc = segue.destinationViewController as? PBDetailVC {
+                vc.model = model
+                if let cell = sender as? PiggyBankCell {
+                    if let indexPath = tableView.indexPathForCell(cell) {
+                        vc.bankIndex = indexPath.row
+                        vc.title = "Edit Bill"
                     }
                 }
+            }
+        } else if segue.identifier == "add bank" {
+            if let vc = segue.destinationViewController as? AddBankVC {
+                vc.model = model
+                vc.title = "Add Bill"
             }
         }
     }
     
-
-
 }

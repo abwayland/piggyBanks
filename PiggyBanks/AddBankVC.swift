@@ -8,22 +8,13 @@
 
 import UIKit
 
-class AddBankVC: UIViewController {
-
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var amountField: UITextField!
-    @IBOutlet weak var dateField: UITextField!
-    @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var cushionControl: UISegmentedControl!
+class AddBankVC: PBVC {
     
-    @IBAction func donePressed(sender: AnyObject) {
+    @IBAction func donePressed(sender: UIButton) {
         if addBank() {
-            performSegueWithIdentifier("unwindAddBank", sender: self)
+            performSegueWithIdentifier("unwind add bank", sender: self)
         }
     }
-    
-    
-    private var bank: PiggyBank!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +33,9 @@ class AddBankVC: UIViewController {
                     if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
                         if date > 0 && date <= 31 {
                             let cushion = cushionControl.selectedSegmentIndex
-                            bank = PiggyBank(name: name, owed: amount, date: date)
+                            var bank = PiggyBank(name: name, owed: amount, date: date)
                             bank.cushion = cushion
+                            model.addBank(bank)
                         }
                     } else {
                         errorLabel.text = "Oops! You must enter a valid date."
@@ -63,17 +55,12 @@ class AddBankVC: UIViewController {
         }
         return true
     }
-    
-    func getBank() -> PiggyBank? {
-        return bank
-    }
 
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        addBank()
-        // Pass the selected object to the new view controller.
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        // Pass the selected object to the new view controller.
+//    }
     
 }
