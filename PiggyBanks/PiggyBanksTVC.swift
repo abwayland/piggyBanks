@@ -21,6 +21,7 @@ class PiggyBanksTVC: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         let total = model.getTotal()
         let availFunds = model.getAvailFunds()
         let formattedTotal = NSNumberFormatter.localizedStringFromNumber(total, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
@@ -62,16 +63,25 @@ class PiggyBanksTVC: UITableViewController {
             let paidAsCurrency = stringToCurrency("\(balance)")
             cell.amount.text = paidAsCurrency + " / " + owedAsCurrency
             let percentPaidStr = percentPaidAsString(paid: balance, owed: owed)
-            cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaidStr)")
+            if bank.isPayable {
+                cell.nameLabel.textColor = UIColor.blackColor()
+                cell.amount.textColor = UIColor.blackColor()
+                cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaidStr)")
+            } else {
+                cell.nameLabel.textColor = UIColor.grayColor()
+                cell.amount.textColor = UIColor.grayColor()
+                cell.thumbnail.image = UIImage(named:"piggybank_gray")
+            }
             let dateDay = bank.date
             let month = model.getTodaysDate().month + indexPath.section
             cell.date.text = "\(month).\(dateDay)"
-            if bank.isDue {
-                cell.paidLabel.hidden = false
-                if bank.balance < bank.owed {
-                    cell.paidLabel.textColor = UIColor.redColor()
-                    cell.paidLabel.text = "Unpaid"
-                }
+            cell.paidLabel.hidden = !bank.isDue
+            if bank.balance == bank.owed {
+                cell.paidLabel.text = "Paid"
+                cell.paidLabel.textColor = UIColor.blackColor()
+            } else {
+                cell.paidLabel.textColor = UIColor.redColor()
+                cell.paidLabel.text = "Unpaid"
             }
         }
         return cell

@@ -89,9 +89,9 @@ class PiggyBanksModel {
             let cushion = masterMonth[billIndex].cushion
             for monthIndex in 0..<monthsArr.count {
                 if cushion >= monthIndex {
-                    monthsArr[monthIndex][billIndex].payable = true
+                    monthsArr[monthIndex][billIndex].isPayable = true
                 } else {
-                    monthsArr[monthIndex][billIndex].payable = false
+                    monthsArr[monthIndex][billIndex].isPayable = false
                 }
             }
         }
@@ -104,7 +104,7 @@ class PiggyBanksModel {
         for monthIndex in 0..<monthsArr.count {
             for billIndex in 0..<masterMonth.count {
                 var bill = monthsArr[monthIndex][billIndex]
-                if bill.payable {
+                if bill.isPayable {
                     if workingTotal >= bill.owed {
                         bill.balance = bill.owed
                         workingTotal -= bill.balance

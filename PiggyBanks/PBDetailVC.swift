@@ -14,6 +14,12 @@ class PBDetailVC: PBVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let bank = model.getBankAt(sectionIndex: 0, rowIndex: bankIndex) {
+            nameField.text = bank.name
+            amountField.text = "\(bank.owed)"
+            dateField.text = "\(bank.date)"
+            cushionControl.selectedSegmentIndex = bank.cushion
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -14,7 +14,7 @@ struct PiggyBank {
     var balance: Double
     var owed: Double
     var date: Int
-    var payable: Bool
+    var isPayable: Bool
     var cushion: Int
     var isDue: Bool
     var paid: Bool {
@@ -33,7 +33,7 @@ struct PiggyBank {
         self.date = date
         
         balance = 0
-        payable = false
+        isPayable = false
         isDue = false
         cushion = 0
     }

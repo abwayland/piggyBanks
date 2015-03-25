@@ -30,6 +30,7 @@
 		84BE4B611AB08F32000F90A4 /* piggybank_75.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B5A1AB08F32000F90A4 /* piggybank_75.png */; };
 		84DB0C421AC09821000C7144 /* PiggyBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB0C411AC09821000C7144 /* PiggyBank.swift */; };
 		84DB0C441AC1AC02000C7144 /* PBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB0C431AC1AC02000C7144 /* PBVC.swift */; };
+		84DB0C461AC24CEB000C7144 /* piggybank_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DB0C451AC24CEB000C7144 /* piggybank_gray.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		84BE4B5A1AB08F32000F90A4 /* piggybank_75.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_75.png; sourceTree = "<group>"; };
 		84DB0C411AC09821000C7144 /* PiggyBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBank.swift; sourceTree = "<group>"; };
 		84DB0C431AC1AC02000C7144 /* PBVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBVC.swift; sourceTree = "<group>"; };
+		84DB0C451AC24CEB000C7144 /* piggybank_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_gray.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 		84BE4B541AB08F32000F90A4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				84DB0C451AC24CEB000C7144 /* piggybank_gray.png */,
 				847886301AB3483E00D2907F /* piggybank_ico_76.png */,
 				847886321AB348E400D2907F /* piggybank_ico_152.png */,
 				848CC1EF1AB0DE4A00038CC7 /* piggybank_icon_180.png */,
@@ -261,6 +264,7 @@
 				84BE4B5C1AB08F32000F90A4 /* piggybank_0.png in Resources */,
 				846123EA1A9B918B008B1B4F /* LaunchScreen.xib in Resources */,
 				84BE4B601AB08F32000F90A4 /* piggybank_50.png in Resources */,
+				84DB0C461AC24CEB000C7144 /* piggybank_gray.png in Resources */,
 				84BE4B611AB08F32000F90A4 /* piggybank_75.png in Resources */,
 				84BE4B5D1AB08F32000F90A4 /* piggybank_1.png in Resources */,
 				848CC1F01AB0DE4A00038CC7 /* piggybank_icon_180.png in Resources */,
