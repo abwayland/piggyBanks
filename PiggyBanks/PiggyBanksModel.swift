@@ -108,7 +108,7 @@ class PiggyBanksModel {
     }
     
     private func storeBanks() {
-        //To Learn How To Do
+        
     }
     
     //loops through bills in masterMonth and based on cushion value, marks corresponding bills in monthsArr as payable or not.

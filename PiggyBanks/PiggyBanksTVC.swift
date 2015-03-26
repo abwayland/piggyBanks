@@ -19,7 +19,7 @@ class PiggyBanksTVC: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -55,6 +55,7 @@ class PiggyBanksTVC: UITableViewController {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as PiggyBankCell
         if let bank = model.getBankAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
             cell.nameLabel.text = bank.name
+            cell.backgroundColor = UIColor.whiteColor()
             let owed = bank.owed
             let balance = bank.balance
             let owedAsCurrency = stringToCurrency("\(owed)")
@@ -67,11 +68,15 @@ class PiggyBanksTVC: UITableViewController {
                 cell.balanceLabel.textColor = UIColor.blackColor()
                 cell.owedLabel.textColor = UIColor.blackColor()
                 cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaidStr)")
+                if bank.isDue {
+                    cell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+                }
             } else {
                 cell.nameLabel.textColor = UIColor.grayColor()
                 cell.balanceLabel.textColor = UIColor.grayColor()
                 cell.owedLabel.textColor = UIColor.grayColor()
                 cell.thumbnail.image = UIImage(named:"piggybank_gray")
+//                cell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
             }
             let dateDay = bank.date
             var month = (model.getTodaysDate().month + indexPath.section) % 12
