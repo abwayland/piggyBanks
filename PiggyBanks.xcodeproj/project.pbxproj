@@ -28,6 +28,8 @@
 		84BE4B5F1AB08F32000F90A4 /* piggybank_25.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B581AB08F32000F90A4 /* piggybank_25.png */; };
 		84BE4B601AB08F32000F90A4 /* piggybank_50.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B591AB08F32000F90A4 /* piggybank_50.png */; };
 		84BE4B611AB08F32000F90A4 /* piggybank_75.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B5A1AB08F32000F90A4 /* piggybank_75.png */; };
+		84D6FB771AC476720042A95C /* PiggyBanks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84D6FB751AC476720042A95C /* PiggyBanks.xcdatamodeld */; };
+		84D6FB7B1AC47B910042A95C /* PiggyBank.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6FB7A1AC47B910042A95C /* PiggyBank.m */; };
 		84DB0C421AC09821000C7144 /* PiggyBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB0C411AC09821000C7144 /* PiggyBank.swift */; };
 		84DB0C441AC1AC02000C7144 /* PBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB0C431AC1AC02000C7144 /* PBVC.swift */; };
 		84DB0C461AC24CEB000C7144 /* piggybank_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DB0C451AC24CEB000C7144 /* piggybank_gray.png */; };
@@ -69,6 +71,10 @@
 		84BE4B581AB08F32000F90A4 /* piggybank_25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_25.png; sourceTree = "<group>"; };
 		84BE4B591AB08F32000F90A4 /* piggybank_50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_50.png; sourceTree = "<group>"; };
 		84BE4B5A1AB08F32000F90A4 /* piggybank_75.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_75.png; sourceTree = "<group>"; };
+		84D6FB761AC476720042A95C /* PiggyBanks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PiggyBanks.xcdatamodel; sourceTree = "<group>"; };
+		84D6FB781AC47B900042A95C /* PiggyBanks-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PiggyBanks-Bridging-Header.h"; sourceTree = "<group>"; };
+		84D6FB791AC47B910042A95C /* PiggyBank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PiggyBank.h; path = PiggyBanks/PiggyBank.h; sourceTree = "<group>"; };
+		84D6FB7A1AC47B910042A95C /* PiggyBank.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PiggyBank.m; path = PiggyBanks/PiggyBank.m; sourceTree = "<group>"; };
 		84DB0C411AC09821000C7144 /* PiggyBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBank.swift; sourceTree = "<group>"; };
 		84DB0C431AC1AC02000C7144 /* PBVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBVC.swift; sourceTree = "<group>"; };
 		84DB0C451AC24CEB000C7144 /* piggybank_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_gray.png; sourceTree = "<group>"; };
@@ -96,8 +102,11 @@
 			isa = PBXGroup;
 			children = (
 				846123DC1A9B918B008B1B4F /* PiggyBanks */,
+				84D6FB791AC47B910042A95C /* PiggyBank.h */,
+				84D6FB7A1AC47B910042A95C /* PiggyBank.m */,
 				846123F21A9B918B008B1B4F /* PiggyBanksTests */,
 				846123DB1A9B918B008B1B4F /* Products */,
+				84D6FB781AC47B900042A95C /* PiggyBanks-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				846123DF1A9B918B008B1B4F /* AppDelegate.swift */,
+				84D6FB751AC476720042A95C /* PiggyBanks.xcdatamodeld */,
 				846123E61A9B918B008B1B4F /* Images.xcassets */,
 				846123E81A9B918B008B1B4F /* LaunchScreen.xib */,
 				846123DE1A9B918B008B1B4F /* Info.plist */,
@@ -290,9 +300,11 @@
 				841F4A4C1AB222A400734C15 /* PBDetailVC.swift in Sources */,
 				8461240E1A9BAC34008B1B4F /* AddBankVC.swift in Sources */,
 				846124061A9B9358008B1B4F /* PiggyBanksTVC.swift in Sources */,
+				84D6FB771AC476720042A95C /* PiggyBanks.xcdatamodeld in Sources */,
 				846123E01A9B918B008B1B4F /* AppDelegate.swift in Sources */,
 				845ADA971AA8CADF00631507 /* DepositVC.swift in Sources */,
 				84DB0C441AC1AC02000C7144 /* PBVC.swift in Sources */,
+				84D6FB7B1AC47B910042A95C /* PiggyBank.m in Sources */,
 				84DB0C421AC09821000C7144 /* PiggyBank.swift in Sources */,
 				848AD2A21AACEDD600FCFE0A /* PiggyBankCell.swift in Sources */,
 			);
@@ -419,9 +431,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = PiggyBanks/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PiggyBanks-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -429,9 +444,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = PiggyBanks/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PiggyBanks-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -500,6 +517,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84D6FB751AC476720042A95C /* PiggyBanks.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84D6FB761AC476720042A95C /* PiggyBanks.xcdatamodel */,
+			);
+			currentVersion = 84D6FB761AC476720042A95C /* PiggyBanks.xcdatamodel */;
+			path = PiggyBanks.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 846123D21A9B918B008B1B4F /* Project object */;
 }
