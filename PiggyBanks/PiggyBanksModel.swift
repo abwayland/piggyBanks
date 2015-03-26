@@ -14,20 +14,20 @@ class PiggyBanksModel {
     private var availFunds: Double
     private var monthsArr: [[PiggyBank]]  // Array of Array<PiggyBank>
     private var masterMonth: [PiggyBank]
-    private var numberOfMonths = 3
+    private var numberOfMonths = 12
+    var currentBillIndex = 0
 
     init()
     {
-        //get number of months to display
-        //create pbArray
         total = 2000
         availFunds = 1000
         masterMonth = []
         monthsArr = []
         createSamples()
         copyMasterToMonthsArr()
-        payBills()
+        checkIfBillsAreDue()
         adjustPayable()
+        payBills()
         calculateBanks()
     }
     
@@ -37,7 +37,7 @@ class PiggyBanksModel {
     }
     
     //mark all bills in mastermonth due to be paid
-    func payBills()
+    func checkIfBillsAreDue()
     {
         let today = getTodaysDate().day
         let paidCurrent = monthsArr[0].map { (var bank: PiggyBank) -> PiggyBank in
@@ -52,7 +52,31 @@ class PiggyBanksModel {
         monthsArr[0] = paidCurrent
     }
     
-    //TODO: monthArray never gets set
+    func payBills()
+    {
+        for (index, bill) in enumerate(monthsArr[0]) {
+            if bill.isPaid && bill.isPayable {
+                total -= bill.owed
+            }
+            if bill.date >= getTodaysDate().day {
+                currentBillIndex = index
+            }
+        }
+    }
+    
+    private func adjustPayable()
+    {
+        for billIndex in 0..<masterMonth.count {
+            let cushion = masterMonth[billIndex].cushion
+            for monthIndex in 0..<monthsArr.count {
+                if cushion >= monthIndex && !monthsArr[monthIndex][billIndex].isDue {
+                    monthsArr[monthIndex][billIndex].isPayable = true
+                } else {
+                    monthsArr[monthIndex][billIndex].isPayable = false
+                }
+            }
+        }
+    }
     
     func getTodaysDate() -> (month: Int, day: Int, year: Int)
     {
@@ -77,7 +101,7 @@ class PiggyBanksModel {
     func createSamples()
     {
         var samp1 = PiggyBank(name: "Sample1", owed: 500, date: 1)
-        samp1.cushion = 1
+        samp1.balance = 500
         let samp2 = PiggyBank(name: "Sample2", owed: 250, date: 15)
         let samp3 = PiggyBank(name: "Sample3", owed: 100, date: 30)
         masterMonth = [samp1, samp2, samp3]
@@ -88,19 +112,6 @@ class PiggyBanksModel {
     }
     
     //loops through bills in masterMonth and based on cushion value, marks corresponding bills in monthsArr as payable or not.
-    private func adjustPayable()
-    {
-        for billIndex in 0..<masterMonth.count {
-            let cushion = masterMonth[billIndex].cushion
-            for monthIndex in 0..<monthsArr.count {
-                if cushion >= monthIndex {
-                    monthsArr[monthIndex][billIndex].isPayable = true
-                } else {
-                    monthsArr[monthIndex][billIndex].isPayable = false
-                }
-            }
-        }
-    }
     
     private func calculateBanks()
     {
@@ -148,7 +159,7 @@ class PiggyBanksModel {
         monthsArr = []
         copyMasterToMonthsArr()
         adjustPayable()
-        payBills()
+        checkIfBillsAreDue()
         calculateBanks()
         storeBanks()
     }

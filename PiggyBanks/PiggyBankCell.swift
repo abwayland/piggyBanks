@@ -12,7 +12,8 @@ class PiggyBankCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var thumbnail: UIImageView!
-    @IBOutlet weak var amount: UILabel!
+    @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var owedLabel: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var paidLabel: UILabel!
     

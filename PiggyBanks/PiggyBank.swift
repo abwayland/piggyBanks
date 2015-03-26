@@ -17,9 +17,9 @@ struct PiggyBank {
     var isPayable: Bool
     var cushion: Int
     var isDue: Bool
-    var paid: Bool {
+    var isPaid: Bool {
         get {
-            if isDue && balance == owed && balance != 0 {
+            if isDue && balance == owed && balance > 0 {
                 return true
             }
             return false

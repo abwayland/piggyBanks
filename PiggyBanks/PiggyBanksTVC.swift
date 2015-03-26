@@ -29,8 +29,9 @@ class PiggyBanksTVC: UITableViewController {
         let formattedTotal = NSNumberFormatter.localizedStringFromNumber(total, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
         let formattedAvailFunds = NSNumberFormatter.localizedStringFromNumber(availFunds, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
         self.title = formattedAvailFunds + " / " + formattedTotal
+        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: model.currentBillIndex, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -58,27 +59,35 @@ class PiggyBanksTVC: UITableViewController {
             let balance = bank.balance
             let owedAsCurrency = stringToCurrency("\(owed)")
             let paidAsCurrency = stringToCurrency("\(balance)")
-            cell.amount.text = paidAsCurrency + " / " + owedAsCurrency
+            cell.balanceLabel.text = paidAsCurrency
+            cell.owedLabel.text = owedAsCurrency
             let percentPaidStr = percentPaidAsString(paid: balance, owed: owed)
-            if bank.isPayable {
+            if bank.isPayable || bank.isDue {
                 cell.nameLabel.textColor = UIColor.blackColor()
-                cell.amount.textColor = UIColor.blackColor()
+                cell.balanceLabel.textColor = UIColor.blackColor()
+                cell.owedLabel.textColor = UIColor.blackColor()
                 cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaidStr)")
             } else {
                 cell.nameLabel.textColor = UIColor.grayColor()
-                cell.amount.textColor = UIColor.grayColor()
+                cell.balanceLabel.textColor = UIColor.grayColor()
+                cell.owedLabel.textColor = UIColor.grayColor()
                 cell.thumbnail.image = UIImage(named:"piggybank_gray")
             }
             let dateDay = bank.date
-            let month = model.getTodaysDate().month + indexPath.section
+            var month = (model.getTodaysDate().month + indexPath.section) % 12
+            if month == 0 { month = 12 }
             cell.date.text = "\(month).\(dateDay)"
             cell.paidLabel.hidden = !bank.isDue
-            if bank.balance == bank.owed {
-                cell.paidLabel.text = "Paid"
-                cell.paidLabel.textColor = UIColor.blackColor()
-            } else {
-                cell.paidLabel.textColor = UIColor.redColor()
-                cell.paidLabel.text = "Unpaid"
+            if cell.paidLabel.hidden == false {
+                if bank.balance == bank.owed {
+                    cell.balanceLabel.textColor = UIColor.greenColor()
+                    cell.paidLabel.text = "Paid"
+                    cell.paidLabel.textColor = UIColor.greenColor()
+                } else {
+                    cell.balanceLabel.textColor = UIColor.redColor()
+                    cell.paidLabel.textColor = UIColor.redColor()
+                    cell.paidLabel.text = "Unpaid"
+                }
             }
         }
         return cell

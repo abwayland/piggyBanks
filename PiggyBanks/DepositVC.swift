@@ -44,7 +44,7 @@ class DepositVC: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        performSegueWithIdentifier("unwind deposit", sender: self)
+        savePressed(self)
         return true
     }
 
