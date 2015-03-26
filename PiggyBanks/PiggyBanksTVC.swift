@@ -9,6 +9,8 @@
 import UIKit
 
 class PiggyBanksTVC: UITableViewController {
+    
+//    MARK: Application LifeCycle
 
     var model = PiggyBanksModel()
     
@@ -34,23 +36,18 @@ class PiggyBanksTVC: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Table view data source
+//     MARK: - TableView DataSource
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return model.getNumberOfMonths()!
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         return model.numberOfBanks(section)
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section > 0 { return nil }
-        return indexPath
+        return nil
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -87,7 +84,6 @@ class PiggyBanksTVC: UITableViewController {
         return cell
     }
     
-    
     func percentPaidAsString(#paid: Double, owed: Double) -> String {
         let percentage = paid / owed
         switch percentage {
@@ -120,21 +116,6 @@ class PiggyBanksTVC: UITableViewController {
         return "error: amt to curr"
     }
     
-    @IBAction func goBack(segue: UIStoryboardSegue)
-    {
-        tableView.reloadData()
-    }
-
-    
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        if indexPath.section >= 1 { return false }
-        return true
-    }
-    
-
-    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -145,18 +126,16 @@ class PiggyBanksTVC: UITableViewController {
             }
             model.deleteBank(indexPath.row)
             tableView.deleteRowsAtIndexPaths(ipArr, withRowAnimation: .Left)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     
-//     Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        if fromIndexPath.section == 0 && toIndexPath.section == 0 {
-            model.moveBank(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row)
-        }
-        tableView.reloadData()
-    }
+////     Override to support rearranging the table view.
+//    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+//        if fromIndexPath.section == 0 && toIndexPath.section == 0 {
+//            model.moveBank(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row)
+//        }
+//        tableView.reloadData()
+//    }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var header = UILabel()
@@ -175,38 +154,54 @@ class PiggyBanksTVC: UITableViewController {
         return monthStrs[monthIndex]
     }
 
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
+//    // Override to support conditional rearranging of the table view.
+//    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        // Return NO if you do not want the item to be re-orderable.
+//        if indexPath.section >= 1 { return false }
+//        return true
+//    }
+    
+    // MARK: - Navigation
+    
+    // Override to support conditional editing of the table view.
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return NO if you do not want the specified item to be editable.
         if indexPath.section >= 1 { return false }
         return true
     }
     
-
+//    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+//        performSegueWithIdentifier("edit", sender: tableView.cellForRowAtIndexPath(indexPath))
+//    }
     
-    // MARK: - Navigation
+    @IBAction func goBack(segue: UIStoryboardSegue)
+    {
+        tableView.reloadData()
+    }
 
 //     In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "edit bank" {
-            if let vc = segue.destinationViewController as? PBDetailVC {
-                vc.model = model
-                if let cell = sender as? PiggyBankCell {
-                    if let indexPath = tableView.indexPathForCell(cell) {
-                        vc.bankIndex = indexPath.row
-                        vc.title = "Edit Bill"
+        if let nc = segue.destinationViewController as? UINavigationController {
+            if segue.identifier == "edit" {
+                if let vc = nc.childViewControllers[0] as? PBDetailVC {
+                    vc.model = model
+                    if let cell = sender as? PiggyBankCell {
+                        if let indexPath = tableView.indexPathForCell(cell) {
+                            vc.bankIndex = indexPath.row
+                            vc.title = "Edit Bill"
+                        }
                     }
                 }
-            }
-        } else if segue.identifier == "add bank" {
-            if let vc = segue.destinationViewController as? AddBankVC {
-                vc.model = model
-                vc.title = "Add Bill"
-            }
-        } else if segue.identifier == "deposit" {
-            if let vc = segue.destinationViewController as? DepositVC {
-                vc.model = model
-                vc.title = "Deposit / Withdraw"
+            } else if segue.identifier == "add bank" {
+                if let vc = nc.childViewControllers[0] as? AddBankVC {
+                    vc.model = model
+                    vc.title = "Add Bill"
+                }
+            } else if segue.identifier == "deposit" {
+                if let vc = nc.childViewControllers[0] as? DepositVC {
+                    vc.title = "Deposit / Withdraw"
+                    vc.model = model
+                }
             }
         }
     }

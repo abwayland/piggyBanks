@@ -35,8 +35,9 @@ class PBVC: UIViewController, UITextFieldDelegate {
                 scrollView.contentInset = contentInsets
                 var aRect = self.view.frame
                 aRect.size.height -= kbSize.height
+                let scrollToFrame = CGRectMake(cushionControl.frame.origin.x, cushionControl.frame.origin.y, cushionControl.frame.size.width, cushionControl.frame.size.height + 20)
                 if aRect.contains(activeField.frame.origin) {
-                    self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+                    self.scrollView.scrollRectToVisible(scrollToFrame, animated: true)
                 }
             }
         }
@@ -49,12 +50,10 @@ class PBVC: UIViewController, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(textField: UITextField) {
         activeField = textField
-        println("active")
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         activeField = nil
-        println("Deactive")
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -70,6 +69,7 @@ class PBVC: UIViewController, UITextFieldDelegate {
         nameField.delegate = self
         amountField.delegate = self
         dateField.delegate = self
+        
         // Do any additional setup after loading the view.
     }
 

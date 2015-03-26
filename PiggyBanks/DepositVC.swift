@@ -11,10 +11,10 @@ import UIKit
 class DepositVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var amountField: UITextField!
-    private var deposit: Double?
-    var model: PiggyBanksModel!
     
-    @IBAction func done(sender: UIButton) {
+    var model: PiggyBanksModel!
+
+    @IBAction func savePressed(sender: AnyObject) {
         if enteredAmount() {
             performSegueWithIdentifier("unwind deposit", sender: self)
         }
@@ -30,14 +30,11 @@ class DepositVC: UIViewController, UITextFieldDelegate {
         return false
     }
     
-    func getDeposit() -> Double? {
-        return deposit
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         amountField.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
         amountField.delegate = self
+        amountField.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
     
@@ -47,16 +44,18 @@ class DepositVC: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        performSegueWithIdentifier("unwindDeposit", sender: self)
-        println("return")
+        performSegueWithIdentifier("unwind deposit", sender: self)
         return true
     }
 
    
     //MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+////     In a storyboard-based application, you will often want to do a little preparation before navigation
 //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if let vc = segue.destinationViewController as? PiggyBanksTVC {
+//            vc.tableView.reloadData()
+//        }
 //    }
 
 

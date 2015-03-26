@@ -31,6 +31,11 @@ class PiggyBanksModel {
         calculateBanks()
     }
     
+    func sortMaster()
+    {
+        masterMonth = sorted(masterMonth) { $0.date < $1.date }
+    }
+    
     //mark all bills in mastermonth due to be paid
     func payBills()
     {
@@ -150,6 +155,7 @@ class PiggyBanksModel {
     
     func replaceBankAtIndex(index: Int, withBank bank: PiggyBank) {
         masterMonth[index] = bank
+        sortMaster()
         updateModel()
     }
     
@@ -167,6 +173,7 @@ class PiggyBanksModel {
     
     func addBank(bank: PiggyBank) {
         masterMonth.append(bank)
+        sortMaster()
         updateModel()
     }
     

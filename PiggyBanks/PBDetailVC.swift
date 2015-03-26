@@ -27,7 +27,7 @@ class PBDetailVC: PBVC {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func savePressed(sender: UIButton) {
+    @IBAction func savePressed(sender: AnyObject) {
         if editBank() {
             performSegueWithIdentifier("unwind edit bank", sender: self)
         }

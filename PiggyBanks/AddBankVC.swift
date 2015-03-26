@@ -10,7 +10,7 @@ import UIKit
 
 class AddBankVC: PBVC {
     
-    @IBAction func donePressed(sender: UIButton) {
+    @IBAction func donePressed(sender: AnyObject) {
         if addBank() {
             performSegueWithIdentifier("unwind add bank", sender: self)
         }
@@ -18,6 +18,7 @@ class AddBankVC: PBVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         nameField.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
 
