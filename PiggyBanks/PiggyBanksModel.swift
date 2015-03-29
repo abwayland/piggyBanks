@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 class PiggyBanksModel {
     
     private var total: Double
     private var availFunds: Double
-    private var monthsArr: [[PiggyBank]]  // Array of Array<PiggyBank>
-    private var masterMonth: [PiggyBank]
+    private var monthsArr: [[Bill]]  // Array of Array<PiggyBank>
+    private var masterMonth: [Bill]
     private var numberOfMonths = 12
     var currentBillIndex = 0
 
@@ -21,14 +22,34 @@ class PiggyBanksModel {
     {
         total = 2000
         availFunds = 1000
-        masterMonth = []
+        if let saves = fetchSaves() {
+            masterMonth = saves
+        } else {
+            masterMonth = createSamples()
+        }
         monthsArr = []
-        createSamples()
         copyMasterToMonthsArr()
         checkIfBillsAreDue()
         adjustPayable()
         payBills()
         calculateBanks()
+    }
+    
+    func fetchSaves() -> [Bill]?
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        
+        let fetchRequest = NSFetchRequest(entityName: "Bill")
+        
+        var error: NSError?
+        
+        let fetchedResults = managedContext.executeFetchRequest(fetchRequest, error: &error) as [Bill]?
+        if let results = fetchedResults {
+            masterMonth = results
+        } else {
+            println("Error fetching \(error), \(error!.userInfo)")
+        }
     }
     
     func sortMaster()
@@ -98,13 +119,14 @@ class PiggyBanksModel {
         }
     }
     
-    func createSamples()
+    func createSamples() -> [Bill]
     {
-        var samp1 = PiggyBank(name: "Sample1", owed: 500, date: 1)
-        samp1.balance = 500
-        let samp2 = PiggyBank(name: "Sample2", owed: 250, date: 15)
-        let samp3 = PiggyBank(name: "Sample3", owed: 100, date: 30)
-        masterMonth = [samp1, samp2, samp3]
+        var samp1 = Bill()
+        samp1.name = "Sample1"
+        samp1.owed = 100
+        samp1.date = 1
+        samp1.cushion = 0
+        return [samp1]
     }
     
     private func storeBanks() {

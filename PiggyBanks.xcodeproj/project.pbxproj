@@ -30,6 +30,8 @@
 		84BE4B611AB08F32000F90A4 /* piggybank_75.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B5A1AB08F32000F90A4 /* piggybank_75.png */; };
 		84D6FB771AC476720042A95C /* PiggyBanks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84D6FB751AC476720042A95C /* PiggyBanks.xcdatamodeld */; };
 		84D6FB7B1AC47B910042A95C /* PiggyBank.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6FB7A1AC47B910042A95C /* PiggyBank.m */; };
+		84DAF8991AC8270500E4D6A0 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DAF8981AC8270500E4D6A0 /* Month.swift */; };
+		84DAF89B1AC8270600E4D6A0 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DAF89A1AC8270600E4D6A0 /* Bill.swift */; };
 		84DB0C421AC09821000C7144 /* PiggyBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB0C411AC09821000C7144 /* PiggyBank.swift */; };
 		84DB0C441AC1AC02000C7144 /* PBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB0C431AC1AC02000C7144 /* PBVC.swift */; };
 		84DB0C461AC24CEB000C7144 /* piggybank_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DB0C451AC24CEB000C7144 /* piggybank_gray.png */; };
@@ -75,6 +77,8 @@
 		84D6FB781AC47B900042A95C /* PiggyBanks-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PiggyBanks-Bridging-Header.h"; sourceTree = "<group>"; };
 		84D6FB791AC47B910042A95C /* PiggyBank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PiggyBank.h; path = PiggyBanks/PiggyBank.h; sourceTree = "<group>"; };
 		84D6FB7A1AC47B910042A95C /* PiggyBank.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PiggyBank.m; path = PiggyBanks/PiggyBank.m; sourceTree = "<group>"; };
+		84DAF8981AC8270500E4D6A0 /* Month.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
+		84DAF89A1AC8270600E4D6A0 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		84DB0C411AC09821000C7144 /* PiggyBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBank.swift; sourceTree = "<group>"; };
 		84DB0C431AC1AC02000C7144 /* PBVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBVC.swift; sourceTree = "<group>"; };
 		84DB0C451AC24CEB000C7144 /* piggybank_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_gray.png; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 			children = (
 				846123DF1A9B918B008B1B4F /* AppDelegate.swift */,
 				84D6FB751AC476720042A95C /* PiggyBanks.xcdatamodeld */,
+				84DAF89A1AC8270600E4D6A0 /* Bill.swift */,
+				84DAF8981AC8270500E4D6A0 /* Month.swift */,
 				846123E61A9B918B008B1B4F /* Images.xcassets */,
 				846123E81A9B918B008B1B4F /* LaunchScreen.xib */,
 				846123DE1A9B918B008B1B4F /* Info.plist */,
@@ -300,6 +306,7 @@
 				841F4A4C1AB222A400734C15 /* PBDetailVC.swift in Sources */,
 				8461240E1A9BAC34008B1B4F /* AddBankVC.swift in Sources */,
 				846124061A9B9358008B1B4F /* PiggyBanksTVC.swift in Sources */,
+				84DAF89B1AC8270600E4D6A0 /* Bill.swift in Sources */,
 				84D6FB771AC476720042A95C /* PiggyBanks.xcdatamodeld in Sources */,
 				846123E01A9B918B008B1B4F /* AppDelegate.swift in Sources */,
 				845ADA971AA8CADF00631507 /* DepositVC.swift in Sources */,
@@ -307,6 +314,7 @@
 				84D6FB7B1AC47B910042A95C /* PiggyBank.m in Sources */,
 				84DB0C421AC09821000C7144 /* PiggyBank.swift in Sources */,
 				848AD2A21AACEDD600FCFE0A /* PiggyBankCell.swift in Sources */,
+				84DAF8991AC8270500E4D6A0 /* Month.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
