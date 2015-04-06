@@ -10,7 +10,7 @@
             <objects>
                 <tableViewController id="sif-mw-baP" customClass="PiggyBanksTVC" customModule="PiggyBanks" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="145" sectionHeaderHeight="22" sectionFooterHeight="22" id="Dk2-Ip-rGo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -175,9 +175,10 @@
                     </tableView>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="t9T-Fh-oLk"/>
-                        <barButtonItem title="Deposit / Withdraw" id="3ke-3H-Fxh">
+                        <barButtonItem systemItem="add" id="3ke-3H-Fxh">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="fxs-RM-f6A" kind="presentation" identifier="deposit" id="KAa-q6-njS"/>
+                                <action selector="deposit:" destination="sif-mw-baP" id="rv5-qN-fSr"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="xiO-0k-c8o"/>
@@ -338,61 +339,6 @@
             </objects>
             <point key="canvasLocation" x="1714" y="-151"/>
         </scene>
-        <!--DepositVC-->
-        <scene sceneID="XWa-iW-Sfa">
-            <objects>
-                <viewController id="YZq-tR-m0c" customClass="DepositVC" customModule="PiggyBanks" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Kah-9q-Bbc"/>
-                        <viewControllerLayoutGuide type="bottom" id="6Nq-m5-8J3"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Imh-aP-moS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$0.00" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wMb-o6-6di">
-                                <rect key="frame" x="16" y="72" width="288" height="30"/>
-                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="light" returnKeyType="done"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="wMb-o6-6di" firstAttribute="trailing" secondItem="Imh-aP-moS" secondAttribute="trailingMargin" id="BRo-0K-VaZ"/>
-                            <constraint firstItem="wMb-o6-6di" firstAttribute="top" secondItem="Kah-9q-Bbc" secondAttribute="bottom" constant="8" symbolic="YES" id="Tr6-Tn-Juu"/>
-                            <constraint firstItem="6Nq-m5-8J3" firstAttribute="top" secondItem="wMb-o6-6di" secondAttribute="bottom" constant="466" id="Xty-vI-lMT"/>
-                            <constraint firstItem="wMb-o6-6di" firstAttribute="leading" secondItem="Imh-aP-moS" secondAttribute="leadingMargin" id="mWY-NW-ChZ"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Xty-vI-lMT"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <navigationItem key="navigationItem" id="mEM-d3-tQ6">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ikt-5f-z5G">
-                            <connections>
-                                <segue destination="r6z-Kt-Rue" kind="unwind" unwindAction="goBack:" id="Nih-J9-71W"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="mlv-Zu-E3b">
-                            <connections>
-                                <action selector="savePressed:" destination="YZq-tR-m0c" id="2Rc-qX-c5V"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="amountField" destination="wMb-o6-6di" id="CWY-Xl-04A"/>
-                        <segue destination="r6z-Kt-Rue" kind="unwind" identifier="unwind deposit" unwindAction="goBack:" id="rT3-Yi-9HF"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XQF-44-Luy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="r6z-Kt-Rue" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1714" y="1230"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ucV-jK-Oe4">
             <objects>
@@ -404,8 +350,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bNM-i7-x3q">
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" id="bNM-i7-x3q">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                     </toolbar>
                     <connections>
                         <segue destination="sif-mw-baP" kind="relationship" relationship="rootViewController" id="bLr-6c-S5q"/>
@@ -562,24 +509,6 @@
                 <exit id="u9K-QL-AKK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1714" y="509"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="BJz-Xc-ueg">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fxs-RM-f6A" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cVB-ku-eii">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="YZq-tR-m0c" kind="relationship" relationship="rootViewController" id="yox-SL-2vk"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iCj-qL-LWh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1284" y="1230"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SRT-yJ-f3k">

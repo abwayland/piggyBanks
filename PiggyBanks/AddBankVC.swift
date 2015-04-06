@@ -34,9 +34,7 @@ class AddBankVC: PBVC {
                     if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
                         if date > 0 && date <= 31 {
                             let cushion = cushionControl.selectedSegmentIndex
-                            var bank = PiggyBank(name: name, owed: amount, date: date)
-                            bank.cushion = cushion
-                            model.addBank(bank)
+                            model.addBill(name, owed: amount, day: date, cushion: cushion)
                         }
                     } else {
                         errorLabel.text = "Oops! You must enter a valid date."

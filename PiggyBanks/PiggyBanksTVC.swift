@@ -16,20 +16,35 @@ class PiggyBanksTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationController?.toolbar.backgroundColor = UIColor.orangeColor()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        makeTitle()
+        if model.currentBillIndex > 0 {
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: model.currentBillIndex, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        }
+    }
+    
+    func makeTitle()
+    {
         let total = model.getTotal()
         let availFunds = model.getAvailFunds()
         let formattedTotal = NSNumberFormatter.localizedStringFromNumber(total, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
         let formattedAvailFunds = NSNumberFormatter.localizedStringFromNumber(availFunds, numberStyle: NSNumberFormatterStyle.CurrencyStyle)
         self.title = formattedAvailFunds + " / " + formattedTotal
-        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: model.currentBillIndex, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        
+//        let center = CGPointMake(self.view.bounds.width / 2, self.navigationController!.navigationBar.frame.size.height / 2)
+        
+        let availBalanceLabel = UILabel()
+        availBalanceLabel.text = "avail.          balance"
+        availBalanceLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+        availBalanceLabel.textColor = UIColor.lightGrayColor()
+        availBalanceLabel.sizeToFit()
+        availBalanceLabel.frame.origin = CGPointMake(self.view.bounds.width / 2 - (availBalanceLabel.bounds.width / 2), 30)
+        self.navigationController?.navigationBar.addSubview(availBalanceLabel)
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,7 +59,7 @@ class PiggyBanksTVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.numberOfBanks(section)
+        return model.numberOfBills(section)
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
@@ -53,22 +68,22 @@ class PiggyBanksTVC: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell") as PiggyBankCell
-        if let bank = model.getBankAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
-            cell.nameLabel.text = bank.name
+        if let bill = model.getBillAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
+            cell.nameLabel.text = bill.name
             cell.backgroundColor = UIColor.whiteColor()
-            let owed = bank.owed
-            let balance = bank.balance
+            let owed = bill.owed
+            let balance = bill.balance
             let owedAsCurrency = stringToCurrency("\(owed)")
             let paidAsCurrency = stringToCurrency("\(balance)")
             cell.balanceLabel.text = paidAsCurrency
             cell.owedLabel.text = owedAsCurrency
             let percentPaidStr = percentPaidAsString(paid: balance, owed: owed)
-            if bank.isPayable || bank.isDue {
+            if bill.isPayable || bill.isDue {
                 cell.nameLabel.textColor = UIColor.blackColor()
                 cell.balanceLabel.textColor = UIColor.blackColor()
                 cell.owedLabel.textColor = UIColor.blackColor()
                 cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaidStr)")
-                if bank.isDue {
+                if bill.isDue {
                     cell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
                 }
             } else {
@@ -78,13 +93,12 @@ class PiggyBanksTVC: UITableViewController {
                 cell.thumbnail.image = UIImage(named:"piggybank_gray")
 //                cell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
             }
-            let dateDay = bank.date
-            var month = (model.getTodaysDate().month + indexPath.section) % 12
-            if month == 0 { month = 12 }
-            cell.date.text = "\(month).\(dateDay)"
-            cell.paidLabel.hidden = !bank.isDue
+            let day = bill.day
+            var month = bill.month
+            cell.date.text = "\(month).\(day)"
+            cell.paidLabel.hidden = !bill.isDue
             if cell.paidLabel.hidden == false {
-                if bank.balance == bank.owed {
+                if bill.balance == bill.owed {
                     cell.balanceLabel.textColor = UIColor.greenColor()
                     cell.paidLabel.text = "Paid"
                     cell.paidLabel.textColor = UIColor.greenColor()
@@ -138,7 +152,7 @@ class PiggyBanksTVC: UITableViewController {
                 let ip = NSIndexPath(forRow: indexPath.row, inSection: i)
                 ipArr.append(ip)
             }
-            model.deleteBank(indexPath.row)
+            model.deleteBill(indexPath.row)
             tableView.deleteRowsAtIndexPaths(ipArr, withRowAnimation: .Left)
         }
     }
@@ -150,6 +164,26 @@ class PiggyBanksTVC: UITableViewController {
 //        }
 //        tableView.reloadData()
 //    }
+    
+    @IBAction func deposit(sender: AnyObject) {
+        var depositPrompt = UIAlertController(title: "Deposit / Withdraw", message: "Enter amount. Make Negative for Withdraw", preferredStyle: .Alert)
+        var amountField: UITextField?
+        depositPrompt.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            amountField = textField
+            textField.placeholder = "$0.00"
+            textField.keyboardType = UIKeyboardType.NumbersAndPunctuation
+        }
+        depositPrompt.addAction(UIAlertAction(title: "Enter", style: .Default) { (action) -> Void in
+            if let textfield = amountField {
+                if let amount = NSNumberFormatter().numberFromString(textfield.text)?.doubleValue {
+                    self.model.deposit(amount)
+                    self.makeTitle()
+                    self.tableView.reloadData()
+                }
+            }
+            })
+        self.presentViewController(depositPrompt, animated: true, completion: nil)
+    }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var header = UILabel()

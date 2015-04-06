@@ -11,87 +11,134 @@ import UIKit
 
 class PiggyBanksModel {
     
-    private var total: Double
-    private var availFunds: Double
-    private var monthsArr: [[Bill]]  // Array of Array<PiggyBank>
-    private var masterMonth: [Bill]
-    private var numberOfMonths = 12
-    var currentBillIndex = 0
+    private var total: Double = 0
+    private var availFunds: Double = 0
+    private var monthsArr = [[Bill]]()  // Array of Array<Bill>
+    private let NUMBER_OF_MONTHS = 12
+    var currentBillIndex: Int {
+        get {
+            var idx = 0
+            for (index, bill) in enumerate(monthsArr[0]) {
+                if Int(bill.day) < getTodaysDate().day {
+                    idx = index
+                }
+            }
+            return idx
+        }
+    }
+////    var currentMonthIndex: Int {
+//        get {
+//            return getTodaysDate().month - 1
+//        }
+//    }
+    var managedObjectContext: NSManagedObjectContext
 
     init()
     {
-        total = 2000
-        availFunds = 1000
-        if let saves = fetchSaves() {
-            masterMonth = saves
-        } else {
-            masterMonth = createSamples()
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        self.managedObjectContext = appDelegate.managedObjectContext!
+        if let savedTotal = fetchTotal() {
+            self.total = savedTotal
         }
-        monthsArr = []
-        copyMasterToMonthsArr()
+        fetchSaves()
         checkIfBillsAreDue()
         adjustPayable()
         payBills()
-        calculateBanks()
+        calculateBills()
     }
     
-    func fetchSaves() -> [Bill]?
+    func fetchTotal() -> Double?
     {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let managedContext = appDelegate.managedObjectContext!
-        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let savedTotal = defaults.objectForKey("total") as? NSNumber {
+            return savedTotal.doubleValue
+        }
+        return nil
+    }
+    
+    func saveTotal()
+    {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(NSNumber(double: total), forKey: "total")
+    }
+    
+    func fetchSaves()
+    {
         let fetchRequest = NSFetchRequest(entityName: "Bill")
         
         var error: NSError?
         
-        let fetchedResults = managedContext.executeFetchRequest(fetchRequest, error: &error) as [Bill]?
+        let fetchedResults = self.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as [Bill]?
         if let results = fetchedResults {
-            masterMonth = results
+            sortResults(results)
         } else {
             println("Error fetching \(error), \(error!.userInfo)")
         }
     }
     
-    func sortMaster()
+    //Sort the saved bills from CoreData by month and date.  Each month of sorted bills is added to monthsArr.
+    func sortResults(saves: [Bill])
     {
-        masterMonth = sorted(masterMonth) { $0.date < $1.date }
+        monthsArr = []
+        var arr = [Bill]()
+        var counter = 0
+        for monthIndex in 1...NUMBER_OF_MONTHS {
+            arr = saves.filter() {$0.month == Int32(monthIndex)}
+            arr = sorted(arr) { $0.day < $1.day }
+            monthsArr.append(arr)
+//            println("counter: \(++counter)")
+        }
+        //Remove previous months and append to end of monthsArr
+        let pastMonths = monthsArr[0..<getTodaysDate().month - 1]
+        if pastMonths.count > 0 {
+            monthsArr.removeRange(0..<getTodaysDate().month - 1)
+            monthsArr += pastMonths
+        }
     }
     
     //mark all bills in mastermonth due to be paid
     func checkIfBillsAreDue()
     {
         let today = getTodaysDate().day
-        let paidCurrent = monthsArr[0].map { (var bank: PiggyBank) -> PiggyBank in
-            let date = bank.date
-            if today >= date {
-                bank.isDue = true
+        let billsCheckedIfDue = monthsArr[0].map { (var bill: Bill) -> Bill in
+            let day = bill.day
+            if today >= Int(day) {
+                bill.isDue = true
             } else {
-                bank.isDue = false
+                bill.isDue = false
             }
-            return bank
+            return bill
         }
-        monthsArr[0] = paidCurrent
+        monthsArr[0] = billsCheckedIfDue
     }
     
     func payBills()
     {
-        for (index, bill) in enumerate(monthsArr[0]) {
-            if bill.isPaid && bill.isPayable {
-                total -= bill.owed
+        monthsArr[0] = monthsArr[0].map { (bill: Bill) -> Bill in
+            if bill.isDue && !bill.isPaid {
+                bill.isPayable = false
+                if bill.balance == bill.owed {
+                    self.total -= bill.owed
+                    bill.isPaid = true
+                } else {
+                    bill.balance = 0
+                }
             }
-            if bill.date >= getTodaysDate().day {
-                currentBillIndex = index
-            }
+            return bill
         }
     }
     
     private func adjustPayable()
     {
-        for billIndex in 0..<masterMonth.count {
-            let cushion = masterMonth[billIndex].cushion
+        //for every bill in month
+        for billIndex in 0..<monthsArr[0].count {
+            //get bill from current month
+            let masterBill = monthsArr[0][billIndex]
             for monthIndex in 0..<monthsArr.count {
-                if cushion >= monthIndex && !monthsArr[monthIndex][billIndex].isDue {
-                    monthsArr[monthIndex][billIndex].isPayable = true
+                if Int(masterBill.cushion) >= monthIndex {
+                    if !monthsArr[monthIndex][billIndex].isDue {
+                        monthsArr[monthIndex][billIndex].isPayable = true
+                    }
                 } else {
                     monthsArr[monthIndex][billIndex].isPayable = false
                 }
@@ -110,39 +157,14 @@ class PiggyBanksModel {
         return (month, day, year)
     }
     
-    func copyMasterToMonthsArr()
-    {
-        //TODO: masterMonth is instance
-        for index in 0..<numberOfMonths {
-            let copy = masterMonth
-            monthsArr.append(copy)
-        }
-    }
-    
-    func createSamples() -> [Bill]
-    {
-        var samp1 = Bill()
-        samp1.name = "Sample1"
-        samp1.owed = 100
-        samp1.date = 1
-        samp1.cushion = 0
-        return [samp1]
-    }
-    
-    private func storeBanks() {
-        
-    }
-    
-    //loops through bills in masterMonth and based on cushion value, marks corresponding bills in monthsArr as payable or not.
-    
-    private func calculateBanks()
+    private func calculateBills()
     {
         var workingTotal = total
         //check each month in monthArr to see if is payable
         for monthIndex in 0..<monthsArr.count {
-            for billIndex in 0..<masterMonth.count {
+            for billIndex in 0..<monthsArr[0].count {
                 var bill = monthsArr[monthIndex][billIndex]
-                if bill.isPayable {
+                if bill.isPayable && !bill.isPaid {
                     if workingTotal >= bill.owed {
                         bill.balance = bill.owed
                         workingTotal -= bill.balance
@@ -157,68 +179,108 @@ class PiggyBanksModel {
         availFunds = workingTotal
     }
     
-    func moveBank(#fromIndex: Int, toIndex: Int) {
-        let movingBank = masterMonth.removeAtIndex(fromIndex)
-        masterMonth.insert(movingBank, atIndex: toIndex)
+    func moveBill(#fromIndex: Int, toIndex: Int)
+    {
+        for monthIndex in 0..<monthsArr.count {
+            let movingBank = monthsArr[monthIndex].removeAtIndex(fromIndex)
+            monthsArr[monthIndex].insert(movingBank, atIndex: toIndex)
+        }
         updateModel()
     }
     
-    func getTotal() -> Double {
+    func getTotal() -> Double
+    {
         return total
     }
     
-    func getAvailFunds() -> Double {
+    func getAvailFunds() -> Double
+    {
         return availFunds
     }
     
-    func deleteBank(index: Int) {
-        masterMonth.removeAtIndex(index)
+    func deleteBill(index: Int)
+    {
+        for monthIndex in 0..<monthsArr.count {
+            monthsArr[monthIndex].removeAtIndex(index)
+        }
         updateModel()
     }
     
     func updateModel()
     {
-        monthsArr = []
-        copyMasterToMonthsArr()
+//        fetchSaves()
         adjustPayable()
         checkIfBillsAreDue()
-        calculateBanks()
-        storeBanks()
+        calculateBills()
+        save()
     }
     
-    func replaceBankAtIndex(index: Int, withBank bank: PiggyBank) {
-        masterMonth[index] = bank
-        sortMaster()
-        updateModel()
+    func updateBill(bill oldName: String, newName: String, owed: Double, date: Int, cushion: Int)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Bill")
+        fetchRequest.predicate = NSPredicate(format: "name == %@", oldName)
+        
+        var error: NSError?
+        
+        let fetchedResults = self.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as [Bill]?
+        
+        if let results = fetchedResults {
+            results.map { (bill: Bill) -> Bill in
+                bill.name = newName
+                bill.owed = owed
+                bill.day = Int32(date)
+                bill.cushion = Int32(cushion)
+                return bill
+            }
+            updateModel()
+        } else {
+            println("Error fetching \(error), \(error!.userInfo)")
+        }
     }
     
-    func deposit(amount: Double) {
+    func deposit(amount: Double)
+    {
         total += amount
-        calculateBanks()
-        storeBanks()
+        saveTotal()
+        calculateBills()
     }
     
-    func withdraw(amount: Double) {
+    func withdraw(amount: Double)
+    {
         total -= amount
-        calculateBanks()
-        storeBanks()
+        saveTotal()
+        calculateBills()
     }
     
-    func addBank(bank: PiggyBank) {
-        masterMonth.append(bank)
-        sortMaster()
+    func addBill(name: String, owed: Double, day: Int, cushion: Int)
+    {
+        for monthIndex in 1...monthsArr.count {
+            let bill = Bill.createInManagedObjectContext(managedObjectContext, name: name, owed: owed, date: (month: monthIndex, day: day), cushion: cushion)
+        }
+        save()
         updateModel()
     }
     
-    func getBankAt(#sectionIndex: Int, rowIndex: Int) -> PiggyBank?   {
+    func save()
+    {
+        var error: NSError?
+        if !managedObjectContext.save(&error) {
+            println(error?.localizedDescription)
+        }
+    }
+    
+    func getBillAt(#sectionIndex: Int, rowIndex: Int) -> Bill?
+    {
         return monthsArr[sectionIndex][rowIndex]
     }
     
-    func numberOfBanks(index: Int) -> Int {
+    func numberOfBills(index: Int) -> Int
+    {
         return monthsArr[index].count
     }
     
-    func getNumberOfMonths() -> Int? {
+    func getNumberOfMonths() -> Int?
+    {
         return monthsArr.count
     }
     

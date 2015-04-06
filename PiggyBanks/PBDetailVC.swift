@@ -11,14 +11,16 @@ import UIKit
 class PBDetailVC: PBVC {
     
     var bankIndex: Int!
+    var billName: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let bank = model.getBankAt(sectionIndex: 0, rowIndex: bankIndex) {
-            nameField.text = bank.name
-            amountField.text = "\(bank.owed)"
-            dateField.text = "\(bank.date)"
-            cushionControl.selectedSegmentIndex = bank.cushion
+        if let bill = model.getBillAt(sectionIndex: 0, rowIndex: bankIndex) {
+            self.billName = bill.name
+            nameField.text = bill.name
+            amountField.text = "\(bill.owed)"
+            dateField.text = "\(bill.day)"
+            cushionControl.selectedSegmentIndex = Int(bill.cushion)
         }
     }
 
@@ -41,9 +43,7 @@ class PBDetailVC: PBVC {
                     if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
                         if date > 0 && date <= 31 {
                             let cushion = cushionControl.selectedSegmentIndex
-                            var bank = PiggyBank(name: name, owed: amount, date: date)
-                            bank.cushion = cushion
-                            model.replaceBankAtIndex(bankIndex, withBank: bank)
+                            model.updateBill(bill: billName, newName: name, owed: amount, date: date, cushion: cushion)
                         }
                     } else {
                         errorLabel.text = "Oops! You must enter a valid date."
