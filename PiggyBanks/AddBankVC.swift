@@ -18,8 +18,7 @@ class AddBankVC: PBVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         nameField.becomeFirstResponder()
-        // Do any additional setup after loading the view.
+//         nameField.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,26 +27,32 @@ class AddBankVC: PBVC {
     }
     
     func addBank() -> Bool {
-        if let name = nameField.text {
+        if var name = nameField.text {
             if name != "" {
-                if let amount = NSNumberFormatter().numberFromString(amountField.text)?.doubleValue {
-                    if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
-                        if date > 0 && date <= 31 {
-                            let cushion = cushionControl.selectedSegmentIndex
-                            model.addBill(name, owed: amount, day: date, cushion: cushion)
+                if !model.doesBillNameAlreadyExist(name) {
+                    if let amount = NSNumberFormatter().numberFromString(amountField.text)?.doubleValue {
+                        if let date = NSNumberFormatter().numberFromString(dateField.text)?.integerValue {
+                            if date > 0 && date <= 31 {
+                                let cushion = cushionControl.selectedSegmentIndex
+                                model.addBill(name, owed: amount, day: date, cushion: cushion)
+                            }
+                        } else {
+                            errorLabel.text = "Denied! You must enter a valid date."
+                            errorLabel.hidden = false
+                            return false
                         }
                     } else {
-                        errorLabel.text = "Oops! You must enter a valid date."
+                        errorLabel.text = "Niet! You must enter a valid amount."
                         errorLabel.hidden = false
                         return false
                     }
                 } else {
-                    errorLabel.text = "Oops! You must enter a valid amount."
+                    errorLabel.text = "Oofa! That name already exists."
                     errorLabel.hidden = false
                     return false
                 }
             } else {
-                errorLabel.text = "Oops! You must enter a valid name."
+                errorLabel.text = "Nope. You must enter a valid name."
                 errorLabel.hidden = false
                 return false
             }

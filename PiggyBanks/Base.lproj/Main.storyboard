@@ -185,6 +185,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Total" id="cYv-ny-STi">
                         <barButtonItem key="leftBarButtonItem" title="Add Bill" id="vNr-fX-ccG">
+                            <color key="tintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="m4W-mT-CLx" kind="presentation" identifier="add bank" id="mCO-7S-3Wj"/>
                             </connections>
@@ -219,17 +220,17 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="24O-J4-Z5H">
                                         <rect key="frame" x="8" y="203" width="304" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$0.00 (Amount Owed)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vk0-14-HWS">
                                         <rect key="frame" x="8" y="241" width="304" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1-31 (Due on Day of Month)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cvA-Vs-jyv">
                                         <rect key="frame" x="8" y="279" width="304" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uwS-QL-vDx">
                                         <rect key="frame" x="8" y="346" width="304" height="29"/>
@@ -241,6 +242,7 @@
                                             <segment title="6"/>
                                             <segment title="12"/>
                                         </segments>
+                                        <color key="tintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Months of Cushion:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQr-Tg-2ci">
                                         <rect key="frame" x="97" y="317" width="127" height="21"/>
@@ -313,11 +315,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="sgz-w9-pUA">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="YHc-uR-5Db">
+                            <color key="tintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="co0-U0-DN8" kind="unwind" unwindAction="goBack:" id="F0V-64-Q3x"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="LdE-Kd-JrC">
+                            <color key="tintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="savePressed:" destination="hRw-b1-hJg" id="feo-8k-pjo"/>
                             </connections>
@@ -386,17 +390,17 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y9I-zU-I2j">
                                         <rect key="frame" x="8" y="195" width="304" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$0.00 (Amount Owed)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Idi-Ez-vZM">
                                         <rect key="frame" x="8" y="233" width="304" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1-31 (Due on Day of Month)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LAd-tF-taJ">
                                         <rect key="frame" x="8" y="271" width="304" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Months of Cushion:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1c-wc-ZqX">
                                         <rect key="frame" x="95" y="309" width="131" height="21"/>
@@ -417,6 +421,7 @@
                                             <segment title="6"/>
                                             <segment title="12"/>
                                         </segments>
+                                        <color key="tintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </segmentedControl>
                                 </subviews>
                                 <constraints>
@@ -483,11 +488,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="tpg-Rc-oUt">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="RLf-RI-Hz8">
+                            <color key="tintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="u9K-QL-AKK" kind="unwind" unwindAction="goBack:" id="stV-XX-xk6"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="QpH-Qf-xkA">
+                            <color key="tintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="donePressed:" destination="1o6-IZ-424" id="70F-PE-GXw"/>
                             </connections>

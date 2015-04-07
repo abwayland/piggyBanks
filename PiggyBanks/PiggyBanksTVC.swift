@@ -13,18 +13,23 @@ class PiggyBanksTVC: UITableViewController {
 //    MARK: Application LifeCycle
 
     var model = PiggyBanksModel()
+    var topCellRow: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.editButtonItem().tintColor = UIColor.orangeColor()
         self.navigationController?.toolbar.backgroundColor = UIColor.orangeColor()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         makeTitle()
-        if model.currentBillIndex > 0 {
-            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: model.currentBillIndex, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if topCellRow != nil {
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: topCellRow!, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         }
     }
     
@@ -85,6 +90,10 @@ class PiggyBanksTVC: UITableViewController {
                 cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaidStr)")
                 if bill.isDue {
                     cell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+                    topCellRow = indexPath.row + 1
+                    if indexPath.row == model.numberOfBills(indexPath.section) - 1 {
+                        topCellRow = 0
+                    }
                 }
             } else {
                 cell.nameLabel.textColor = UIColor.grayColor()

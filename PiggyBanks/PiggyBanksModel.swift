@@ -15,22 +15,8 @@ class PiggyBanksModel {
     private var availFunds: Double = 0
     private var monthsArr = [[Bill]]()  // Array of Array<Bill>
     private let NUMBER_OF_MONTHS = 12
-    var currentBillIndex: Int {
-        get {
-            var idx = 0
-            for (index, bill) in enumerate(monthsArr[0]) {
-                if Int(bill.day) < getTodaysDate().day {
-                    idx = index
-                }
-            }
-            return idx
-        }
-    }
-////    var currentMonthIndex: Int {
-//        get {
-//            return getTodaysDate().month - 1
-//        }
-//    }
+    private var billNames = [String]()
+    
     var managedObjectContext: NSManagedObjectContext
 
     init()
@@ -41,6 +27,7 @@ class PiggyBanksModel {
             self.total = savedTotal
         }
         fetchSaves()
+        getExistingBillNames()
         checkIfBillsAreDue()
         adjustPayable()
         payBills()
@@ -76,23 +63,41 @@ class PiggyBanksModel {
         }
     }
     
-    //Sort the saved bills from CoreData by month and date.  Each month of sorted bills is added to monthsArr.
+    //Sort the saved bills from CoreData by month,date,name, and then amount owed. Each month of sorted bills is added to monthsArr.
     func sortResults(saves: [Bill])
     {
         monthsArr = []
         var arr = [Bill]()
-        var counter = 0
         for monthIndex in 1...NUMBER_OF_MONTHS {
             arr = saves.filter() {$0.month == Int32(monthIndex)}
-            arr = sorted(arr) { $0.day < $1.day }
+            arr = sorted(arr) { (billA: Bill, billB: Bill) -> Bool in
+                if billA.day < billB.day {
+                    return true
+                } else if billA.day == billB.day {
+                    if billA.name.lowercaseString < billB.name.lowercaseString {
+                        return true
+                    } else if billA.name.lowercaseString == billB.name.lowercaseString {
+                        if billA.owed > billB.owed {
+                            return true
+                        }
+                    }
+                }
+                return false
+            }
             monthsArr.append(arr)
-//            println("counter: \(++counter)")
         }
         //Remove previous months and append to end of monthsArr
         let pastMonths = monthsArr[0..<getTodaysDate().month - 1]
         if pastMonths.count > 0 {
             monthsArr.removeRange(0..<getTodaysDate().month - 1)
             monthsArr += pastMonths
+        }
+    }
+    
+    func getExistingBillNames()
+    {
+        for bill in monthsArr[0] {
+            billNames.append(bill.name)
         }
     }
     
@@ -200,15 +205,16 @@ class PiggyBanksModel {
     
     func deleteBill(index: Int)
     {
+        //must delete bill from coreData then rebuild monthsArray, else if monthsArray is in different order, wrong bills will be erased.
         for monthIndex in 0..<monthsArr.count {
-            monthsArr[monthIndex].removeAtIndex(index)
+            let bill = monthsArr[monthIndex].removeAtIndex(index)
+            managedObjectContext.deleteObject(bill)
         }
         updateModel()
     }
     
     func updateModel()
     {
-//        fetchSaves()
         adjustPayable()
         checkIfBillsAreDue()
         calculateBills()
@@ -245,20 +251,33 @@ class PiggyBanksModel {
         calculateBills()
     }
     
+    //Never called
     func withdraw(amount: Double)
     {
-        total -= amount
-        saveTotal()
-        calculateBills()
+        deposit(-amount)
     }
     
     func addBill(name: String, owed: Double, day: Int, cushion: Int)
     {
+        billNames.append(name)
         for monthIndex in 1...monthsArr.count {
             let bill = Bill.createInManagedObjectContext(managedObjectContext, name: name, owed: owed, date: (month: monthIndex, day: day), cushion: cushion)
+            if bill.day < Int32(getTodaysDate().day) && monthIndex == getTodaysDate().month {
+                bill.isDue = true
+            }
         }
-        save()
+        fetchSaves()
         updateModel()
+    }
+    
+    func doesBillNameAlreadyExist(name: String) -> Bool
+    {
+        for existingName in billNames {
+            if existingName.lowercaseString == name.lowercaseString {
+                return true
+            }
+        }
+        return false
     }
     
     func save()
