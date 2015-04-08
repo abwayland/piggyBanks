@@ -22,6 +22,8 @@
 		848AD2A21AACEDD600FCFE0A /* PiggyBankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AD2A11AACEDD600FCFE0A /* PiggyBankCell.swift */; };
 		848CC1EE1AB0DDDB00038CC7 /* piggybank_icon_120.png in Resources */ = {isa = PBXBuildFile; fileRef = 848CC1ED1AB0DDDB00038CC7 /* piggybank_icon_120.png */; };
 		848CC1F01AB0DE4A00038CC7 /* piggybank_icon_180.png in Resources */ = {isa = PBXBuildFile; fileRef = 848CC1EF1AB0DE4A00038CC7 /* piggybank_icon_180.png */; };
+		84B969F61AD4B4C50088CE22 /* piggybank_icon_120_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B969F41AD4B4C50088CE22 /* piggybank_icon_120_orange.png */; };
+		84B969F71AD4B4C50088CE22 /* piggybank_icon_180_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B969F51AD4B4C50088CE22 /* piggybank_icon_180_orange.png */; };
 		84BE4B5C1AB08F32000F90A4 /* piggybank_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B551AB08F32000F90A4 /* piggybank_0.png */; };
 		84BE4B5D1AB08F32000F90A4 /* piggybank_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B561AB08F32000F90A4 /* piggybank_1.png */; };
 		84BE4B5E1AB08F32000F90A4 /* piggybank_100.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BE4B571AB08F32000F90A4 /* piggybank_100.png */; };
@@ -67,6 +69,8 @@
 		848AD2A11AACEDD600FCFE0A /* PiggyBankCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiggyBankCell.swift; sourceTree = "<group>"; };
 		848CC1ED1AB0DDDB00038CC7 /* piggybank_icon_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_icon_120.png; sourceTree = "<group>"; };
 		848CC1EF1AB0DE4A00038CC7 /* piggybank_icon_180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_icon_180.png; sourceTree = "<group>"; };
+		84B969F41AD4B4C50088CE22 /* piggybank_icon_120_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_icon_120_orange.png; sourceTree = "<group>"; };
+		84B969F51AD4B4C50088CE22 /* piggybank_icon_180_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_icon_180_orange.png; sourceTree = "<group>"; };
 		84BE4B551AB08F32000F90A4 /* piggybank_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_0.png; sourceTree = "<group>"; };
 		84BE4B561AB08F32000F90A4 /* piggybank_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_1.png; sourceTree = "<group>"; };
 		84BE4B571AB08F32000F90A4 /* piggybank_100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piggybank_100.png; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 		84BE4B541AB08F32000F90A4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				84B969F41AD4B4C50088CE22 /* piggybank_icon_120_orange.png */,
+				84B969F51AD4B4C50088CE22 /* piggybank_icon_180_orange.png */,
 				84DB0C451AC24CEB000C7144 /* piggybank_gray.png */,
 				847886301AB3483E00D2907F /* piggybank_ico_76.png */,
 				847886321AB348E400D2907F /* piggybank_ico_152.png */,
@@ -274,9 +280,11 @@
 				84BE4B5E1AB08F32000F90A4 /* piggybank_100.png in Resources */,
 				847886311AB3483E00D2907F /* piggybank_ico_76.png in Resources */,
 				845ADA911AA79EE700631507 /* Main.storyboard in Resources */,
+				84B969F61AD4B4C50088CE22 /* piggybank_icon_120_orange.png in Resources */,
 				847886331AB348E400D2907F /* piggybank_ico_152.png in Resources */,
 				848CC1EE1AB0DDDB00038CC7 /* piggybank_icon_120.png in Resources */,
 				84BE4B5F1AB08F32000F90A4 /* piggybank_25.png in Resources */,
+				84B969F71AD4B4C50088CE22 /* piggybank_icon_180_orange.png in Resources */,
 				84BE4B5C1AB08F32000F90A4 /* piggybank_0.png in Resources */,
 				846123EA1A9B918B008B1B4F /* LaunchScreen.xib in Resources */,
 				84BE4B601AB08F32000F90A4 /* piggybank_50.png in Resources */,
@@ -445,6 +453,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PiggyBanks-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -457,6 +466,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PiggyBanks-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

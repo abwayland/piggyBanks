@@ -23,13 +23,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "piggybank_icon_120.png",
+      "filename" : "piggybank_icon_120_orange.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "piggybank_icon_180.png",
+      "filename" : "piggybank_icon_180_orange.png",
       "scale" : "3x"
     },
     {
@@ -53,15 +53,13 @@
       "scale" : "2x"
     },
     {
-      "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "piggybank_ico_76.png",
+      "size" : "76x76",
       "scale" : "1x"
     },
     {
-      "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "piggybank_ico_152.png",
+      "size" : "76x76",
       "scale" : "2x"
     }
   ],
