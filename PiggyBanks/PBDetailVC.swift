@@ -18,7 +18,7 @@ class PBDetailVC: PBVC {
         if let bill = model.getBillAt(sectionIndex: 0, rowIndex: bankIndex) {
             self.billName = bill.name
             nameField.text = bill.name
-            amountField.text = "\(bill.owed)"
+            amountField.text = String(format: "%.2f", bill.owed)
             dateField.text = "\(bill.day)"
             cushionControl.selectedSegmentIndex = Int(bill.cushion)
         }
