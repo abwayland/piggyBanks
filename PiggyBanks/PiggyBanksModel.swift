@@ -16,6 +16,7 @@ class PiggyBanksModel {
     private var monthsArr = [[Bill]]()  // Array of Array<Bill>
     private let NUMBER_OF_MONTHS = 12
     private var billNames = [String]()
+    private var currentBill: Bill!
     
     var managedObjectContext: NSManagedObjectContext
 
@@ -164,6 +165,7 @@ class PiggyBanksModel {
     
     private func calculateBills()
     {
+        currentBill = monthsArr[0][0]
         var workingTotal = total
         //check each month in monthArr to see if is payable
         for monthIndex in 0..<monthsArr.count {
@@ -176,6 +178,7 @@ class PiggyBanksModel {
                     } else {
                         bill.balance = workingTotal
                         workingTotal = 0
+                        currentBill = bill
                     }
                     monthsArr[monthIndex][billIndex] = bill
                 }

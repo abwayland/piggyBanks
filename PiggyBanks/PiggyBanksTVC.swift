@@ -191,6 +191,8 @@ class PiggyBanksTVC: UITableViewController {
                 }
             }
             })
+        depositPrompt.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (_) -> Void in
+        }))
         self.presentViewController(depositPrompt, animated: true, completion: nil)
     }
     

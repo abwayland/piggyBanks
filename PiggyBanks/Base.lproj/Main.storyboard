@@ -67,7 +67,7 @@
                                                 <constraint firstAttribute="height" constant="21" id="vf5-hn-ovf"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$99999.99" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYI-YW-VSb">
@@ -77,7 +77,7 @@
                                                 <constraint firstAttribute="height" constant="21" id="hk3-AE-CAa"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="owed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1W-Zy-Yoh">
@@ -240,7 +240,6 @@
                                             <segment title="2"/>
                                             <segment title="3"/>
                                             <segment title="6"/>
-                                            <segment title="12"/>
                                         </segments>
                                         <color key="tintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </segmentedControl>
@@ -419,7 +418,6 @@
                                             <segment title="2"/>
                                             <segment title="3"/>
                                             <segment title="6"/>
-                                            <segment title="12"/>
                                         </segments>
                                         <color key="tintColor" red="0.95294117649999999" green="0.67450980390000004" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </segmentedControl>
