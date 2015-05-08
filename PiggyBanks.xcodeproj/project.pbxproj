@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		841F4A4C1AB222A400734C15 /* PBDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F4A4B1AB222A400734C15 /* PBDetailVC.swift */; };
+		844B68901ADD93B7007F3DFF /* PBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844B688F1ADD93B7007F3DFF /* PBView.swift */; };
 		845ADA911AA79EE700631507 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845ADA8F1AA79EE700631507 /* Main.storyboard */; };
 		845ADA971AA8CADF00631507 /* DepositVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845ADA961AA8CADF00631507 /* DepositVC.swift */; };
 		846123E01A9B918B008B1B4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846123DF1A9B918B008B1B4F /* AppDelegate.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		841F4A4B1AB222A400734C15 /* PBDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBDetailVC.swift; sourceTree = "<group>"; };
+		844B688F1ADD93B7007F3DFF /* PBView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBView.swift; sourceTree = "<group>"; };
 		845ADA901AA79EE700631507 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		845ADA961AA8CADF00631507 /* DepositVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepositVC.swift; sourceTree = "<group>"; };
 		846123DA1A9B918B008B1B4F /* PiggyBanks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiggyBanks.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				845ADA8F1AA79EE700631507 /* Main.storyboard */,
+				844B688F1ADD93B7007F3DFF /* PBView.swift */,
 				846124051A9B9358008B1B4F /* PiggyBanksTVC.swift */,
 				848AD2A11AACEDD600FCFE0A /* PiggyBankCell.swift */,
 				846124071A9B93A2008B1B4F /* PiggyBanksModel.swift */,
@@ -320,6 +323,7 @@
 				84DB0C441AC1AC02000C7144 /* PBVC.swift in Sources */,
 				84D6FB7B1AC47B910042A95C /* PiggyBank.m in Sources */,
 				84DB0C421AC09821000C7144 /* PiggyBank.swift in Sources */,
+				844B68901ADD93B7007F3DFF /* PBView.swift in Sources */,
 				848AD2A21AACEDD600FCFE0A /* PiggyBankCell.swift in Sources */,
 				84DAF8991AC8270500E4D6A0 /* Month.swift in Sources */,
 				84DAF8A31AC9ADA400E4D6A0 /* Bill.swift in Sources */,

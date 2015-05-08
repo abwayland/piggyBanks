@@ -72,7 +72,7 @@ class PiggyBanksTVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("cell") as PiggyBankCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("cell") as! PiggyBankCell
         if let bill = model.getBillAt(sectionIndex: indexPath.section, rowIndex: indexPath.row) {
             cell.nameLabel.text = bill.name
             cell.backgroundColor = UIColor.whiteColor()
@@ -84,10 +84,10 @@ class PiggyBanksTVC: UITableViewController {
             cell.owedLabel.text = owedAsCurrency
             let percentPaidStr = percentPaidAsString(paid: balance, owed: owed)
             if bill.isPayable || bill.isDue {
+                cell.thumbnail.drawColor = UIColor.orangeColor()
                 cell.nameLabel.textColor = UIColor.blackColor()
                 cell.balanceLabel.textColor = UIColor.blackColor()
                 cell.owedLabel.textColor = UIColor.blackColor()
-                cell.thumbnail.image = UIImage(named:"piggybank_\(percentPaidStr)")
                 if bill.isDue {
                     cell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
                     topCellRow = indexPath.row + 1
@@ -96,11 +96,16 @@ class PiggyBanksTVC: UITableViewController {
                     }
                 }
             } else {
-                cell.nameLabel.textColor = UIColor.grayColor()
-                cell.balanceLabel.textColor = UIColor.grayColor()
-                cell.owedLabel.textColor = UIColor.grayColor()
-                cell.thumbnail.image = UIImage(named:"piggybank_gray")
-//                cell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+                cell.nameLabel.textColor = UIColor.lightGrayColor()
+                cell.balanceLabel.textColor = UIColor.lightGrayColor()
+                cell.owedLabel.textColor = UIColor.lightGrayColor()
+                cell.thumbnail.drawColor = UIColor.lightGrayColor()
+            }
+            cell.thumbnail.backgroundColor = cell.backgroundColor
+            if balance != 0 && owed != 0 {
+                cell.thumbnail.fillLevel = CGFloat(balance / owed)
+            } else {
+                cell.thumbnail.fillLevel = 0
             }
             let day = bill.day
             var month = bill.month

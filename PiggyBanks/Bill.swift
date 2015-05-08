@@ -24,7 +24,7 @@ class Bill: NSManagedObject {
     
     class func createInManagedObjectContext(moc: NSManagedObjectContext, name: String, owed: Double, date: (month: Int, day: Int), cushion: Int) -> Bill
     {
-        let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: moc) as Bill
+        let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: moc) as! Bill
         newBill.name = name
         newBill.owed = owed
         newBill.balance = 0

@@ -22,7 +22,7 @@ class PiggyBanksModel {
 
     init()
     {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         self.managedObjectContext = appDelegate.managedObjectContext!
         if let savedTotal = fetchTotal() {
             self.total = savedTotal
@@ -56,12 +56,21 @@ class PiggyBanksModel {
         
         var error: NSError?
         
-        let fetchedResults = self.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as [Bill]?
-        if let results = fetchedResults {
-            sortResults(results)
+        if let fetchedResults = self.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [Bill] {
+            if fetchedResults.count > 0 {
+                sortResults(fetchedResults)
+            } else {
+                println("No Saved Bills in CoreData. Creating Sample.")
+                createSample()
+            }
         } else {
             println("Error fetching \(error), \(error!.userInfo)")
         }
+    }
+    
+    func createSample()
+    {
+        addBill("Sample Bill", owed: 100.00, day: getTodaysDate().day + 1, cushion: 1)
     }
     
     //Sort the saved bills from CoreData by month,date,name, and then amount owed. Each month of sorted bills is added to monthsArr.
@@ -88,11 +97,26 @@ class PiggyBanksModel {
             monthsArr.append(arr)
         }
         //Remove previous months and append to end of monthsArr
-        let pastMonths = monthsArr[0..<getTodaysDate().month - 1]
-        if pastMonths.count > 0 {
-            monthsArr.removeRange(0..<getTodaysDate().month - 1)
+        let monthIndex = getTodaysDate().month - 1
+        if monthIndex > 0 {
+            var pastMonths = monthsArr[0..<monthIndex]
+            pastMonths = resetBills(pastMonths)
+            monthsArr.removeRange(0..<monthIndex)
             monthsArr += pastMonths
         }
+    }
+    
+    func resetBills(pastMonths: ArraySlice<([(Bill)])>) -> ArraySlice<([(Bill)])>
+    {
+        for month in pastMonths {
+            for billIndex in 0..<month.count {
+                month[billIndex].balance = 0
+                month[billIndex].isDue = false
+                month[billIndex].isPaid = false
+                month[billIndex].isPayable = false
+            }
+        }
+        return pastMonths
     }
     
     func getExistingBillNames()
@@ -156,7 +180,7 @@ class PiggyBanksModel {
     {
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.MonthCalendarUnit | .DayCalendarUnit | .YearCalendarUnit, fromDate: date)
+        let components = calendar.components(NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitYear, fromDate: date)
         let month = components.month
         let day = components.day
         let year = components.year
@@ -231,7 +255,7 @@ class PiggyBanksModel {
         
         var error: NSError?
         
-        let fetchedResults = self.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as [Bill]?
+        let fetchedResults = self.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as! [Bill]?
         
         if let results = fetchedResults {
             results.map { (bill: Bill) -> Bill in
@@ -263,7 +287,7 @@ class PiggyBanksModel {
     func addBill(name: String, owed: Double, day: Int, cushion: Int)
     {
         billNames.append(name)
-        for monthIndex in 1...monthsArr.count {
+        for monthIndex in 1...NUMBER_OF_MONTHS {
             let bill = Bill.createInManagedObjectContext(managedObjectContext, name: name, owed: owed, date: (month: monthIndex, day: day), cushion: cushion)
             if bill.day < Int32(getTodaysDate().day) && monthIndex == getTodaysDate().month {
                 bill.isDue = true
