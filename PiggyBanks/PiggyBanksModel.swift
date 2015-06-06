@@ -84,11 +84,11 @@ class PiggyBanksModel {
                 if billA.day < billB.day {
                     return true
                 } else if billA.day == billB.day {
-                    if billA.name.lowercaseString < billB.name.lowercaseString {
+                    if billA.owed > billB.owed {
                         return true
-                    } else if billA.name.lowercaseString == billB.name.lowercaseString {
-                        if billA.owed > billB.owed {
-                            return true
+                    } else if billA.owed == billB.owed {
+                        if billA.name.lowercaseString < billB.name.lowercaseString {
+                        return true
                         }
                     }
                 }
@@ -246,6 +246,7 @@ class PiggyBanksModel {
         checkIfBillsAreDue()
         calculateBills()
         save()
+        fetchSaves() //NEW
     }
     
     func updateBill(bill oldName: String, newName: String, owed: Double, date: Int, cushion: Int)

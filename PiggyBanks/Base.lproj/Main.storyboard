@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="q73-m1-PaJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="q73-m1-PaJ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -20,7 +20,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zws-Hc-0KC">
-                                            <rect key="frame" x="86" y="4" width="226" height="24"/>
+                                            <rect key="frame" x="86" y="9" width="226" height="19"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -87,7 +87,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNP-Fd-sCx">
-                                            <rect key="frame" x="262" y="8" width="50" height="22"/>
+                                            <rect key="frame" x="262" y="9" width="50" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="fEW-fx-9pp"/>
                                                 <constraint firstAttribute="height" constant="22" id="vG8-OZ-jny"/>
@@ -97,10 +97,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="KiS-fj-6fv" customClass="PBView" customModule="PiggyBanks" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="4" width="70" height="70"/>
+                                            <rect key="frame" x="8" y="9" width="70" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="70" id="5Z1-Ue-ba1"/>
-                                                <constraint firstAttribute="height" constant="70" id="L1g-X2-0yF"/>
+                                                <constraint firstAttribute="height" constant="60" id="L1g-X2-0yF"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -118,6 +118,7 @@
                                         <constraint firstAttribute="bottom" secondItem="0gq-ha-4a4" secondAttribute="bottom" constant="8" id="QnO-rL-BtG"/>
                                         <constraint firstItem="zq8-I6-Da9" firstAttribute="top" secondItem="4iy-JA-H6r" secondAttribute="bottom" constant="1" id="Qua-4u-fzQ"/>
                                         <constraint firstItem="RNP-Fd-sCx" firstAttribute="leading" secondItem="4iy-JA-H6r" secondAttribute="trailing" constant="76" id="S3Y-hE-MO4"/>
+                                        <constraint firstItem="KiS-fj-6fv" firstAttribute="bottom" secondItem="0gq-ha-4a4" secondAttribute="bottom" id="T98-sd-Xaf"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Zws-Hc-0KC" secondAttribute="trailing" id="TLW-5s-Exl"/>
                                         <constraint firstItem="4iy-JA-H6r" firstAttribute="top" secondItem="Zws-Hc-0KC" secondAttribute="bottom" constant="1" id="V0g-75-j3N"/>
                                         <constraint firstItem="Mkp-P6-gwc" firstAttribute="leading" secondItem="4iy-JA-H6r" secondAttribute="trailing" constant="6" id="XKX-mI-73c"/>
@@ -136,6 +137,7 @@
                                         <constraint firstItem="KiS-fj-6fv" firstAttribute="leading" secondItem="ETN-zh-r3B" secondAttribute="leadingMargin" id="r8c-6H-QaQ"/>
                                         <constraint firstItem="zq8-I6-Da9" firstAttribute="top" secondItem="Zws-Hc-0KC" secondAttribute="bottom" constant="19" id="spB-ZP-PEl"/>
                                         <constraint firstAttribute="centerY" secondItem="KiS-fj-6fv" secondAttribute="centerY" id="suu-5B-cmf"/>
+                                        <constraint firstItem="RNP-Fd-sCx" firstAttribute="top" secondItem="Zws-Hc-0KC" secondAttribute="top" id="u3z-WB-7u5"/>
                                         <constraint firstItem="KiS-fj-6fv" firstAttribute="top" secondItem="Zws-Hc-0KC" secondAttribute="top" id="vhR-qW-yxx"/>
                                         <constraint firstItem="KiS-fj-6fv" firstAttribute="top" secondItem="ETN-zh-r3B" secondAttribute="topMargin" id="xzL-lq-Ro5"/>
                                     </constraints>
@@ -153,6 +155,8 @@
                                             <exclude reference="Ms2-8F-P4P"/>
                                             <exclude reference="S3Y-hE-MO4"/>
                                             <exclude reference="dzA-Ev-917"/>
+                                            <exclude reference="QnO-rL-BtG"/>
+                                            <exclude reference="gAJ-kP-MuE"/>
                                             <exclude reference="njA-FF-705"/>
                                         </mask>
                                     </variation>

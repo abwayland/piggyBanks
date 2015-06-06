@@ -113,9 +113,9 @@ class PiggyBanksTVC: UITableViewController {
             cell.paidLabel.hidden = !bill.isDue
             if cell.paidLabel.hidden == false {
                 if bill.balance == bill.owed {
-                    cell.balanceLabel.textColor = UIColor.greenColor()
+                    cell.balanceLabel.textColor = UIColor.blackColor()
                     cell.paidLabel.text = "Paid"
-                    cell.paidLabel.textColor = UIColor.greenColor()
+                    cell.paidLabel.textColor = UIColor.blackColor()
                 } else {
                     cell.balanceLabel.textColor = UIColor.redColor()
                     cell.paidLabel.textColor = UIColor.redColor()

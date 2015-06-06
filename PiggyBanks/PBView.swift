@@ -23,7 +23,15 @@ class PBView: UIView {
         
         let white = UIColor.whiteColor()
         
+        let pbViewRect = UIBezierPath(rect: self.bounds)
+        pbViewRect.stroke()
+        UIColor.lightGrayColor().setFill()
+        pbViewRect.fill()
+        
+        println(self.frame.origin)
+        
         var pigPath = UIBezierPath()
+//        pigPath = CGPointMake(self.bounds.width / 2, self.bounds.height / 2)
         pigPath.moveToPoint(CGPointMake(47,-15))
         pigPath.addLineToPoint(CGPointMake(43,-15))
         pigPath.addCurveToPoint(CGPointMake(0,-48), controlPoint1: CGPointMake(40,-34), controlPoint2: CGPointMake(22,-48))
@@ -65,7 +73,7 @@ class PBView: UIView {
         
         pigPath.stroke()
         
-        pigPath.addClip()
+//        pigPath.addClip()
         
         let orangeRectHeight = pigPath.bounds.size.height * fillLevel
         
