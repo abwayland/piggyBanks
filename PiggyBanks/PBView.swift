@@ -28,7 +28,7 @@ class PBView: UIView {
         UIColor.lightGrayColor().setFill()
         pbViewRect.fill()
         
-        println(self.frame.origin)
+        print(self.frame.origin)
         
         var pigPath = UIBezierPath()
 //        pigPath = CGPointMake(self.bounds.width / 2, self.bounds.height / 2)

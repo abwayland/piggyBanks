@@ -60,11 +60,11 @@ class PiggyBanksModel {
             if fetchedResults.count > 0 {
                 sortResults(fetchedResults)
             } else {
-                println("No Saved Bills in CoreData. Creating Sample.")
+                print("No Saved Bills in CoreData. Creating Sample.")
                 createSample()
             }
         } else {
-            println("Error fetching \(error), \(error!.userInfo)")
+            print("Error fetching \(error), \(error!.userInfo)")
         }
     }
     
@@ -211,7 +211,8 @@ class PiggyBanksModel {
         availFunds = workingTotal
     }
     
-    func moveBill(#fromIndex: Int, toIndex: Int)
+    //replaced # with "fromIndex fromIndex" part of swift 2.0
+    func moveBill(fromIndex fromIndex: Int, toIndex: Int)
     {
         for monthIndex in 0..<monthsArr.count {
             let movingBank = monthsArr[monthIndex].removeAtIndex(fromIndex)
@@ -268,7 +269,7 @@ class PiggyBanksModel {
             }
             updateModel()
         } else {
-            println("Error fetching \(error), \(error!.userInfo)")
+            print("Error fetching \(error), \(error!.userInfo)")
         }
     }
     
@@ -312,11 +313,11 @@ class PiggyBanksModel {
     {
         var error: NSError?
         if !managedObjectContext.save(&error) {
-            println(error?.localizedDescription)
+            print(error?.localizedDescription)
         }
     }
     
-    func getBillAt(#sectionIndex: Int, rowIndex: Int) -> Bill?
+    func getBillAt(sectionIndex sectionIndex: Int, rowIndex: Int) -> Bill?
     {
         return monthsArr[sectionIndex][rowIndex]
     }
